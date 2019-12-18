@@ -1,0 +1,12 @@
+.m-panel {
+    min-width: 220px;
+    height: auto;
+    border: solid 1px #1e7ab3;
+    padding: 10px;
+}
+
+.header {
+    color: aqua;
+    font-size: 14px;
+    margin-bottom: 6px;
+}

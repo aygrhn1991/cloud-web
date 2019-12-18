@@ -1,0 +1,25 @@
+.cd-title {
+  display: inline-block;
+  width: 120px;
+  text-align: right;
+  font-size: 10px;
+}
+
+.light0{
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-image: url("/assets/icon_light_0.png");
+}
+.light1{
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-image: url("/assets/icon_light_1.png");
+}
+.light2{
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-image: url("/assets/icon_light_2.png");
+}

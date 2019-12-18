@@ -1,0 +1,8 @@
+<div>
+    <nz-input-group nzSuffixIcon="search">
+        <input placeholder="请您选择..." nz-input [(ngModel)]="vin" (ngModelChange)="onChange($event)" [nzAutocomplete]="auto" />
+    </nz-input-group>
+    <nz-autocomplete #auto>
+        <nz-auto-option *ngFor="let option of options" [nzValue]="option.C_VIN">{{option.C_VIN}}</nz-auto-option>
+    </nz-autocomplete>
+</div>

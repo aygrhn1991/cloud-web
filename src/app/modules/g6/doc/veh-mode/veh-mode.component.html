@@ -1,0 +1,328 @@
+<form nz-form class="searchbar">
+    <nz-form-item>
+        <nz-form-label nzSpan="2">账号</nz-form-label>
+        <nz-form-control nzSpan="2">
+            <input nz-input [(ngModel)]="username" name="username" />
+        </nz-form-control>
+
+        <nz-form-label nzSpan="2">密码</nz-form-label>
+        <nz-form-control nzSpan="2">
+            <input nz-input type="password" [(ngModel)]="password" name="password" />
+        </nz-form-control>
+
+        <nz-form-control nzSpan="3" nzOffset="1">
+            <button nz-button (click)="login()"><i nz-icon nzType="alert" nzTheme="twotone" nzTwotoneColor="green"></i>平台登录</button>
+        </nz-form-control>
+
+        <nz-form-label nzSpan="2">登录状态</nz-form-label>
+        <nz-form-control nzSpan="2">{{loginState?'已登录':'未登录'}}</nz-form-control>
+
+        <nz-form-control nzSpan="3">
+            <button nz-button (click)="showModalAdd()"><i nz-icon nzType="container" nzTheme="twotone" nzTwotoneColor="green"></i>车辆型号备案</button>
+        </nz-form-control>
+    </nz-form-item>
+</form>
+<nz-table #dataTable [nzData]="dataList" nzFrontPagination="true" nzShowSizeChanger="true" [nzShowTotal]="rangeTemplate" [nzLoading]="loading" [nzScroll]="{x:'100%',y:'350px'}">
+    <thead>
+        <tr>
+            <th nzWidth="100px">ID</th>
+            <th>车辆型号</th>
+            <th nzWidth="200px">添加时间</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of dataTable.data">
+            <td>{{data.id}}</td>
+            <td>{{data.modelCn}}</td>
+            <td>{{data.sys_time|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        </tr>
+    </tbody>
+</nz-table>
+<ng-template #rangeTemplate let-range="range" let-total>
+    第{{range[0]}}-{{range[1]}}条 共{{total}}条
+</ng-template>
+
+<nz-modal [(nzVisible)]="isVisibleAdd" nzTitle="车辆型号备案" (nzOnCancel)="isVisibleAdd=false" [nzFooter]="modalFooterAdd">
+    <form nz-form class="modal-scroll">
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>车辆型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.modelCn" name="addModel.modelCn">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">环保信息公开编号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.epaPublicInfoNum" name="addModel.epaPublicInfoNum">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">车载终端型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.tboxModel" name="addModel.tboxModel">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">车载终端内芯片型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.chipModel" name="addModel.chipModel">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">发动机型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineType" name="addModel.engineType">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">燃料类型</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <nz-select [(ngModel)]="addModel.engineFuelType" name="addModel.engineFuelType">
+                    <nz-option nzValue="1" nzLabel="汽油"></nz-option>
+                    <nz-option nzValue="2" nzLabel="柴油"></nz-option>
+                    <nz-option nzValue="3" nzLabel="混合油"></nz-option>
+                    <nz-option nzValue="4" nzLabel="液化石油气"></nz-option>
+                    <nz-option nzValue="5" nzLabel="天然气"></nz-option>
+                    <nz-option nzValue="6" nzLabel="甲醇"></nz-option>
+                    <nz-option nzValue="7" nzLabel="乙醇"></nz-option>
+                    <nz-option nzValue="8" nzLabel="太阳能"></nz-option>
+                    <nz-option nzValue="9" nzLabel="电"></nz-option>
+                    <nz-option nzValue="10" nzLabel="生物燃料"></nz-option>
+                    <nz-option nzValue="11" nzLabel="氢"></nz-option>
+                    <nz-option nzValue="12" nzLabel="其它"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">排放水平</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineEmissionLevel" name="addModel.engineEmissionLevel">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">尿素箱容积</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.ureaTankCapacity" name="addModel.ureaTankCapacity">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">车辆厂家</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.vehicleFirm" name="addModel.vehicleFirm">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">厂牌品牌</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.factoryModel" name="addModel.factoryModel">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">驱动桥主减速比</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.reductionRatio" name="addModel.reductionRatio">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">前进档个数</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.transmissionForwardNumber" name="addModel.transmissionForwardNumber">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">各档速比（多个值以/分割）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.transmissionGearRatio" name="addModel.transmissionGearRatio">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">车型详情</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.modelCnDetail" name="addModel.modelCnDetail">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">用途类型</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.modelType" name="addModel.modelType">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">产地</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.productArea" name="addModel.productArea">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">底盘型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.chassisModel" name="addModel.chassisModel">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">底盘生产企业</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.chassisFirm" name="addModel.chassisFirm">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">最大允许装载质量</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.maxAllowMass" name="addModel.maxAllowMass">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">半挂牵引车鞍座最大允许承载质量</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.maxAllowAbleBearingMass" name="addModel.maxAllowAbleBearingMass">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">最高车速</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.maxSpeed" name="addModel.maxSpeed">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">最小离地间隙</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.minGroundClearance" name="addModel.minGroundClearance">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">车辆滑行系数(A、B、C)（多个数值，以/分割）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.vehicleSlidingCoefficient" name="addModel.vehicleSlidingCoefficient">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">轴数/列车轴数（多个数值，以/分割）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.axlesNumber" name="addModel.axlesNumber">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">轴距</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.wheelBase1" name="addModel.wheelBase1">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">轮距(前/后)（多个数值，以/分割）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.wheelBase2" name="addModel.wheelBase2">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">车身（或驾驶室）型式</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.bodyModel" name="addModel.bodyModel">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">轮胎数</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.tireNumber" name="addModel.tireNumber">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">轮胎生产企业</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.tireManufacturer" name="addModel.tireManufacturer">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">轮胎规格</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.tireSpec" name="addModel.tireSpec">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">轮胎气压</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.tirePressure" name="addModel.tirePressure">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">接近角/离去角</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.approachDepartureAngle" name="addModel.approachDepartureAngle">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">变速箱名称</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.transmissionName" name="addModel.transmissionName">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">变速器生产企业</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.transmissionFirm" name="addModel.transmissionFirm">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">型式/操纵方式</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.transmissionType" name="addModel.transmissionType">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">变速器型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.transmissionModel" name="addModel.transmissionModel">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">油箱容积</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.fuelTankCapacity" name="addModel.fuelTankCapacity">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">由发动机驱动的附件允许吸收的最大功率</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.allowedMaxPower" name="addModel.allowedMaxPower">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">ESC 试验ABC 转速</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.abcSpeed" name="addModel.abcSpeed">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">设备监控版本号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.tmsMonitorVersion" name="addModel.tmsMonitorVersion">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">驱动型式及位置</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.driveType" name="addModel.driveType">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">车型检测报告文件</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <nz-upload [nzBeforeUpload]="beforeUpload" nzAccept="image/*" nzSize="50">
+                    <button nz-button>选择文件(50kb)</button>
+                </nz-upload>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">文件名称</nz-form-label>
+            <nz-form-control [nzSpan]="10">{{addModel.detectionReport.fileName}}</nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">文件类型</nz-form-label>
+            <nz-form-control [nzSpan]="10">{{addModel.detectionReport.type}}</nz-form-control>
+        </nz-form-item>
+    </form>
+    <ng-template #modalFooterAdd>
+        <button nz-button (click)="isVisibleAdd=false"><i nz-icon nzType="close-circle" nzTheme="twotone" nzTwotoneColor="blue"></i>取消</button>
+        <button nz-button (click)="handleOkAdd()"><i nz-icon nzType="container" nzTheme="twotone" nzTwotoneColor="green"></i>备案</button>
+    </ng-template>
+</nz-modal>

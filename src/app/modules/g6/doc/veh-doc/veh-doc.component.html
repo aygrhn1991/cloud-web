@@ -1,0 +1,668 @@
+<form nz-form class="searchbar">
+    <nz-form-item>
+        <nz-form-label nzSpan="2">账号</nz-form-label>
+        <nz-form-control nzSpan="2">
+            <input nz-input [(ngModel)]="username" name="username" />
+        </nz-form-control>
+
+        <nz-form-label nzSpan="2">密码</nz-form-label>
+        <nz-form-control nzSpan="2">
+            <input nz-input type="password" [(ngModel)]="password" name="password" />
+        </nz-form-control>
+
+        <nz-form-control nzSpan="3" nzOffset="1">
+            <button nz-button (click)="login()"><i nz-icon nzType="alert" nzTheme="twotone" nzTwotoneColor="green"></i>平台登录</button>
+        </nz-form-control>
+
+        <nz-form-label nzSpan="2">登录状态</nz-form-label>
+        <nz-form-control nzSpan="2">{{loginState?'已登录':'未登录'}}</nz-form-control>
+
+        <nz-form-control nzSpan="3">
+            <button nz-button (click)="refresh()"><i nz-icon nzType="api" nzTheme="twotone" nzTwotoneColor="yellow"></i>状态同步</button>
+        </nz-form-control>
+    </nz-form-item>
+</form>
+<form nz-form class="searchbar">
+    <nz-form-item>
+        <nz-form-label nzSpan="2">VIN</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <nz-input-group nzSuffixIcon="search">
+                <input placeholder="请您选择..." nz-input [(ngModel)]="searchModel.vin" (ngModelChange)="onChange($event)" [nzAutocomplete]="auto" name="searchModel.vin" />
+            </nz-input-group>
+            <nz-autocomplete #auto>
+                <nz-auto-option *ngFor="let option of vinOptions" [nzValue]="option.C_VIN">{{option.C_VIN}}</nz-auto-option>
+            </nz-autocomplete>
+        </nz-form-control>
+        <nz-form-label nzSpan="2">备案状态</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <nz-select [(ngModel)]="searchModel.docState" name="searchModel.docState">
+                <nz-option *ngFor="let option of docOptions" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+</form>
+<div class="toolbar">
+    <div class="toolbar-left"></div>
+    <div class="toolbar-right">
+        <button nz-button (click)="filterData()"><i nz-icon nzType="filter" nzTheme="twotone" nzTwotoneColor="green"></i>查找</button>
+        <button nz-button (click)="reset()"><i nz-icon nzType="interaction" nzTheme="twotone" nzTwotoneColor="blue"></i>清空</button>
+    </div>
+</div>
+<nz-table #dataTable [nzData]="dataList" nzFrontPagination="true" nzShowSizeChanger="true" [nzShowTotal]="rangeTemplate" [nzLoading]="loading">
+    <thead>
+        <tr>
+            <th>VIN</th>
+            <th>防篡改基础信息备案激活状态</th>
+            <th>在线状态</th>
+            <th>静态备案审核状态</th>
+            <th>接入状态</th>
+            <th>添加时间</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of dataTable.data">
+            <td>{{data.C_VIN}}</td>
+            <td>{{data.state_lock|vehState:0}}</td>
+            <td>{{data.state_online|vehState:1}}</td>
+            <td>{{data.state_doc|vehState:2}}</td>
+            <td>{{data.state_in|vehState:3}}</td>
+            <td>{{data.sys_time|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>
+                <button nz-button nz-dropdown [nzDropdownMenu]="menu1"><i nz-icon nzType="eye" nzTheme="twotone" nzTwotoneColor="yellow"></i>结果查询</button>&nbsp;
+                <nz-dropdown-menu #menu1>
+                    <ul nz-menu>
+                        <li nz-menu-item *ngFor="let item of typeOptions" (click)="checkType(data,item.value)">{{item.label}}</li>
+                        <li nz-menu-divider *ngIf="data.sys_time!=null"></li>
+                        <li nz-menu-item *ngIf="data.sys_time!=null" (click)="checkModify(data)">更换终端结果查询</li>
+                    </ul>
+                </nz-dropdown-menu>
+                <button *ngIf="data.sys_time==null" nz-button (click)="showModalAdd(data)"><i nz-icon nzType="container" nzTheme="twotone" nzTwotoneColor="green"></i>车辆备案</button>
+                <button *ngIf="data.sys_time!=null" nz-button (click)="showModalEdit(data)"><i nz-icon nzType="tags" nzTheme="twotone" nzTwotoneColor="blue"></i>更换终端</button>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>
+<ng-template #rangeTemplate let-range="range" let-total>
+    第{{range[0]}}-{{range[1]}}条 共{{total}}条
+</ng-template>
+
+<nz-modal [(nzVisible)]="isVisibleAdd" nzTitle="车辆备案" (nzOnCancel)="isVisibleAdd=false" [nzFooter]="modalFooterAdd">
+    <form nz-form class="modal-scroll">
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>车牌号码</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.vehicleLicense" name="addModel.vehicleLicense">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>车牌颜色</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.licenseColor" name="addModel.licenseColor">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>车体结构</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <nz-select [(ngModel)]="addModel.vehicleStructure" name="addModel.vehicleStructure">
+                    <nz-option nzValue="0" nzLabel="非承载式"></nz-option>
+                    <nz-option nzValue="1" nzLabel="半承载式"></nz-option>
+                    <nz-option nzValue="2" nzLabel="承载式（全承载式）"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>车辆颜色</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.vehicleColor" name="addModel.vehicleColor">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>核定载重</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.vehicleLoad" name="addModel.vehicleLoad">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>车辆尺寸mm（长）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.vehicleLong" name="addModel.vehicleLong">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>车辆尺寸mm（宽）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.vehicleWide" name="addModel.vehicleWide">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>车辆尺寸mm（高）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.vehicleHigh" name="addModel.vehicleHigh">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>总质量</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.grossVehicleMass" name="addModel.grossVehicleMass">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>车辆类型</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <nz-select [(ngModel)]="addModel.vehicleType" name="addModel.vehicleType">
+                    <nz-option nzValue="10" nzLabel="M类"></nz-option>
+                    <nz-option nzValue="11" nzLabel="M1类"></nz-option>
+                    <nz-option nzValue="12" nzLabel="M2类"></nz-option>
+                    <nz-option nzValue="13" nzLabel="M3类"></nz-option>
+                    <nz-option nzValue="20" nzLabel="N类"></nz-option>
+                    <nz-option nzValue="21" nzLabel="N1类"></nz-option>
+                    <nz-option nzValue="22" nzLabel="N2类"></nz-option>
+                    <nz-option nzValue="23" nzLabel="N3类"></nz-option>
+                    <nz-option nzValue="30" nzLabel="O类"></nz-option>
+                    <nz-option nzValue="31" nzLabel="O1类"></nz-option>
+                    <nz-option nzValue="32" nzLabel="O2类"></nz-option>
+                    <nz-option nzValue="33" nzLabel="O3类"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>行业类型</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <nz-select [(ngModel)]="addModel.industryType" name="addModel.industryType">
+                    <nz-option nzValue="A" nzLabel="农林牧渔业"></nz-option>
+                    <nz-option nzValue="B" nzLabel="采矿业"></nz-option>
+                    <nz-option nzValue="C" nzLabel="制造业"></nz-option>
+                    <nz-option nzValue="D" nzLabel="电力热力燃气及水生产和供应业"></nz-option>
+                    <nz-option nzValue="E" nzLabel="建筑业"></nz-option>
+                    <nz-option nzValue="F" nzLabel="批发和零售业"></nz-option>
+                    <nz-option nzValue="G" nzLabel="交通运输仓储和邮政业"></nz-option>
+                    <nz-option nzValue="H" nzLabel="住宿和餐饮业"></nz-option>
+                    <nz-option nzValue="I" nzLabel="信息传输软件和信息技术服务业"></nz-option>
+                    <nz-option nzValue="J" nzLabel="金融业"></nz-option>
+                    <nz-option nzValue="K" nzLabel="房地产业"></nz-option>
+                    <nz-option nzValue="L" nzLabel="租赁和商务服务业"></nz-option>
+                    <nz-option nzValue="M" nzLabel="科学研究和技术服务业"></nz-option>
+                    <nz-option nzValue="N" nzLabel="水利环境和公共设施管理业"></nz-option>
+                    <nz-option nzValue="O" nzLabel="居民服务修理和其他服务"></nz-option>
+                    <nz-option nzValue="P" nzLabel="教育"></nz-option>
+                    <nz-option nzValue="Q" nzLabel="卫生和社会工作"></nz-option>
+                    <nz-option nzValue="R" nzLabel="文化体育和娱乐业"></nz-option>
+                    <nz-option nzValue="S" nzLabel="公共管理社会保障和社会组织"></nz-option>
+                    <nz-option nzValue="T" nzLabel="国际组织"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>车辆型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.vehicleModel" name="addModel.vehicleModel">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>购买时间</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.buyingDate" name="addModel.buyingDate">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>车架号VIN</nz-form-label>
+            <nz-form-control [nzSpan]="10">{{addModel.vehicleFrameNo}}</nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>行驶证号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.drivingLicenseNo" name="addModel.drivingLicenseNo">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>发动机型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineModel" name="addModel.engineModel">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>发动机编号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineNo" name="addModel.engineNo">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>车籍地</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.vehiclePlace" name="addModel.vehiclePlace">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>车辆技术等级</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <nz-select [(ngModel)]="addModel.technicalLevel" name="addModel.technicalLevel">
+                    <nz-option nzValue="0" nzLabel="未知"></nz-option>
+                    <nz-option nzValue="1" nzLabel="一级"></nz-option>
+                    <nz-option nzValue="2" nzLabel="二级"></nz-option>
+                    <nz-option nzValue="3" nzLabel="三级"></nz-option>
+                    <nz-option nzValue="4" nzLabel="四级"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>出厂日期</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.productionDate" name="addModel.productionDate">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>等级评定日期</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.gradeAssessmentDate" name="addModel.gradeAssessmentDate">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>二级维护日期</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.twoMaintenanceDate" name="addModel.twoMaintenanceDate">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>二级维护状态</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <nz-select [(ngModel)]="addModel.twoMaintenanceStatus" name="addModel.twoMaintenanceStatus">
+                    <nz-option nzValue="0" nzLabel="二级维护状态正常"></nz-option>
+                    <nz-option nzValue="1" nzLabel="二级维护状态异常"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>年审状态</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <nz-select [(ngModel)]="addModel.yearEvaluationStatus" name="addModel.yearEvaluationStatus">
+                    <nz-option nzValue="0" nzLabel="未按期年审"></nz-option>
+                    <nz-option nzValue="1" nzLabel="已按期按年审"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>年检有效期</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.yearInspectionPeriod" name="addModel.yearInspectionPeriod">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>保险有效期</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.insurancePeriod" name="addModel.insurancePeriod">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>保养有效期</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.maintenancePeriod" name="addModel.maintenancePeriod">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>所属单位名称</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.enterpriseName" name="addModel.enterpriseName">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>车辆联系人</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.contactsName" name="addModel.contactsName">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>车辆联系电话</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.contactPhone" name="addModel.contactPhone">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>车辆sim卡号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.terminalSim" name="addModel.terminalSim">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>车辆注册时间</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.registerDate" name="addModel.registerDate">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>所属组织ID</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.organizationId" name="addModel.organizationId">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>环保局车辆类型</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <nz-select [(ngModel)]="addModel.epaVehicleType" name="addModel.epaVehicleType">
+                    <nz-option nzValue="0" nzLabel="轻型汽油车"></nz-option>
+                    <nz-option nzValue="1" nzLabel="轻型柴油车"></nz-option>
+                    <nz-option nzValue="2" nzLabel="轻型燃气车"></nz-option>
+                    <nz-option nzValue="3" nzLabel="轻型两用燃料车"></nz-option>
+                    <nz-option nzValue="4" nzLabel="重型柴油车"></nz-option>
+                    <nz-option nzValue="5" nzLabel="重型燃气车"></nz-option>
+                    <nz-option nzValue="6" nzLabel="重型两用燃料车"></nz-option>
+                    <nz-option nzValue="10" nzLabel="轻型汽油混合动力车"></nz-option>
+                    <nz-option nzValue="11" nzLabel="轻型柴油混合动力车"></nz-option>
+                    <nz-option nzValue="12" nzLabel="轻型燃气混合动力车"></nz-option>
+                    <nz-option nzValue="13" nzLabel="轻型两用燃料混合动力车"></nz-option>
+                    <nz-option nzValue="14" nzLabel="重型柴油混合动力车"></nz-option>
+                    <nz-option nzValue="15" nzLabel="重型燃气混合动力车"></nz-option>
+                    <nz-option nzValue="16" nzLabel="重型两用燃料混合动力车"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>运输局车辆类型</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <nz-select [(ngModel)]="addModel.transVehicleType" name="addModel.transVehicleType">
+                    <nz-option nzValue="0" nzLabel="未知"></nz-option>
+                    <nz-option nzValue="1" nzLabel="大型载客车辆"></nz-option>
+                    <nz-option nzValue="2" nzLabel="重型载客车辆"></nz-option>
+                    <nz-option nzValue="3" nzLabel="小型载客车辆"></nz-option>
+                    <nz-option nzValue="4" nzLabel="微型载客车辆"></nz-option>
+                    <nz-option nzValue="11" nzLabel="重型载货车辆"></nz-option>
+                    <nz-option nzValue="12" nzLabel="中型载货车辆"></nz-option>
+                    <nz-option nzValue="13" nzLabel="轻型载货车辆"></nz-option>
+                    <nz-option nzValue="14" nzLabel="微型载货车辆"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>所有绑定的sim卡</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.terminalAllSim" name="addModel.terminalAllSim">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>所有者地址</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.ownerAddress" name="addModel.ownerAddress">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>车牌型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.licenseModel" name="addModel.licenseModel">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>行政区划</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.administrativeArea" name="addModel.administrativeArea">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>行政地址</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.administrativeAddress" name="addModel.administrativeAddress">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>总客数</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.totalNumberGuest" name="addModel.totalNumberGuest">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>整备质量</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.curbWeight" name="addModel.curbWeight">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>列车最大总质量</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.maximumTotalMassOfTrain" name="addModel.maximumTotalMassOfTrain">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>入网证号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.netNumber" name="addModel.netNumber">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>初次登记日期</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.initialRegistrationDate" name="addModel.initialRegistrationDate">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>年检日期</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.annualInspectionDate" name="addModel.annualInspectionDate">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>强制报废日期</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.mandatoryScrapDate" name="addModel.mandatoryScrapDate">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>所属企业简称</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.enterpriseShortName" name="addModel.enterpriseShortName">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>车辆SN</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.vehicleSn" name="addModel.vehicleSn">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>安全芯片型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.chipType" name="addModel.chipType">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>车载终端型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.tboxType" name="addModel.tboxType">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>激活模式</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <nz-select [(ngModel)]="addModel.vehRegisterMode" name="addModel.vehRegisterMode">
+                    <nz-option nzValue="0" nzLabel="无需激活"></nz-option>
+                    <nz-option nzValue="1" nzLabel="需要激活"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>排放水平</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <nz-select [(ngModel)]="addModel.emissionLevelType" name="addModel.emissionLevelType">
+                    <nz-option nzValue="1" nzLabel="国六"></nz-option>
+                    <nz-option nzValue="2" nzLabel="国五"></nz-option>
+                    <nz-option nzValue="3" nzLabel="国四"></nz-option>
+                    <nz-option nzValue="4" nzLabel="国三"></nz-option>
+                    <nz-option nzValue="5" nzLabel="国二"></nz-option>
+                    <nz-option nzValue="6" nzLabel="排气后处理系统改装车辆"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>整车生产企业</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.vehicleFirm" name="addModel.vehicleFirm">
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+    <ng-template #modalFooterAdd>
+        <button nz-button (click)="isVisibleAdd=false"><i nz-icon nzType="close-circle" nzTheme="twotone" nzTwotoneColor="blue"></i>取消</button>
+        <button nz-button (click)="handleOkAdd()"><i nz-icon nzType="container" nzTheme="twotone" nzTwotoneColor="green"></i>备案</button>
+    </ng-template>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isVisibleEdit" nzTitle="更换终端" (nzOnCancel)="isVisibleEdit=false" [nzFooter]="modalFooterEdit">
+    <form nz-form class="modal-scroll">
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>车辆vin</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="editModel.vin" name="editModel.vin">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>旧的车载终端型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="editModel.tboxModelOld" name="editModel.tboxModelOld">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>新的车载终端型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="editModel.tboxModelNew" name="editModel.tboxModelNew">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>旧的安全芯片型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="editModel.chipModelOld" name="editModel.chipModelOld">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>新的安全芯片型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="editModel.chipModelNew" name="editModel.chipModelNew">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>旧的安全芯片ID（16位）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="editModel.chipSnOld" name="editModel.chipSnOld">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>新的安全芯片ID（16位）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="editModel.chipSnNew" name="editModel.chipSnNew">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>旧的tbox编号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="editModel.tboxSnOld" name="editModel.tboxSnOld">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>新的tbox编号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="editModel.tboxSnNew" name="editModel.tboxSnNew">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>更换原因 </nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="editModel.remark" name="editModel.remark">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>联系人电话</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="editModel.contactorPhone" name="editModel.contactorPhone">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>联系人姓名</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="editModel.contactorName" name="editModel.contactorName">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>车企申请文件</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <nz-upload [nzBeforeUpload]="beforeUpload" nzAccept=".jpg" nzSize="50">
+                    <button nz-button>选择文件(50kb)</button>
+                </nz-upload>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">文件名称</nz-form-label>
+            <nz-form-control [nzSpan]="10">{{editModel.strRequestFile.fileName}}</nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">文件类型</nz-form-label>
+            <nz-form-control [nzSpan]="10">{{editModel.strRequestFile.type}}</nz-form-control>
+        </nz-form-item>
+    </form>
+    <ng-template #modalFooterEdit>
+        <button nz-button (click)="isVisibleEdit=false"><i nz-icon nzType="close-circle" nzTheme="twotone" nzTwotoneColor="blue"></i>取消</button>
+        <button nz-button (click)="handleOkEdit()"><i nz-icon nzType="container" nzTheme="twotone" nzTwotoneColor="green"></i>备案</button>
+    </ng-template>
+</nz-modal>

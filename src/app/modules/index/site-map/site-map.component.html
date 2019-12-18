@@ -1,0 +1,23 @@
+<form nz-form class="searchbar">
+    <nz-form-item>
+        <nz-form-label nzSpan="2">功能搜索</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <nz-input-group nzSuffixIcon="search">
+                <input nz-input [(ngModel)]="keyword" (ngModelChange)="onChange($event)" name="keyword" />
+            </nz-input-group>
+        </nz-form-control>
+    </nz-form-item>
+</form>
+
+<div nz-row nzType="flex" nzAlign="top">
+    <div nz-col nzSpan="6" class="sitemap-wrapper" *ngFor="let nav of navList">
+        <div class="sitemap-title">{{nav.title}}</div>
+        <div class="sitemap-list" *ngFor="let menu of nav.menus">
+            <div class="sitemap-title sitemap-title1" [ngClass]="{'sitemap-hover':menu.pages==0,'sitemap-active':menu.active}" *ngIf="menu.pages==0" [routerLink]="menu.path">{{menu.title}}</div>
+            <div class="sitemap-title sitemap-title1" *ngIf="menu.pages!=0">{{menu.title}}</div>
+            <div class="sitemap-list1">
+                <div class="sitemap-title sitemap-title2 sitemap-hover" [ngClass]="{'sitemap-active':page.active}" *ngFor="let page of menu.pages" [routerLink]="page.path">{{page.title}}</div>
+            </div>
+        </div>
+    </div>
+</div>

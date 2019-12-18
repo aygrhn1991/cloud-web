@@ -1,0 +1,25 @@
+.rm-update {
+  width: 400px;
+  float: left;
+}
+
+.rm-link {
+  margin-left: 410px;
+}
+
+.item {
+  display: block;
+  width: 100%
+}
+
+.title {
+  width: 100px;
+  text-align: right;
+  padding-right: 10px;
+  display: inline-block;
+}
+
+.value {
+  display: inline-block;
+  width: 300px;
+}

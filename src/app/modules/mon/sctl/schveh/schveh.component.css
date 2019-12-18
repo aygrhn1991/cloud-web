@@ -1,0 +1,29 @@
+.sch-veh {
+    position: absolute;
+    width: 320px;
+    height: auto;
+    z-index: 500;
+    top: 120px;
+    left: 30px;
+}
+
+.sch-veh-rst {
+    position: absolute;
+    width: 320px;
+    height: auto;
+    background-color: #020419;
+    z-index: 500;
+    top: 166px;
+    left: 30px;
+    padding: 8px 10px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.vstatus-off {
+    color: white;
+}
+
+.vstatus-on {
+    color: lightgreen;
+}

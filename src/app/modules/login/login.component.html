@@ -1,0 +1,42 @@
+<div class="login-bg">
+    <div class="login-logo">
+        <img src="{{configService.config.web_logo}}">
+    </div>
+    <div class="login-wrapper">
+        <div class="login-earth"></div>
+        <div class="login-form">
+            <form nz-form>
+                <nz-form-item style="margin-bottom:10px;">
+                    欢迎登录
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-control>
+                        <nz-input-group nzPrefixIcon="user">
+                            <input type="text" nz-input placeholder="请输入用户名称" [(ngModel)]="loginModel.account" name="accountModel.username" />
+                        </nz-input-group>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-control>
+                        <nz-input-group nzPrefixIcon="lock">
+                            <input type="password" nz-input placeholder="请输入用户密码" [(ngModel)]="loginModel.password" name="accountModel.password" />
+                        </nz-input-group>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-control>
+                        <nz-input-group>
+                            <input type="text" nz-input placeholder="验证码" style="width:100px;" [(ngModel)]="loginModel.code" name="accountModel.code" />
+                            <canvas #codeCanvas width="100px" height="24px" (click)="createCode()"></canvas>
+                        </nz-input-group>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-control>
+                        <button nz-button style="width:100%;" [nzLoading]="isLoading" (click)="login()">登录</button>
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+        </div>
+    </div>
+</div>

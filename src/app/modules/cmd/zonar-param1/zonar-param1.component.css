@@ -1,0 +1,9 @@
+.row {
+    margin: 2px 0 5px 0;
+}
+
+.item {
+    width: auto;
+    display: inline-block;
+    margin: 0 10px 0 0;
+}

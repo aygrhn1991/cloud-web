@@ -1,0 +1,178 @@
+<form nz-form>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="2">用户姓名</nz-form-label>
+        <nz-form-control [nzSpan]="4">
+            <input nzSize="small" nz-input [(ngModel)]="form_name" name="form_name">
+        </nz-form-control>
+    </nz-form-item>
+    <div class="toolbar-area">
+        <div class="toolbar-left">
+            <button nz-button nzType="primary" (click)="showModal_add()">
+          <i nz-icon class="ht-icon icon-toolbar-add"></i>
+          <span>添加</span>
+        </button>
+            <button nz-button nzType="primary" (click)="showModal_edit()">
+          <i nz-icon class="ht-icon icon-toolbar-edit"></i>
+          <span>修改</span>
+        </button>
+            <button nz-button nzType="primary" (click)="delete()">
+          <i nz-icon class="ht-icon icon-toolbar-delete"></i>
+          <span>删除</span>
+        </button>
+        </div>
+        <div class="toolbar-right">
+            <button nz-button nzType="primary" (click)="loadDatas(true)">
+          <i nz-icon class="ht-icon icon-toolbar-search"></i>
+          <span>查找</span>
+        </button>
+            <button nz-button nzType="primary" (click)="reset()">
+          <i nz-icon class="ht-icon icon-toolbar-reset"></i>
+          <span>清空</span>
+        </button>
+        </div>
+    </div>
+</form>
+<nz-table #dataTable nzShowSizeChanger [nzData]="userList" [nzLoading]="loading" [(nzTotal)]="searchModel.total" [(nzPageIndex)]="searchModel.pagenum" [(nzPageSize)]="searchModel.pagesize" [nzScroll]="{x:'1000px'}" [nzShowTotal]="rangeTemplate">
+    <thead>
+        <tr>
+            <th nzWidth="100px" nzLeft="0px">用户姓名</th>
+            <th>帐号</th>
+            <th>联系电话</th>
+            <th>邮箱</th>
+            <th>注册日期</th>
+            <th>状态</th>
+            <th nzWidth="30px" nzRight="0px">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of dataTable.data;let i=index" (click)="choose(data,i)" class="{{i==tr?'tr_color_change':'tr_color_nochange'}}" style="cursor: pointer">
+            <td nzLeft="0px">{{data.name}}</td>
+            <td>{{data.account}}</td>
+            <td>{{data.phone}}</td>
+            <td>{{data.email}}</td>
+            <td>{{data.regTimeStr}}</td>
+            <td>
+                <span [ngStyle]="{'color':(data.status==0||data.status==4)?'red':(data.status==2)?'green':''}">{{data.statusStr}}</span>
+            </td>
+            <td nzRight="0px">
+                <button nz-button nzType="primary" (click)="setState(data)">
+            <i nz-icon [ngClass]="{'ht-icon':true, 'icon-toolbar-start': (data.status==0||data.status==4),'icon-toolbar-pause': (data.status!=0&&data.status!=4)}"></i>
+            <span>{{(data.status==0||data.status==4)?'启用':'停用'}}</span>
+          </button>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>
+<ng-template #rangeTemplate let-range="range" let-total>
+    第{{range[0]}}-{{range[1]}}条 共{{total}}条
+</ng-template>
+<nz-modal [nzStyle]="{ top: '20px' }" [(nzVisible)]="isVisible_add" nzTitle="添加" (nzOnCancel)="isVisible_add=false" [nzFooter]="modalFooter_add">
+    <div nz-row>
+        <div nz-col nzSpan="12">
+            <form nz-form>
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="8">*&nbsp;用户姓名</nz-form-label>
+                    <nz-form-control [nzSpan]="16">
+                        <input nz-input nzSize="small" [(ngModel)]="dataModel.name" name="dataModel.name">
+                    </nz-form-control>
+
+                    <nz-form-label [nzSpan]="8">*&nbsp;登录帐号</nz-form-label>
+                    <nz-form-control [nzSpan]="16">
+                        <input nz-input nzSize="small" [(ngModel)]="dataModel.account" name="dataModel.account">
+                    </nz-form-control>
+
+                    <nz-form-label [nzSpan]="8">*&nbsp;登录密码</nz-form-label>
+                    <nz-form-control [nzSpan]="16">
+                        <input nz-input nzSize="small" type="password" [(ngModel)]="dataModel.password" name="dataModel.password">
+                    </nz-form-control>
+
+                    <nz-form-label [nzSpan]="8">身份证号</nz-form-label>
+                    <nz-form-control [nzSpan]="16">
+                        <input nz-input nzSize="small" [(ngModel)]="dataModel.bodynum" name="dataModel.bodynum">
+                    </nz-form-control>
+
+                    <nz-form-label [nzSpan]="8">联系地址</nz-form-label>
+                    <nz-form-control [nzSpan]="16">
+                        <input nz-input nzSize="small" [(ngModel)]="dataModel.address" name="dataModel.address">
+                    </nz-form-control>
+
+                    <nz-form-label [nzSpan]="8">联系电话</nz-form-label>
+                    <nz-form-control [nzSpan]="16">
+                        <input nz-input nzSize="small" [(ngModel)]="dataModel.phone" name="dataModel.phone">
+                    </nz-form-control>
+
+                    <nz-form-label [nzSpan]="8">联系邮箱</nz-form-label>
+                    <nz-form-control [nzSpan]="16">
+                        <input nz-input nzSize="small" [(ngModel)]="dataModel.email" name="dataModel.email">
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+        </div>
+        <div nz-col nzSpan="10" [nzOffset]="2" style="line-height:30px;height:270px;overflow:scroll;">
+            <div *ngFor="let role of roleList">
+                <label nz-checkbox [(ngModel)]="role.checked">{{role.name}}</label>
+            </div>
+        </div>
+    </div>
+    <ng-template #modalFooter_add>
+        <button nz-button nzType="primary" (click)="isVisible_add=false">
+        <i nz-icon class="ht-icon icon-toolbar-cancel"></i>取消
+      </button>
+        <button nz-button nzType="primary" (click)="handleOk_add()">
+        <i nz-icon class="ht-icon icon-toolbar-save"></i>保存
+      </button>
+    </ng-template>
+</nz-modal>
+
+<nz-modal [nzStyle]="{ top: '20px' }" [(nzVisible)]="isVisible_edit" nzTitle="修改" (nzOnCancel)="isVisible_edit=false" [nzFooter]="modalFooter_edit">
+    <div nz-row>
+        <div nz-col nzSpan="12">
+            <form nz-form>
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="8">*&nbsp;用户姓名</nz-form-label>
+                    <nz-form-control [nzSpan]="16">
+                        <input nz-input nzSize="small" [(ngModel)]="dataModel.name" name="dataModel.name">
+                    </nz-form-control>
+
+                    <nz-form-label [nzSpan]="8">登录帐号</nz-form-label>
+                    <nz-form-control [nzSpan]="16">
+                        <span>{{dataModel.account}}</span>
+                    </nz-form-control>
+
+                    <nz-form-label [nzSpan]="8">身份证号</nz-form-label>
+                    <nz-form-control [nzSpan]="16">
+                        <input nz-input nzSize="small" [(ngModel)]="dataModel.bodynum" name="dataModel.bodynum">
+                    </nz-form-control>
+
+                    <nz-form-label [nzSpan]="8">联系地址</nz-form-label>
+                    <nz-form-control [nzSpan]="16">
+                        <input nz-input nzSize="small" [(ngModel)]="dataModel.address" name="dataModel.address">
+                    </nz-form-control>
+
+                    <nz-form-label [nzSpan]="8">联系电话</nz-form-label>
+                    <nz-form-control [nzSpan]="16">
+                        <input nz-input nzSize="small" [(ngModel)]="dataModel.phone" name="dataModel.phone">
+                    </nz-form-control>
+
+                    <nz-form-label [nzSpan]="8">联系邮箱</nz-form-label>
+                    <nz-form-control [nzSpan]="16">
+                        <input nz-input nzSize="small" [(ngModel)]="dataModel.email" name="dataModel.email">
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+        </div>
+        <div nz-col nzSpan="10" [nzOffset]="2" style="line-height:30px;height:270px;overflow:scroll;">
+            <div *ngFor="let role of roleList_edit">
+                <label nz-checkbox [(ngModel)]="role.checked">{{role.name}}</label>
+            </div>
+        </div>
+    </div>
+    <ng-template #modalFooter_edit>
+        <button nz-button nzType="primary" (click)="isVisible_edit=false">
+        <i nz-icon class="ht-icon icon-toolbar-cancel"></i>取消
+      </button>
+        <button nz-button nzType="primary" (click)="handleOk_edit()">
+        <i nz-icon class="ht-icon icon-toolbar-save"></i>保存
+      </button>
+    </ng-template>
+</nz-modal>

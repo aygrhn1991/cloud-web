@@ -1,0 +1,4 @@
+<div>
+    <button nz-button nzType="primary" (click)="sendCmd()">发送</button>
+</div>
+<textarea rows="10" nz-input [(ngModel)]="licence" (ngModelChange)="licenceChanged($event)" maxlength="512"></textarea> 当前字数 {{size}}/512，还可输入{{512-size}} 个字符

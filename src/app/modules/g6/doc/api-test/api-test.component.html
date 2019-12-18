@@ -1,0 +1,57 @@
+<form nz-form class="searchbar">
+    <nz-form-item>
+        <nz-form-label nzSpan="2">账号</nz-form-label>
+        <nz-form-control nzSpan="2">
+            <input nz-input [(ngModel)]="username" name="username" />
+        </nz-form-control>
+
+        <nz-form-label nzSpan="2">密码</nz-form-label>
+        <nz-form-control nzSpan="2">
+            <input nz-input type="password" [(ngModel)]="password" name="password" />
+        </nz-form-control>
+
+        <nz-form-control nzSpan="3" nzOffset="1">
+            <button nz-button (click)="login()"><i nz-icon nzType="alert" nzTheme="twotone" nzTwotoneColor="green"></i>平台登录</button>
+        </nz-form-control>
+
+        <nz-form-label nzSpan="2">登录状态</nz-form-label>
+        <nz-form-control nzSpan="2">{{loginState?'已登录':'未登录'}}</nz-form-control>
+    </nz-form-item>
+</form>
+<form nz-form>
+    <nz-form-item>
+        <nz-form-label nzSpan="2">token</nz-form-label>
+        <nz-form-control nzSpan="22">{{token}}</nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label nzSpan="2">api</nz-form-label>
+        <nz-form-control nzSpan="7">
+            <nz-select [(ngModel)]="url" name="url">
+                <nz-option *ngFor="let option of apiOptions" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
+            </nz-select>
+        </nz-form-control>
+        <nz-form-label nzSpan="2">url</nz-form-label>
+        <nz-form-control nzSpan="7">
+            <input nz-input [(ngModel)]="url" name="url" />
+        </nz-form-control>
+        <nz-form-control nzSpan="3" nzOffset="1">
+            <button nz-button (click)="template()"><i nz-icon nzType="eye" nzTheme="twotone" nzTwotoneColor="blue"></i>生成模板</button>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label nzSpan="2">body</nz-form-label>
+        <nz-form-control nzSpan="20">
+            <textarea rows="10" nz-input [(ngModel)]="body" placeholder="json格式数据" name="body"></textarea>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-control nzSpan="20" nzOffset="2" style="text-align: center;">
+            <button nz-button (click)="send()"><i nz-icon nzType="thunderbolt" nzTheme="twotone" nzTwotoneColor="yellow"></i>发送请求</button>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-control nzSpan="20" nzOffset="2">
+            <textarea rows="10" nz-input [(ngModel)]="result" placeholder="返回结果" name="result"></textarea>
+        </nz-form-control>
+    </nz-form-item>
+</form>

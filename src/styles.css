@@ -1,0 +1,524 @@
+:root {
+    --jb: linear-gradient(#005593, #020419);
+    --jb-to-right: linear-gradient(to right, #005593, #020419);
+    --jb-start: #005593;
+    --jb-end: #020419;
+    --jb-bg: #031e47;
+    --panel: #29e2f7;
+}
+
+html,
+body {
+    min-width: 1200px;
+    overflow: auto;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--jb-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 12px;
+    background: var(--jb);
+}
+
+::-webkit-scrollbar-thumb:vertical {
+    background: var(--jb-to-right);
+}
+
+::-webkit-scrollbar-corner {
+    background-color: var(--jb-bg);
+}
+
+button {
+    background: var(--jb) !important;
+}
+
+.ant-menu-inline {
+    border-right: 2px solid transparent;
+}
+
+.ant-menu-inline .ant-menu-submenu-title {
+    background: var(--jb);
+    margin: 0;
+}
+
+.ant-menu-inline .ant-menu-item {
+    margin: 0;
+}
+
+nz-breadcrumb {
+    background: var(--jb);
+    padding: 2px 5px !important;
+    border-bottom: 1px solid var(--jb-start);
+}
+
+nz-breadcrumb-item:last-child {
+    color: #fff !important;
+}
+
+nz-date-picker,
+.ant-calendar-picker {
+    width: 100% !important;
+}
+
+.ant-calendar-selected-day .ant-calendar-date {
+    background: var(--jb-start);
+}
+
+.ant-calendar-today .ant-calendar-date {
+    color: #fff;
+}
+
+.ant-modal-close {
+    background: transparent !important;
+}
+
+.ant-modal-close:focus,
+.ant-modal-close:hover {
+    color: #fff;
+}
+
+.active {
+    background: var(--jb-start);
+}
+
+.modal-scroll {
+    max-height: 500px;
+    overflow: auto;
+}
+
+.layout-logo {
+    float: left;
+    width: 300px;
+    height: 64px;
+}
+
+.layout-logo>img {
+    width: 100%;
+    height: 50%;
+}
+
+.searchbar {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--jb-start);
+}
+
+.searchbar-more {
+    text-align: right;
+    font-size: 12px;
+}
+
+.searchbar-more>span {
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.toolbar {
+    padding: 10px 0;
+    background: var(--jb-end);
+    border-bottom: 1px solid var(--jb-start);
+}
+
+.toolbar-left {
+    display: inline-block;
+}
+
+.toolbar-left button {
+    margin-left: 3px;
+}
+
+.toolbar-right {
+    float: right;
+}
+
+.toolbar-right button {
+    margin-right: 3px;
+}
+
+.login-bg {
+    height: 100%;
+    min-height: 750px;
+    background-color: #000;
+    background-image: url('./assets/img/login-bg.png');
+    background-repeat: no-repeat;
+    background-size: 100% 800px;
+    background-position: top;
+}
+
+.login-logo {
+    height: 64px;
+    line-height: 64px;
+    border-bottom: 1px solid var(--jb-start);
+}
+
+.login-logo>img {
+    height: 70%;
+}
+
+.login-wrapper {
+    width: 800px;
+    height: 400px;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+
+.login-earth {
+    float: left;
+    width: 50%;
+    height: 100%;
+    background-image: url('./assets/img/login-earth.png');
+    background-size: 100% 100%;
+}
+
+.login-form {
+    margin-left: 50%;
+}
+
+.login-form form {
+    display: inline-block;
+    width: 300px;
+    margin: 80px 0 0 100px;
+    padding: 20px 50px 70px 50px;
+    background-image: url('./assets/img/login-form.png');
+    background-size: 100% 100%;
+}
+
+.login-form i {
+    color: #fff !important;
+}
+
+.sitemap-wrapper {
+    position: relative;
+    text-align: center;
+    padding: 30px;
+    font-size: 14px;
+    line-height: 28px;
+}
+
+.sitemap-list {
+    position: relative;
+}
+
+.sitemap-list::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    width: 1px;
+    height: calc(100% + 10px);
+    background: var(--jb-start);
+}
+
+.sitemap-wrapper>.sitemap-list:last-child::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    width: 1px;
+    height: 27px;
+    background: var(--jb-start);
+}
+
+.sitemap-list1 {
+    position: relative;
+}
+
+.sitemap-list1::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 40px;
+    width: 1px;
+    height: calc(100% - 3px);
+    background: var(--jb-start);
+}
+
+.sitemap-title {
+    border: 1px solid var(--jb-start);
+    width: 60%;
+    margin-bottom: 10px;
+}
+
+.sitemap-title1 {
+    position: relative;
+    margin-left: 30px;
+}
+
+.sitemap-title2 {
+    position: relative;
+    margin-left: 60px;
+}
+
+.sitemap-title1::before,
+.sitemap-title2::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: -20px;
+    width: 20px;
+    height: 1px;
+    background: var(--jb-start);
+}
+
+.sitemap-active,
+.sitemap-hover:hover {
+    cursor: pointer;
+    background: var(--jb-start);
+}
+
+.testing-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.testing-vin {
+    display: inline-block;
+    width: calc(100% - 135px);
+}
+
+.testing-key {
+    display: inline-block;
+    width: 150px;
+}
+
+.testing-tip {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: normal;
+    color: #fff;
+    margin-left: 20px;
+}
+
+.testing-tip input {
+    vertical-align: text-bottom;
+}
+
+.testing-tip span {
+    margin-right: 20px;
+}
+
+.testing-panel {
+    padding: 10px 10px 15px 10px;
+    box-shadow: inset 0 0 15px var(--panel);
+    border: 1px solid var(--panel);
+    background-color: rgba(25, 25, 50, .7);
+}
+
+.testing-title {
+    position: relative;
+    font-weight: bold;
+    color: var(--panel);
+    margin-left: 12px;
+    font-size: 14px;
+    line-height: 28px;
+}
+
+.testing-title::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: -10px;
+    width: 4px;
+    height: 18px;
+    background-color: var(--panel);
+}
+
+.testing-subtitle {
+    position: relative;
+    margin-left: 24px;
+    font-size: 12px;
+    line-height: 24px;
+    color: var(--panel);
+}
+
+.testing-subtitle::before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 70px;
+    width: calc(100% - 90px);
+    height: 0;
+    border-bottom: 1px dashed var(--panel);
+}
+
+.testing-content {
+    font-size: 12px;
+    line-height: 22px;
+    margin-left: 24px;
+}
+
+.testing-half {
+    display: inline-block;
+    width: 50%;
+}
+
+.testing-fit {
+    max-height: calc(100% - 30px);
+    overflow: auto;
+}
+
+.testing-g6-1 {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 30%;
+}
+
+.testing-g6-2 {
+    position: absolute;
+    top: 70px;
+    left: 10px;
+    width: 30%;
+}
+
+.testing-g6-3 {
+    position: absolute;
+    top: 380px;
+    left: 10px;
+    bottom: 0;
+    width: 30%;
+    min-height: 170px;
+    margin-bottom: 10px;
+}
+
+.testing-g6-4 {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30%;
+    min-width: 500px;
+}
+
+.testing-g6-5 {
+    position: absolute;
+    top: 450px;
+    right: 10px;
+    bottom: 0;
+    width: calc(70% - 30px);
+    min-height: 100px;
+    margin-bottom: 10px;
+}
+
+.testing-g6-5 .testing-content {
+    white-space: nowrap;
+}
+
+.playback-g6-1 {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 30%;
+}
+
+.playback-g6-2 {
+    position: absolute;
+    top: 320px;
+    left: 10px;
+    bottom: 0;
+    width: 30%;
+    min-height: 230px;
+    margin-bottom: 10px;
+}
+
+.playback-g6-3 {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 500px;
+}
+
+.playback-g6-4 {
+    position: absolute;
+    top: 450px;
+    right: 10px;
+    bottom: 0;
+    width: 500px;
+    min-height: 100px;
+    margin-bottom: 10px;
+}
+
+.playback-g6-5 {
+    position: absolute;
+    top: 450px;
+    left: calc(30% + 20px);
+    bottom: 0;
+    width: calc(70% - 540px);
+    min-height: 100px;
+    margin-bottom: 10px;
+}
+
+.playback-g6-5 .testing-content {
+    white-space: nowrap;
+}
+
+.dashboard-wrapper,
+.dashboard-wrapper>div {
+    height: 100%;
+}
+
+.dashboard-panel {
+    position: relative;
+}
+
+.dashboard-panel>div {
+    width: 100%;
+    height: 100%
+}
+
+.dashboard-0 {
+    position: relative;
+    height: 60%;
+}
+
+.dashboard-0-btns {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    display: inline-block;
+    height: initial !important;
+    width: initial !important;
+    z-index: 1;
+}
+
+.dashboard-0-btn {
+    display: inline-block;
+    border: 1px solid var(--panel);
+    padding: 5px 10px;
+    margin-right: 10px;
+    box-shadow: 0 0 5px var(--panel) inset;
+    cursor: pointer;
+}
+
+.dashboard-0-btn:hover,
+.dashboard-0-btn-active {
+    box-shadow: 0 0 20px var(--panel) inset;
+}
+
+.dashboard-1,
+.dashboard-2,
+.dashboard-3,
+.dashboard-4,
+.dashboard-5,
+.dashboard-6,
+.dashboard-7,
+.dashboard-8 {
+    height: 24.5%;
+}
+
+.dashboard-9 {
+    height: 10%;
+}
+
+.dashboard-10,
+.dashboard-11 {
+    display: inline-block;
+    width: 50%;
+    height: 29%;
+}

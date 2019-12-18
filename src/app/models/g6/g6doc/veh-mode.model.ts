@@ -1,0 +1,46 @@
+import { DocFileModel } from './doc-file.model';
+
+export class VehModeModel {
+    modelCn: string = null;
+    epaPublicInfoNum: string = null;
+    tboxModel: string = null;
+    chipModel: string = null;
+    engineType: string = null;
+    engineFuelType: number = null;
+    engineEmissionLevel: string = null;
+    ureaTankCapacity: number = null;
+    vehicleFirm: string = null;
+    factoryModel: string = null;
+    reductionRatio: number = null;
+    transmissionForwardNumber: number = null;
+    transmissionGearRatio: string = null;
+    modelCnDetail: string = null;
+    modelType: string = null;
+    productArea: string = null;
+    chassisModel: string = null;
+    chassisFirm: string = null;
+    maxAllowMass: number = null;
+    maxAllowAbleBearingMass: number = null;
+    maxSpeed: number = null;
+    minGroundClearance: number = null;
+    vehicleSlidingCoefficient: string = null;
+    axlesNumber: string = null;
+    wheelBase1: number = null;
+    wheelBase2: string = null;
+    bodyModel: string = null;
+    tireNumber: number = null;
+    tireManufacturer: string = null;
+    tireSpec: string = null;
+    tirePressure: number = null;
+    approachDepartureAngle: string = null;
+    transmissionName: string = null;
+    transmissionFirm: string = null;
+    transmissionType: string = null;
+    transmissionModel: string = null;
+    fuelTankCapacity: number = null;
+    allowedMaxPower: string = null;
+    abcSpeed: string = null;
+    tmsMonitorVersion: string = null;
+    driveType: string = null;
+    detectionReport: DocFileModel = new DocFileModel();
+}

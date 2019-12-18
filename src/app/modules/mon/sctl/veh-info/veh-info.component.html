@@ -1,0 +1,26 @@
+<div class="panel" *ngIf="data" [hidden]="hidden">
+    <div class="head">
+        <i nz-icon nzType="close" nzTheme="outline" class="iov-close" (click)="onclose()" style="margin-left: 5px" title="关闭"></i>
+        <a *ngIf="data.survey" href="/uimon/#/tracker?vid={{data.survey.vid}}&vin={{data.survey.vin}}&vno={{data.survey.vehNo}}" target="_blank" title="查询轨迹">
+            <i nz-icon nzType="deployment-unit" nzTheme="outline" class="iov-close" style="color: white;margin-left: 5px"></i></a>
+        <app-label-text *ngIf="data.survey" label="车牌号码" value="{{data.survey.vehNo}}"></app-label-text>
+        <app-label-text *ngIf="data.survey" label="VIN码" value="{{data.survey.vin}}"></app-label-text>
+    </div>
+    <nz-divider nzOrientation="left" [nzDashed]="true" class="divider"></nz-divider>
+    <div class="body">
+        <nz-tabset>
+            <nz-tab nzTitle="概况">
+                <app-survey [data]="data.survey"></app-survey>
+            </nz-tab>
+            <nz-tab nzTitle="OBD" *ngIf="plat==2">
+                <app-rt-obd [data]="data.obd" (dtcClick)="ondtcclick($event)"></app-rt-obd>
+            </nz-tab>
+            <nz-tab nzTitle="OBD-iupr" *ngIf="plat==2">
+                <app-rt-obd-iupr [data]="data.obd"></app-rt-obd-iupr>
+            </nz-tab>
+            <nz-tab nzTitle="发动机" *ngIf="plat==2">
+                <app-rt-engine [data]="data.engine"></app-rt-engine>
+            </nz-tab>
+        </nz-tabset>
+    </div>
+</div>

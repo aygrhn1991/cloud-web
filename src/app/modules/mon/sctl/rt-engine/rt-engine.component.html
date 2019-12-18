@@ -1,0 +1,29 @@
+<app-card [ngStyle]="mstyle" *ngIf="data">
+    <header>
+        发动机实时数据
+    </header>
+
+    <content>
+        <app-label-text [lbSize]="lbsize" label="车速(km/h)" [value]="data.vehicleSpeed |valid:2:1"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="大气压力(kPa)" [value]="data.atmosphericPressure|valid:1:1"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="净输出扭矩(%)" [value]="data.engineNetoutputTorque|valid:1:0"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="摩擦扭矩(%)" [value]="data.frictionTorque|valid:1:0"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="转速(rpm)" [value]="data.engineSpeed|valid:2:1"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="燃料流量(L/h)" [value]="data.engineFuelFlow|valid:2:1"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="上游NOx输出值(ppm)" [value]="data.scrupValue|valid:2:1"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="下游NOx输出值(ppm)" [value]="data.scrdownValue|valid:2:1"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="反应剂余量(%)" [value]="data.reactantAllowance|valid:1:1"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="进气量(kg/h)" [value]="data.airInflow|valid:2:1"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="SCR入口温度(deg C)" [value]="data.scrinTemperature|valid:2:1"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="SCR出口温度(deg C)" [value]="data.scrdownValue|valid:2:1"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="DPF压差(kPa)" [value]="data.dpfpressureDifferenc|valid:2:1"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="冷却液温度(deg C)" [value]="data.ect|valid:1:1"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="邮箱液位(%)" [value]="data.tankLevel|valid:1:1"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="定位状态" [value]="data.positioningState|engLocate"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="累计里程(km)" [value]="data.mileage|valid:4:1"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="地理位置" [value]="(data.longitude|valid:4:6)+','+(data.latitude|valid:4:1)"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="更新时间" [value]="data.attm| date: 'yyyy-MM-dd HH:mm:ss'"></app-label-text>
+
+
+    </content>
+</app-card>

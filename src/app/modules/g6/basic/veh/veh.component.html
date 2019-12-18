@@ -1,0 +1,282 @@
+<form nz-form class="searchbar">
+    <nz-form-item>
+        <nz-form-label nzSpan="2">VIN</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <app-vin [(vin)]="searchModel.vin" [(vid)]="searchModel.vid"></app-vin>
+        </nz-form-control>
+
+        <nz-form-label nzSpan="2">车牌号码</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <input nz-input [(ngModel)]="searchModel.vehNo" name="searchModel.vehNo" />
+        </nz-form-control>
+
+        <nz-form-label nzSpan="2">行政区划</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <app-xzqh [(value)]="searchModel.xzqh"></app-xzqh>
+        </nz-form-control>
+
+        <nz-form-label nzSpan="2">能源类型</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <nz-select [(ngModel)]="searchModel.power" name="searchModel.power">
+                <nz-option *ngFor="let option of powerOptions" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item [hidden]="!showSearchMore">
+        <nz-form-label nzSpan="2">车辆型号</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <input nz-input [(ngModel)]="searchModel.vehMode" name="searchModel.vehMode" />
+        </nz-form-control>
+
+        <nz-form-label nzSpan="2">SIM卡号</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <input nz-input [(ngModel)]="searchModel.simCode" name="searchModel.simCode" />
+        </nz-form-control>
+
+        <nz-form-label nzSpan="2">终端编号</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <input nz-input [(ngModel)]="searchModel.dtuCode" name="searchModel.dtuCode" />
+        </nz-form-control>
+
+        <nz-form-label nzSpan="2">发动机编号</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <input nz-input [(ngModel)]="searchModel.engCode" name="searchModel.engCode" />
+        </nz-form-control>
+
+        <nz-form-label nzSpan="2">注册日期(起)</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <nz-date-picker nzAllowClear="false" [(ngModel)]="searchModel.dateStart" name="searchModel.dateStart"></nz-date-picker>
+        </nz-form-control>
+
+        <nz-form-label nzSpan="2">注册日期(止)</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <nz-date-picker nzAllowClear="false" [(ngModel)]="searchModel.dateEnd" name="searchModel.dateEnd"></nz-date-picker>
+        </nz-form-control>
+    </nz-form-item>
+    <div class="searchbar-more">
+        <span (click)="showSearchMore=!showSearchMore">高级搜索<i nz-icon [nzType]="showSearchMore?'up':'down'"></i></span>
+    </div>
+</form>
+<div class="toolbar">
+    <div class="toolbar-left">
+        <button nz-button (click)="showModalAdd(true)"><i nz-icon nzType="plus-circle" nzTheme="twotone" nzTwotoneColor="green"></i>添加</button>
+        <button nz-button (click)="showModalEdit()"><i nz-icon nzType="edit" nzTheme="twotone" nzTwotoneColor="blue"></i>修改</button>
+        <button nz-button (click)="delete()"><i nz-icon nzType="delete" nzTheme="twotone" nzTwotoneColor="red"></i>删除</button>
+        <button nz-button nz-dropdown [nzDropdownMenu]="menu1"><i nz-icon nzType="api" nzTheme="twotone" nzTwotoneColor="orange"></i>导入/导出</button>
+        <nz-dropdown-menu #menu1>
+            <ul nz-menu>
+                <li nz-menu-item (click)="exportVeh()">导出</li>
+                <li nz-menu-item (click)="showModalImport()">导入</li>
+                <li nz-menu-item (click)="importVehTemplateDownload()">导入模板下载</li>
+            </ul>
+        </nz-dropdown-menu>
+        <button nz-button nz-dropdown [nzDropdownMenu]="menu2"><i nz-icon nzType="thunderbolt" nzTheme="twotone" nzTwotoneColor="yellow"></i>快捷操作</button>
+        <nz-dropdown-menu #menu2>
+            <ul nz-menu>
+                <li nz-menu-item (click)="showModalAdd(false)">一键加车</li>
+                <li nz-menu-item (click)="showModalImport()">快速导入</li>
+                <li nz-menu-item (click)="importVehSimpleTemplateDownload()">快速导入模板下载</li>
+            </ul>
+        </nz-dropdown-menu>
+    </div>
+    <div class="toolbar-right">
+        <button nz-button (click)="getData(true)"><i nz-icon nzType="filter" nzTheme="twotone" nzTwotoneColor="green"></i>查找</button>
+        <button nz-button (click)="reset()"><i nz-icon nzType="interaction" nzTheme="twotone" nzTwotoneColor="blue"></i>清空</button>
+    </div>
+</div>
+<nz-table #dataTable [nzData]="dataList" [(nzTotal)]="searchModel.total" nzFrontPagination="false" nzShowSizeChanger="true" [nzShowTotal]="rangeTemplate" [nzLoading]="loading" [(nzPageIndex)]="searchModel.pageNum" [(nzPageSize)]="searchModel.pageSize"
+    (nzPageIndexChange)="getData()" (nzPageSizeChange)="getData(true)" [nzScroll]="{x:'2200px',y:'350px'}">
+    <thead>
+        <tr>
+            <th nzWidth="200px" nzLeft="0px">VIN</th>
+            <th nzWidth="200px">车牌号码</th>
+            <th nzWidth="200px">车牌颜色</th>
+            <th nzWidth="200px">行政区划</th>
+            <th nzWidth="200px">能源类型</th>
+            <th nzWidth="200px">车辆型号</th>
+            <th nzWidth="200px">SIM卡号</th>
+            <th nzWidth="200px">终端编号</th>
+            <th nzWidth="200px">发动机编号</th>
+            <th nzWidth="200px">备注</th>
+            <th nzWidth="200px" nzRight="0px">添加时间</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of dataTable.data" (click)="choose(data)" class="{{data.vid==editModel.vid?'active':''}}">
+            <td nzLeft="0px">{{data.vin}}</td>
+            <td>{{data.vehNo}}</td>
+            <td>{{data.vehNoColor|vehColor}}</td>
+            <td>{{data.xzqh|xzqh2}}</td>
+            <td>{{data.power|vehPower}}</td>
+            <td>{{data.vehMode}}</td>
+            <td>{{data.simCode}}</td>
+            <td>{{data.dtuCode}}</td>
+            <td>{{data.engCode}}</td>
+            <td>{{data.remark}}</td>
+            <td nzRight="0px">{{data.createTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        </tr>
+    </tbody>
+</nz-table>
+<ng-template #rangeTemplate let-range="range" let-total>
+    第{{range[0]}}-{{range[1]}}条 共{{total}}条
+</ng-template>
+
+<nz-modal [(nzVisible)]="isVisibleAdd" nzTitle="添加" (nzOnCancel)="isVisibleAdd=false" [nzFooter]="modalFooterAdd">
+    <form nz-form>
+        <nz-divider nzText="必填项" nzOrientation="left" *ngIf="showAddMore"></nz-divider>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="5">VIN</nz-form-label>
+            <nz-form-control [nzSpan]="12">
+                <input nz-input [(ngModel)]="addModel.vin" name="addModel.vin">
+            </nz-form-control>
+        </nz-form-item>
+        <div *ngIf="showAddMore">
+            <nz-divider nzText="选填项" nzOrientation="left"></nz-divider>
+            <nz-form-item>
+                <nz-form-label [nzSpan]="5">车牌号码</nz-form-label>
+                <nz-form-control [nzSpan]="7">
+                    <input nz-input [(ngModel)]="addModel.vehNo" name="addModel.vehNo">
+                </nz-form-control>
+
+                <nz-form-label [nzSpan]="5">车牌颜色</nz-form-label>
+                <nz-form-control [nzSpan]="7">
+                    <nz-select nzSize="small" [(ngModel)]="addModel.vehNoColor" name="addModel.vehNoColor">
+                        <nz-option *ngFor="let option of colorOptions" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+
+                <nz-form-label [nzSpan]="5">使用区域</nz-form-label>
+                <nz-form-control [nzSpan]="7">
+                    <app-xzqh [(value)]="addModel.xzqh"></app-xzqh>
+                </nz-form-control>
+
+                <nz-form-label [nzSpan]="5">能源类型</nz-form-label>
+                <nz-form-control [nzSpan]="7">
+                    <nz-select nzSize="small" [(ngModel)]="addModel.power" name="addModel.power">
+                        <nz-option *ngFor="let option of powerOptions" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+
+                <nz-form-label [nzSpan]="5">车辆型号</nz-form-label>
+                <nz-form-control [nzSpan]="7">
+                    <input nz-input [(ngModel)]="addModel.vehMode" name="addModel.vehMode">
+                </nz-form-control>
+
+                <nz-form-label [nzSpan]="5">SIM卡号</nz-form-label>
+                <nz-form-control [nzSpan]="7">
+                    <input nz-input [(ngModel)]="addModel.simCode" name="addModel.simCode">
+                </nz-form-control>
+
+                <nz-form-label [nzSpan]="5">终端编号</nz-form-label>
+                <nz-form-control [nzSpan]="7">
+                    <input nz-input [(ngModel)]="addModel.dtuCode" name="addModel.dtuCode">
+                </nz-form-control>
+
+                <nz-form-label [nzSpan]="5">发动机型号</nz-form-label>
+                <nz-form-control [nzSpan]="7">
+                    <input nz-input [(ngModel)]="addModel.engCode" name="addModel.engCode">
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSpan]="5">备注说明</nz-form-label>
+                <nz-form-control [nzSpan]="19">
+                    <textarea nz-input [(ngModel)]="addModel.remark" name="addModel.remark"></textarea>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </form>
+    <ng-template #modalFooterAdd>
+        <button nz-button (click)="isVisibleAdd=false"><i nz-icon nzType="close-circle" nzTheme="twotone" nzTwotoneColor="blue"></i>取消</button>
+        <button nz-button (click)="handleOkAdd()"><i nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="green"></i>保存</button>
+    </ng-template>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isVisibleEdit" nzTitle="修改" (nzOnCancel)="isVisibleEdit=false;getData()" [nzFooter]="modalFooterEdit">
+    <form nz-form>
+        <nz-divider nzText="必填项" nzOrientation="left"></nz-divider>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="5">VIN</nz-form-label>
+            <nz-form-control [nzSpan]="12">{{editModel.vin}}</nz-form-control>
+        </nz-form-item>
+        <nz-divider nzText="选填项" nzOrientation="left"></nz-divider>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="5">车牌号码</nz-form-label>
+            <nz-form-control [nzSpan]="7">
+                <input nz-input [(ngModel)]="editModel.vehNo" name="editModel.vehNo">
+            </nz-form-control>
+
+            <nz-form-label [nzSpan]="5">车牌颜色</nz-form-label>
+            <nz-form-control [nzSpan]="7">
+                <nz-select nzSize="small" [(ngModel)]="editModel.vehNoColor" name="editModel.vehNoColor">
+                    <nz-option *ngFor="let option of colorOptions" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
+                </nz-select>
+            </nz-form-control>
+
+            <nz-form-label [nzSpan]="5">使用区域</nz-form-label>
+            <nz-form-control [nzSpan]="7">
+                <app-xzqh [(value)]="editModel.xzqh"></app-xzqh>
+            </nz-form-control>
+
+            <nz-form-label [nzSpan]="5">能源类型</nz-form-label>
+            <nz-form-control [nzSpan]="7">
+                <nz-select nzSize="small" [(ngModel)]="editModel.power" name="editModel.power">
+                    <nz-option *ngFor="let option of powerOptions" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
+                </nz-select>
+            </nz-form-control>
+
+            <nz-form-label [nzSpan]="5">车辆型号</nz-form-label>
+            <nz-form-control [nzSpan]="7">
+                <input nz-input [(ngModel)]="editModel.vehMode" name="editModel.vehMode">
+            </nz-form-control>
+
+            <nz-form-label [nzSpan]="5">SIM卡号</nz-form-label>
+            <nz-form-control [nzSpan]="7">
+                <input nz-input [(ngModel)]="editModel.simCode" name="editModel.simCode">
+            </nz-form-control>
+
+            <nz-form-label [nzSpan]="5">终端编号</nz-form-label>
+            <nz-form-control [nzSpan]="7">
+                <input nz-input [(ngModel)]="editModel.dtuCode" name="editModel.dtuCode">
+            </nz-form-control>
+
+            <nz-form-label [nzSpan]="5">发动机型号</nz-form-label>
+            <nz-form-control [nzSpan]="7">
+                <input nz-input [(ngModel)]="editModel.engCode" name="editModel.engCode">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="5">备注说明</nz-form-label>
+            <nz-form-control [nzSpan]="19">
+                <textarea nz-input [(ngModel)]="editModel.remark" name="editModel.remark"></textarea>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+    <ng-template #modalFooterEdit>
+        <button nz-button (click)="isVisibleEdit=false;getData()"><i nz-icon nzType="close-circle" nzTheme="twotone" nzTwotoneColor="blue"></i>取消</button>
+        <button nz-button (click)="handleOkEdit()"><i nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="green"></i>保存</button>
+    </ng-template>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isVisibleImport" nzTitle="导入" (nzOnCancel)="isVisibleImport=false" [nzFooter]="modalFooterImport">
+    <form nz-form>
+        <nz-form-item>
+            <nz-form-control [nzSpan]="24">
+                <nz-upload [nzAction]="importFilePath" [nzBeforeUpload]="beforeUpload" [nzFileList]="fileList" (nzChange)="nzChange($event)">
+                    <button nz-button><i nz-icon nzType="folder" nzTheme="twotone" nzTwotoneColor="yellow"></i>选择文件</button>
+                </nz-upload>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-divider nzText="校验结果" nzOrientation="left"></nz-divider>
+        <p>{{uploadResult}}</p>
+        <div style="max-height:300px;overflow-y:auto">
+            <ul>
+                <li *ngFor="let i of repeatData">{{i}}</li>
+            </ul>
+        </div>
+    </form>
+    <ng-template #modalFooterImport>
+        <button nz-button (click)="isVisibleImport=false"><i nz-icon nzType="close-circle" nzTheme="twotone" nzTwotoneColor="blue"></i>取消</button>
+        <button nz-button (click)="importVeh()"><i nz-icon nzType="up-circle" nzTheme="twotone" nzTwotoneColor="green"></i>导入</button>
+    </ng-template>
+</nz-modal>

@@ -1,0 +1,23 @@
+<div nz-row>
+    <div nz-col nzSpan="6">
+        <app-schveh (vidsChanged)="onVidsChanged($event)"></app-schveh>
+    </div>
+    <div nz-col nzSpan="18">
+        <div class="c">
+
+            <nz-radio-group [(ngModel)]="cmdType" class="b">
+                <label nz-radio-button nzValue="1">TBOX终端参数配置</label>
+                <label nz-radio-button nzValue="2">TBOX终端远程控制</label>
+                <label nz-radio-button nzValue="3">zonar参数配置</label>
+                <label nz-radio-button nzValue="4"> 预见性巡航</label>
+                <label nz-radio-button nzValue="5"> 远程诊断</label>
+            </nz-radio-group>
+            <app-tbox-dtu-config [vids]="vids" [hidden]="cmdType!=1"></app-tbox-dtu-config>
+            <app-tbox-remote-ctrl [vids]="vids" [hidden]="cmdType!=2"></app-tbox-remote-ctrl>
+            <app-zonar-config [vids]="vids" [hidden]="cmdType!=3"></app-zonar-config>
+            <app-cruise-licence [vids]="vids" [hidden]="cmdType!=4"></app-cruise-licence>
+            <app-tbox-remote-diag [vids]="vids" [hidden]="cmdType!=5"></app-tbox-remote-diag>
+
+        </div>
+    </div>
+</div>

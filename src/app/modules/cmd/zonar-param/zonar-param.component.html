@@ -1,0 +1,25 @@
+<div class="row" [title]="title">
+
+    <label nz-checkbox [(ngModel)]="checked" (ngModelChange)="onCheckedChanged($event)">{{id}}</label>
+
+    <div [hidden]="!checked" class="item">
+        <label nz-checkbox [(ngModel)]="b0" (ngModelChange)="b0click()">不上报</label>
+        <label nz-checkbox [(ngModel)]="b1" (ngModelChange)="b1_4click($event)">事件触发上报</label>
+        <nz-input-group nzCompact class="item">
+            <label nz-checkbox [(ngModel)]="b2" (ngModelChange)="b2click()"> 定时上报</label>
+            <nz-input-number [(ngModel)]="val2" [nzFormatter]="fmtSec" [nzParser]="ParserSec" style="width: 70px" (ngModelChange)="calcVal()"></nz-input-number>
+        </nz-input-group>
+        <nz-input-group nzCompact class="item">
+            <label nz-checkbox [(ngModel)]="b3" (ngModelChange)="b3click()">变周期上报</label>
+            <nz-input-number [(ngModel)]="val3_1" [nzFormatter]="fmtSec" [nzParser]="ParserSec" style="width: 70px" (ngModelChange)="calcVal()"></nz-input-number>
+            <nz-input-number [(ngModel)]="val3_2" [nzFormatter]="fmtSec" [nzParser]="ParserSec" style="width: 70px" (ngModelChange)="calcVal()"></nz-input-number>
+            <nz-input-number [(ngModel)]="val3_3" [nzFormatter]="fmtSec" [nzParser]="ParserSec" style="width: 70px" (ngModelChange)="calcVal()"></nz-input-number>
+            <nz-input-number [(ngModel)]="val3_4" [nzFormatter]="fmtSec" [nzParser]="ParserSec" style="width: 70px" (ngModelChange)="calcVal()"></nz-input-number>
+        </nz-input-group>
+        <nz-input-group nzCompact class="item">
+            <label nz-checkbox [(ngModel)]="b4" (ngModelChange)="b1_4click($event)">IGOFF/网络休眠后定时上报</label>
+            <nz-input-number [(ngModel)]="val4_1" [nzFormatter]="fmtMin" [nzParser]="ParserMin" style="width: 70px" (ngModelChange)="calcVal()"></nz-input-number>
+            <nz-input-number [(ngModel)]="val4_2" [nzFormatter]="fmtSec" [nzParser]="ParserSec" style="width: 70px" (ngModelChange)="calcVal()"></nz-input-number>
+        </nz-input-group>
+    </div>
+</div>

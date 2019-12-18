@@ -1,0 +1,11 @@
+<div>
+    <button nz-button nzType="primary" (click)="sendCmd()">发送</button>
+    <!-- <button nz-button nzType="primary" (click)="selectAll()">全选</button>
+    <button nz-button nzType="primary" (click)="cancelAll()">取消选择</button> -->
+</div>
+<div style="max-height: 600px;overflow-y: auto">
+    <app-zonar-param1 [(checked)]="param1.checked" [id]="param1.id|cmdId" [title]="param1.title" [(val)]="param1.val"></app-zonar-param1>
+    <ng-container *ngFor="let item of config">
+        <app-zonar-param [(checked)]="item.checked" [id]="item.id|cmdId" [title]="item.title" [(val)]="item.val"></app-zonar-param>
+    </ng-container>
+</div>

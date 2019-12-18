@@ -1,0 +1,66 @@
+<div id="allmap"></div>
+
+<div class="lay_left">
+    <nz-spin [nzSpinning]="isLoading" [nzDelay]="500">
+        <div class="sch_panel" nz-row>
+            <div nz-col nzSpan="6">VIN码</div>
+            <div nz-col nzSpan="18">{{vin}}</div>
+            <div nz-col nzSpan="6">号牌号码</div>
+            <div nz-col nzSpan="18">{{vno}}</div>
+            <div nz-col nzSpan="6">开始时间</div>
+            <div nz-col nzSpan="18">
+                <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" nzPlaceHolder="Select Time" [ngModel]="v_dtb" nzAllowClear="false" (ngModelChange)="dtbOk($event)"></nz-date-picker>
+            </div>
+
+            <div nz-col nzSpan="6">结束时间</div>
+            <div nz-col nzSpan="18">
+                <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" nzPlaceHolder="Select Time" [ngModel]="v_dte" [nzAllowClear]="false" (ngModelChange)="dteOk($event)"></nz-date-picker>
+            </div>
+            <div nz-col nzSpan="24" style="text-align: center">
+                <button nz-button nzType="primary" (click)="searchTracker()"><i nz-icon type="search"></i>查询</button>
+            </div>
+
+        </div>
+    </nz-spin>
+</div>
+
+<div class="lay_bottom">
+    <div class="ctrl_panel" nz-row>
+        <div nz-col nzSpan="2">
+            <!--播放/暂停按钮-->
+            <nz-tag style="line-height: 36px;" (click)="togglePlay()">
+                <i *ngIf="!playFlag" nz-icon type="play-circle" theme="twotone"></i>
+                <i *ngIf="playFlag" nz-icon type="pause-circle" theme="twotone"></i>
+            </nz-tag>
+
+        </div>
+        <div nz-col nzSpan="15">
+            <!--播放进度条-->
+            <nz-slider [(ngModel)]="index" nzMin="0" [nzMax]="totalCount" [nzDisabled]="true"></nz-slider>
+        </div>
+
+        <div nz-col nzSpan="7">
+            <!--播放速度控制按钮-->
+            <nz-radio-group [(ngModel)]="playSpd" [nzButtonStyle]="'solid'" nzSize="small" style="line-height: 36px;" (click)="setPlaySpeed()">
+                <label nz-radio-button nzValue="1">1X</label>
+                <label nz-radio-button nzValue="2">2X</label>
+                <label nz-radio-button nzValue="4">4X</label>
+            </nz-radio-group>
+        </div>
+
+    </div>
+    <div class="desc_panel">
+        <div>
+            <span>共{{totalCount}}条</span>
+            <span>里程：{{drvInfo.mil|number:'0.1-1'}}(km)</span>
+            <span>用时：{{drvInfo.tm|tmlZh}}</span>
+            <span>平均车速：{{drvInfo.avgspd|number:'0.1-1'}}(km/h)</span>
+            <span>驾驶速度：{{drvInfo.avgDrvSpd|number:'0.1-1'}}(km/h)</span>
+        </div>
+        <div *ngIf="curVeh">
+            <span>{{curVeh.dtuDt| date: 'yyyy-MM-dd HH:mm:ss'}}</span>
+            <span>{{curVeh.spd|number:'0.1-1'}} km/h</span>
+            <span>{{curVeh.addr}}</span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,792 @@
+<form nz-form class="searchbar">
+    <nz-form-item>
+        <nz-form-label nzSpan="2">账号</nz-form-label>
+        <nz-form-control nzSpan="2">
+            <input nz-input [(ngModel)]="username" name="username" />
+        </nz-form-control>
+
+        <nz-form-label nzSpan="2">密码</nz-form-label>
+        <nz-form-control nzSpan="2">
+            <input nz-input type="password" [(ngModel)]="password" name="password" />
+        </nz-form-control>
+
+        <nz-form-control nzSpan="3" nzOffset="1">
+            <button nz-button (click)="login()"><i nz-icon nzType="alert" nzTheme="twotone" nzTwotoneColor="green"></i>平台登录</button>
+        </nz-form-control>
+
+        <nz-form-label nzSpan="2">登录状态</nz-form-label>
+        <nz-form-control nzSpan="2">{{loginState?'已登录':'未登录'}}</nz-form-control>
+
+        <nz-form-control nzSpan="3">
+            <button nz-button (click)="showModalAdd()"><i nz-icon nzType="container" nzTheme="twotone" nzTwotoneColor="green"></i>发动机型号备案</button>
+        </nz-form-control>
+    </nz-form-item>
+</form>
+<nz-table #dataTable [nzData]="dataList" nzFrontPagination="true" nzShowSizeChanger="true" [nzShowTotal]="rangeTemplate" [nzLoading]="loading" [nzScroll]="{x:'100%',y:'350px'}">
+    <thead>
+        <tr>
+            <th nzWidth="100px">ID</th>
+            <th>发动机型号</th>
+            <th nzWidth="200px">添加时间</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of dataTable.data">
+            <td>{{data.id}}</td>
+            <td>{{data.engineModel}}</td>
+            <td>{{data.sys_time|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        </tr>
+    </tbody>
+</nz-table>
+<ng-template #rangeTemplate let-range="range" let-total>
+    第{{range[0]}}-{{range[1]}}条 共{{total}}条
+</ng-template>
+
+<nz-modal [(nzVisible)]="isVisibleAdd" nzTitle="发动机型号备案" (nzOnCancel)="isVisibleAdd=false" [nzFooter]="modalFooterAdd">
+    <form nz-form class="modal-scroll">
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">发动机生产企业统一社会信用代码</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineFirmId" name="addModel.engineFirmId">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">发动机生产企业名称</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineFirmName" name="addModel.engineFirmName">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">发动机系族名称</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineFamilyName" name="addModel.engineFamilyName">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>发动机型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineModel" name="addModel.engineModel">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">发动机类别</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineType" name="addModel.engineType">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">排放水平</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <nz-select [(ngModel)]="addModel.emissionLevel" name="addModel.emissionLevel">
+                    <nz-option nzValue="0" nzLabel="全部"></nz-option>
+                    <nz-option nzValue="1" nzLabel="国六"></nz-option>
+                    <nz-option nzValue="2" nzLabel="国五"></nz-option>
+                    <nz-option nzValue="3" nzLabel="国四"></nz-option>
+                    <nz-option nzValue="4" nzLabel="国三"></nz-option>
+                    <nz-option nzValue="5" nzLabel="国二"></nz-option>
+                    <nz-option nzValue="6" nzLabel="排气后处理系统改装车辆"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">环保信息公开编号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.epaPublicInfoNum" name="addModel.epaPublicInfoNum">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">发动机排量（L）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineSweptVolume" name="addModel.engineSweptVolume">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">气缸排列型式</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineCylinderArrangement" name="addModel.engineCylinderArrangement">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">最大功率/转速（kW/r/min）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineMaxPowerSpeed" name="addModel.engineMaxPowerSpeed">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">最大扭矩/转速（Nm/r/min）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineMaxTorqueSpeed" name="addModel.engineMaxTorqueSpeed">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">排气后处理系统形式</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <nz-select [(ngModel)]="addModel.pcdExhaustType" name="addModel.pcdExhaustType">
+                    <nz-option nzValue="0" nzLabel="未知"></nz-option>
+                    <nz-option nzValue="1" nzLabel="deNOx"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">ETC循环功</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.etcCycleWork" name="addModel.etcCycleWork">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">WTHC循环功</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.wthcCycleWork" name="addModel.wthcCycleWork">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">参考扭矩</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineTorque" name="addModel.engineTorque">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">软件标定识别号（CALID）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineCalidSoftwareSn" name="addModel.engineCalidSoftwareSn">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">标定验证码（CVN）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineCVNCalibrationCode" name="addModel.engineCVNCalibrationCode">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">发动机额定功率</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineRatedPower" name="addModel.engineRatedPower">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">发动机布置方式</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineArrangement" name="addModel.engineArrangement">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">是否有副发动机</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <nz-select [(ngModel)]="addModel.engineAuxiliaryEngine" name="addModel.engineAuxiliaryEngine">
+                    <nz-option nzValue="0" nzLabel="无"></nz-option>
+                    <nz-option nzValue="1" nzLabel="有"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">副发动机排放标准</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineAuxiliaryEmission" name="addModel.engineAuxiliaryEmission">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">副发动机生产企业</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineAuxiliaryFirm" name="addModel.engineAuxiliaryFirm">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">副发动机燃料类型（同车型接口燃料类型）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <nz-select [(ngModel)]="addModel.engineAuxiliaryFuelType" name="addModel.engineAuxiliaryFuelType">
+                    <nz-option nzValue="1" nzLabel="汽油"></nz-option>
+                    <nz-option nzValue="2" nzLabel="柴油"></nz-option>
+                    <nz-option nzValue="3" nzLabel="混合油"></nz-option>
+                    <nz-option nzValue="4" nzLabel="液化石油气"></nz-option>
+                    <nz-option nzValue="5" nzLabel="天然气"></nz-option>
+                    <nz-option nzValue="6" nzLabel="甲醇"></nz-option>
+                    <nz-option nzValue="7" nzLabel="乙醇"></nz-option>
+                    <nz-option nzValue="8" nzLabel="太阳能"></nz-option>
+                    <nz-option nzValue="9" nzLabel="电"></nz-option>
+                    <nz-option nzValue="10" nzLabel="生物燃料"></nz-option>
+                    <nz-option nzValue="11" nzLabel="氢"></nz-option>
+                    <nz-option nzValue="12" nzLabel="其它"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">燃烧室结构</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineCombustionChamber" name="addModel.engineCombustionChamber">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">容积压缩比</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineCompressionRatio" name="addModel.engineCompressionRatio">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">冷却方式</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineCoolingMethod" name="addModel.engineCoolingMethod">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">缸数-缸径×行程（mm）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineCylinderBoreStroke" name="addModel.engineCylinderBoreStroke">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">发动机缸心距（mm）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineCylinderPitch" name="addModel.engineCylinderPitch">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">缸体构造</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineCylinderStructure" name="addModel.engineCylinderStructure">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">ECU电控单元生产厂</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineECUHardwareFirm" name="addModel.engineECUHardwareFirm">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">ECU电控单元（硬件）型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineECUHardwareModel" name="addModel.engineECUHardwareModel">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">ECU软体生产厂</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineECUSoftwareFirm" name="addModel.engineECUSoftwareFirm">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">ECU软体型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineECUSoftwareModel" name="addModel.engineECUSoftwareModel">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">EGR生产厂</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineEGRFirm" name="addModel.engineEGRFirm">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">EGR型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineEGRModel" name="addModel.engineEGRModel">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">排气背压（kPa）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineExhaustBackPressure" name="addModel.engineExhaustBackPressure">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">燃料及硫含量（10-6）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineFuelSulfur" name="addModel.engineFuelSulfur">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">供油系统形式</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineFuelSupplyForm" name="addModel.engineFuelSupplyForm">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">调速器生产厂</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineGovernorFirm" name="addModel.engineGovernorFirm">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">调速器型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineGovernorModel" name="addModel.engineGovernorModel">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">怠速转速（r/min）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineIdleSpeed" name="addModel.engineIdleSpeed">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">发动机点火方式</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineIgnitionMode" name="addModel.engineIgnitionMode">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">喷油器生产厂</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineInjectionFirm" name="addModel.engineInjectionFirm">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">喷油器型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineInjectionModel" name="addModel.engineInjectionModel">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">喷油泵生产厂</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineInjectionPumpFirm" name="addModel.engineInjectionPumpFirm">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">喷油泵型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineInjectionPumpModel" name="addModel.engineInjectionPumpModel">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">喷油器喷射压力（MPa）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineInjectorPressure" name="addModel.engineInjectorPressure">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">进气方式</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineInletMode" name="addModel.engineInletMode">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">进气阻力(kPa)</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineIntakeResistance" name="addModel.engineIntakeResistance">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">中冷器生产厂</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineIntercoolerModelFirm" name="addModel.engineIntercoolerModelFirm">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">中冷器型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineIntercoolerModel" name="addModel.engineIntercoolerModel">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">中冷器形式</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineIntercoolerType" name="addModel.engineIntercoolerType">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">中冷器最高出口温度（℃）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineIntercoolerOutTem" name="addModel.engineIntercoolerOutTem">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">最高空车转速（r/min）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineMaxEmptySpeed" name="addModel.engineMaxEmptySpeed">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">最大净功率/转速</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.maximumNetPower" name="addModel.maximumNetPower">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">额定功率转速时每冲程燃料供给量（ml）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineRatedFuelSupply" name="addModel.engineRatedFuelSupply">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">单缸进/排气阀数（两个数值以/分割）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineSingleValveNum" name="addModel.engineSingleValveNum">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">最大扭矩转速时每冲程燃料供给量（ml）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineStrokeFuelSupply" name="addModel.engineStrokeFuelSupply">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">增压器生产厂</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineTurboChargerFirm" name="addModel.engineTurboChargerFirm">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">增压器型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineTurboChargerModel" name="addModel.engineTurboChargerModel">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">颗粒捕集器型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdParticulateModel" name="addModel.pcdParticulateModel">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">颗粒捕集器安装位置</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdParticulatePosition" name="addModel.pcdParticulatePosition">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">颗粒物捕集器结构</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdParticulateStructure" name="addModel.pcdParticulateStructure">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">颗粒物捕集器型式</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdParticulateType" name="addModel.pcdParticulateType">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">颗粒物捕集器容积（ml）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdParticulateVolume" name="addModel.pcdParticulateVolume">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">后处理控制器生产厂</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdPostProcessingFirm" name="addModel.pcdPostProcessingFirm">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">后处理控制器型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdPostProcessingModel" name="addModel.pcdPostProcessingModel">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">反应剂正常工作温度范围（K）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdReactantTemperature" name="addModel.pcdReactantTemperature">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">反应剂类型和浓度</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdReactantType" name="addModel.pcdReactantType">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">再生的温度（K）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdRegenerationTemperature" name="addModel.pcdRegenerationTemperature">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">再生的压力范围（kPa）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdRegeneration" name="addModel.pcdRegeneration">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">尿素可用里程理论值</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdUreaMileage" name="addModel.pcdUreaMileage">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">尿素可用里程实际值</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdUreaMileageReal" name="addModel.pcdUreaMileageReal">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">尿素消耗比例理论值</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdUreaValue" name="addModel.pcdUreaValue">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">尿素消耗比例实际值</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdUreaValueReal" name="addModel.pcdUreaValueReal">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">空滤器生产企业</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdAirFilterFirm" name="addModel.pcdAirFilterFirm">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">空滤器型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdAirFilterModel" name="addModel.pcdAirFilterModel">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">空气喷射系统型式</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdAirInjectionType" name="addModel.pcdAirInjectionType">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">载体孔密度</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdCarrierDensity" name="addModel.pcdCarrierDensity">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">载体生产厂</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdCarrierFirm" name="addModel.pcdCarrierFirm">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">载体材料及结构</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdCarrierMaterial" name="addModel.pcdCarrierMaterial">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">催化转化器生产厂</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdCatalyticFirm" name="addModel.pcdCatalyticFirm">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">催化器载体材料</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdCatalyticFormMaterial" name="addModel.pcdCatalyticFormMaterial">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">催化转化器作用形式</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdCatalyticForm" name="addModel.pcdCatalyticForm">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">催化转化器型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdCatalyticModel" name="addModel.pcdCatalyticModel">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">催化转化器装车数量</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdCatalyticNum" name="addModel.pcdCatalyticNum">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">催化转化器正常温度范围（K）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdCatalyticTemperature" name="addModel.pcdCatalyticTemperature">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">贵金属（催化剂）种类、总含量（g）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdCatalyticType" name="addModel.pcdCatalyticType">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">催化单元数目</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdCatalyticUnitsNum" name="addModel.pcdCatalyticUnitsNum">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">催化转化器容积（ml）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdCatalyticVolume" name="addModel.pcdCatalyticVolume">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">再生系统2次再生之间的ETC循环次数</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdETCCyclesNum" name="addModel.pcdETCCyclesNum">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">后处理进气口据发动机排气口距离</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdExhaustPortDistance" name="addModel.pcdExhaustPortDistance">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">保温材料</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdHeatInsulator" name="addModel.pcdHeatInsulator">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">是否与发动机认证一致</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <nz-select [(ngModel)]="addModel.pcdIsConsistent" name="addModel.pcdIsConsistent">
+                    <nz-option nzValue="0" nzLabel="否"></nz-option>
+                    <nz-option nzValue="1" nzLabel="是"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">后处理是否保温</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <nz-select [(ngModel)]="addModel.pcdIsInsulation" name="addModel.pcdIsInsulation">
+                    <nz-option nzValue="0" nzLabel="否"></nz-option>
+                    <nz-option nzValue="1" nzLabel="是"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">排气消声器生产厂</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdMufflerFirm" name="addModel.pcdMufflerFirm">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">排气消声器型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdMufflerModel" name="addModel.pcdMufflerModel">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">氮氧传感器生产厂</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdNoSensorFirm" name="addModel.pcdNoSensorFirm">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">氮氧传感器型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdNoSensorType" name="addModel.pcdNoSensorType">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">涂层生产厂</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdPaintCoatFirm" name="addModel.pcdPaintCoatFirm">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">颗粒捕集器生产厂</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdParticulateFirm" name="addModel.pcdParticulateFirm">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">颗粒捕集器再生方法</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.pcdParticulateMethod" name="addModel.pcdParticulateMethod">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">OBD生产厂</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineOBDFirm" name="addModel.engineOBDFirm">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">OBD型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.engineOBDModel" name="addModel.engineOBDModel">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">总线协议</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.obdBusProtocol" name="addModel.obdBusProtocol">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">总线类型</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.obdBusType" name="addModel.obdBusType">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">诊断协议</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.obdDiagnosticProtocol" name="addModel.obdDiagnosticProtocol">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">接口位置</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.obdInterfaceLocation" name="addModel.obdInterfaceLocation">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">接口类型</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.obdInterfaceType" name="addModel.obdInterfaceType">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">是否加密</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.obdIsEncryption" name="addModel.obdIsEncryption">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">外特性-转速(r/min)</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.externalSpeed" name="addModel.externalSpeed">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">外特性-扭矩(N.m)</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.externalTorsion" name="addModel.externalTorsion">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">ETC试验循环功（kWh）</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.testCycleWork" name="addModel.testCycleWork">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">联系电话</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.contactorPhone" name="addModel.contactorPhone">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">联系人姓名</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.contactorName" name="addModel.contactorName">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">接口照片</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <nz-upload [nzBeforeUpload]="beforeUpload" nzAccept="image/*" nzSize="50">
+                    <button nz-button>选择文件(50kb)</button>
+                </nz-upload>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">文件名称</nz-form-label>
+            <nz-form-control [nzSpan]="10">{{addModel.obdInterfacePhoto.fileName}}</nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">文件类型</nz-form-label>
+            <nz-form-control [nzSpan]="10">{{addModel.obdInterfacePhoto.type}}</nz-form-control>
+        </nz-form-item>
+    </form>
+    <ng-template #modalFooterAdd>
+        <button nz-button (click)="isVisibleAdd=false"><i nz-icon nzType="close-circle" nzTheme="twotone" nzTwotoneColor="blue"></i>取消</button>
+        <button nz-button (click)="handleOkAdd()"><i nz-icon nzType="container" nzTheme="twotone" nzTwotoneColor="green"></i>备案</button>
+    </ng-template>
+</nz-modal>

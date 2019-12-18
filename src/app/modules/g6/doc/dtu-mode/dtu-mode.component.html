@@ -1,0 +1,179 @@
+<form nz-form class="searchbar">
+    <nz-form-item>
+        <nz-form-label nzSpan="2">账号</nz-form-label>
+        <nz-form-control nzSpan="2">
+            <input nz-input [(ngModel)]="username" name="username" />
+        </nz-form-control>
+
+        <nz-form-label nzSpan="2">密码</nz-form-label>
+        <nz-form-control nzSpan="2">
+            <input nz-input type="password" [(ngModel)]="password" name="password" />
+        </nz-form-control>
+
+        <nz-form-control nzSpan="3" nzOffset="1">
+            <button nz-button (click)="login()"><i nz-icon nzType="alert" nzTheme="twotone" nzTwotoneColor="green"></i>平台登录</button>
+        </nz-form-control>
+
+        <nz-form-label nzSpan="2">登录状态</nz-form-label>
+        <nz-form-control nzSpan="2">{{loginState?'已登录':'未登录'}}</nz-form-control>
+
+        <nz-form-control nzSpan="3">
+            <button nz-button (click)="showModalAdd()"><i nz-icon nzType="container" nzTheme="twotone" nzTwotoneColor="green"></i>终端型号备案</button>
+        </nz-form-control>
+    </nz-form-item>
+</form>
+<nz-table #dataTable [nzData]="dataList" nzFrontPagination="true" nzShowSizeChanger="true" [nzShowTotal]="rangeTemplate" [nzLoading]="loading">
+    <thead>
+        <tr>
+            <th>终端型号</th>
+            <th>终端厂商统一社会信用代码</th>
+            <th>终端厂商名称</th>
+            <th>联系人姓名</th>
+            <th>联系人电话</th>
+            <th>终端厂商说明</th>
+            <th>申请序号</th>
+            <th>添加时间</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of dataTable.data">
+            <td>{{data.tboxModel}}</td>
+            <td>{{data.tboxFactoryId}}</td>
+            <td>{{data.tboxFactoryName}}</td>
+            <td>{{data.contactorName}}</td>
+            <td>{{data.contactorPhone}}</td>
+            <td>{{data.tboxFactoryNote}}</td>
+            <td>{{data.requestID}}</td>
+            <td>{{data.sys_time|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td><button nz-button (click)="check(data)"><i nz-icon nzType="eye" nzTheme="twotone" nzTwotoneColor="yellow"></i>结果查询</button></td>
+        </tr>
+    </tbody>
+</nz-table>
+<ng-template #rangeTemplate let-range="range" let-total>
+    第{{range[0]}}-{{range[1]}}条 共{{total}}条
+</ng-template>
+
+<nz-modal [(nzVisible)]="isVisibleAdd" nzTitle="终端型号备案" (nzOnCancel)="isVisibleAdd=false" [nzFooter]="modalFooterAdd">
+    <form nz-form class="modal-scroll">
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>终端型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.tboxModel" name="addModel.tboxModel">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>终端厂商统一社会信用代码</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.tboxFactoryId" name="addModel.tboxFactoryId">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>终端厂商名称</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.tboxFactoryName" name="addModel.tboxFactoryName">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>联系人姓名</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.contactorName" name="addModel.contactorName">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>联系人电话</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.contactorPhone" name="addModel.contactorPhone">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>终端厂商说明</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.tboxFactoryNote" name="addModel.tboxFactoryNote">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">备注</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.remark" name="addModel.remark">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">安全芯片型号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.chipModel" name="addModel.chipModel">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">终端检测报告编号</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.reportId" name="addModel.reportId">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">终端说明</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <input nz-input [(ngModel)]="addModel.tboxExplain" name="addModel.tboxExplain">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">
+                <nz-tag nzColor="red">必填</nz-tag>终端厂商执照图片</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <nz-upload [nzBeforeUpload]="beforeUpload1" nzAccept=".jpg" nzSize="50">
+                    <button nz-button>选择文件(50kb)</button>
+                </nz-upload>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">文件名称</nz-form-label>
+            <nz-form-control [nzSpan]="10">{{addModel.tboxFactoryLicenceImg.fileName}}</nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">文件类型</nz-form-label>
+            <nz-form-control [nzSpan]="10">{{addModel.tboxFactoryLicenceImg.type}}</nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">车载终端检测报告扫描件</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <nz-upload [nzBeforeUpload]="beforeUpload2" nzAccept=".jpg" nzSize="50">
+                    <button nz-button>选择文件(50kb)</button>
+                </nz-upload>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">文件名称</nz-form-label>
+            <nz-form-control [nzSpan]="10">{{addModel.reportImg.fileName}}</nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">文件类型</nz-form-label>
+            <nz-form-control [nzSpan]="10">{{addModel.reportImg.type}}</nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">车载终端其它文件</nz-form-label>
+            <nz-form-control [nzSpan]="10">
+                <nz-upload [nzBeforeUpload]="beforeUpload3" nzAccept="image/*" nzSize="50">
+                    <button nz-button>选择文件(50kb)</button>
+                </nz-upload>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">文件名称</nz-form-label>
+            <nz-form-control [nzSpan]="10">{{addModel.tboxFile.fileName}}</nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="14">文件类型</nz-form-label>
+            <nz-form-control [nzSpan]="10">{{addModel.tboxFile.type}}</nz-form-control>
+        </nz-form-item>
+    </form>
+    <ng-template #modalFooterAdd>
+        <button nz-button (click)="isVisibleAdd=false"><i nz-icon nzType="close-circle" nzTheme="twotone" nzTwotoneColor="blue"></i>取消</button>
+        <button nz-button (click)="handleOkAdd()"><i nz-icon nzType="container" nzTheme="twotone" nzTwotoneColor="green"></i>备案</button>
+    </ng-template>
+</nz-modal>

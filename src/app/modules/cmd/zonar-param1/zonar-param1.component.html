@@ -1,0 +1,18 @@
+<div class="row" [title]="title">
+
+    <label nz-checkbox [(ngModel)]="checked" (ngModelChange)="onCheckedChanged($event)">{{id}}</label>
+
+    <div [hidden]="!checked" class="item">
+        <nz-input-group nzCompact class="item">
+            <label nz-checkbox [(ngModel)]="b0" (ngModelChange)="b0click()"> 定时上报</label>
+            <nz-input-number [(ngModel)]="val0" [nzFormatter]="fmtSec" [nzParser]="ParserSec" style="width: 70px" (ngModelChange)="calcVal()"></nz-input-number>
+        </nz-input-group>
+        <nz-input-group nzCompact class="item">
+            <label nz-checkbox [(ngModel)]="b1" (ngModelChange)="b1click()">变周期上报</label>
+            <nz-input-number [(ngModel)]="val1_1" [nzFormatter]="fmtSec" [nzParser]="ParserSec" style="width: 70px" (ngModelChange)="calcVal()"></nz-input-number>
+            <nz-input-number [(ngModel)]="val1_2" [nzFormatter]="fmtSec" [nzParser]="ParserSec" style="width: 70px" (ngModelChange)="calcVal()"></nz-input-number>
+            <nz-input-number [(ngModel)]="val1_3" [nzFormatter]="fmtSec" [nzParser]="ParserSec" style="width: 70px" (ngModelChange)="calcVal()"></nz-input-number>
+            <nz-input-number [(ngModel)]="val1_4" [nzFormatter]="fmtSec" [nzParser]="ParserSec" style="width: 70px" (ngModelChange)="calcVal()"></nz-input-number>
+        </nz-input-group>
+    </div>
+</div>

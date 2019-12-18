@@ -1,0 +1,283 @@
+<form nz-form>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="1">VIN</nz-form-label>
+        <nz-form-control [nzSpan]="4">
+            <app-vin [(vin)]="searchModel.vin" [(vid)]="searchModel.vid"></app-vin>
+        </nz-form-control>
+        <nz-form-control [nzSpan]="4">
+            <button nz-button nzSize="small" nzType="primary" (click)="loadDatas()">
+          <i nz-icon class="ht-icon icon-toolbar-search"></i>
+          <span>查找</span>
+        </button>
+            <button nz-button nzSize="small" nzType="primary" (click)="reset()">
+          <i nz-icon class="ht-icon icon-toolbar-reset"></i>
+          <span>清空</span>
+        </button>
+        </nz-form-control>
+    </nz-form-item>
+
+</form>
+
+<nz-collapse>
+    <nz-collapse-panel nzHeader="基本信息" nzActive="true" nzDisabled="false">
+
+        <div nz-row>
+            <div nz-col nzSpan="2" class="c1" style="line-height: 107px;text-align: center">车辆信息</div>
+            <div nz-col nzSpan="22" class="s0">
+                <div nz-row>
+                    <div nz-col nzSpan="6" class="c1">VIN码：{{docveh.vin}}</div>
+                    <div nz-col nzSpan="6" class="c1">车牌号码：{{docveh.vehno}}</div>
+                    <div nz-col nzSpan="6" class="c1">车牌颜色：{{docveh.colorStr}}</div>
+                    <div nz-col nzSpan="6" class="c1 c2">车身颜色：{{docveh.bcolor}}</div>
+                </div>
+                <div nz-row>
+                    <div nz-col nzSpan="6" class="c1">底盘号：{{docveh.c3s_no}}</div>
+                    <div nz-col nzSpan="6" class="c1">车籍地：{{docveh.xzqhd}}</div>
+                    <div nz-col nzSpan="6" class="c1">创建时间：{{docveh. vattimeStr}}</div>
+                    <div nz-col nzSpan="6" class="c1 c2">创建人：{{docveh.vopter}}</div>
+                </div>
+                <div nz-row>
+                    <div nz-col nzSpan="6" class="c1">所属企业：{{docveh.ent}}</div>
+                    <div nz-col nzSpan="18" class="c1 c2">备注：{{docveh.vdemo}}</div>
+                </div>
+            </div>
+        </div>
+
+        <div nz-row>
+            <div nz-col nzSpan="2" class="c1" style="line-height: 71px;text-align: center">终端信息</div>
+            <div nz-col nzSpan="22" class="s0">
+                <div nz-row>
+                    <div nz-col nzSpan="6" class="c1">终端编号：{{docveh.dcode}}</div>
+                    <div nz-col nzSpan="6" class="c1">终端制造商：{{docveh.manu}}</div>
+                    <div nz-col nzSpan="6" class="c1">创建时间：{{docveh.dattimeStr}}</div>
+                    <div nz-col nzSpan="6" class="c1 c2">创建人：{{docveh.dopter}}</div>
+                </div>
+                <div nz-row>
+                    <div nz-col nzSpan="6" class="c1">绑定时间：{{docveh.binddtStr}}</div>
+                    <div nz-col nzSpan="18" class="c1 c2">备注：{{docveh.ddemo}}</div>
+                </div>
+            </div>
+        </div>
+
+        <div nz-row>
+            <div nz-col nzSpan="2" class="c1 c3" style="line-height: 71px;text-align: center">SIM卡信息</div>
+            <div nz-col nzSpan="22" class="s0">
+                <div nz-row>
+                    <div nz-col nzSpan="6" class="c1">ICCID号：{{docveh.iccid}}</div>
+                    <div nz-col nzSpan="6" class="c1">SIM卡号：{{docveh.simc}}</div>
+                    <div nz-col nzSpan="6" class="c1">卡类型：{{docveh.typeStr}}</div>
+                    <div nz-col nzSpan="6" class="c1 c2">运营商：{{docveh.operatorStr}}</div>
+                </div>
+                <div nz-row>
+                    <div nz-col nzSpan="6" class="c1 c3">购买时间：{{docveh.dtbStr}}</div>
+                    <div nz-col nzSpan="6" class="c1 c3">创建人：{{docveh.operatorStr}}</div>
+                    <div nz-col nzSpan="6" class="c1 c3">创建时间：{{docveh.cattimeStr}}</div>
+                    <div nz-col nzSpan="6" class="c1 c2 c3">备注：{{docveh.cdemo}}</div>
+                </div>
+            </div>
+        </div>
+    </nz-collapse-panel>
+
+    <nz-collapse-panel nzHeader="发动机异常明细" nzActive="false" nzDisabled="false">
+        <nz-button-group>
+            <button nz-button *ngFor="let item of yyyys">{{item}}</button>
+        </nz-button-group>
+        <div nz-row>
+            <div nz-col nzSpan="2" class="c1" style="height: 36px;">
+                <div class="s1">异常项</div>
+            </div>
+            <div nz-col nzSpan="22" class="s0">
+                <div nz-row>
+                    <div nz-col nzSpan="2" class="c1">1月</div>
+                    <div nz-col nzSpan="2" class="c1">2月</div>
+                    <div nz-col nzSpan="2" class="c1">3月</div>
+                    <div nz-col nzSpan="2" class="c1">4月</div>
+                    <div nz-col nzSpan="2" class="c1">5月</div>
+                    <div nz-col nzSpan="2" class="c1">6月</div>
+                    <div nz-col nzSpan="2" class="c1">7月</div>
+                    <div nz-col nzSpan="2" class="c1">8月</div>
+                    <div nz-col nzSpan="2" class="c1">9月</div>
+                    <div nz-col nzSpan="2" class="c1">10月</div>
+                    <div nz-col nzSpan="2" class="c1">11月</div>
+                    <div nz-col nzSpan="2" class="c1 c2">12月</div>
+                </div>
+            </div>
+        </div>
+
+        <div nz-row>
+            <div nz-col nzSpan="2" class="c1" style="height: 36px;">
+                <div class="s1">{{docVehException.engineExName[0]}}</div>
+            </div>
+            <div nz-col nzSpan="22" class="s0">
+                <div nz-row>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.engineExValue[0].m1}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.engineExValue[0].m2}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.engineExValue[0].m3}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.engineExValue[0].m4}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.engineExValue[0].m5}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.engineExValue[0].m6}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.engineExValue[0].m7}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.engineExValue[0].m8}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.engineExValue[0].m9}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.engineExValue[0].m10}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.engineExValue[0].m11}}</div>
+                    <div nz-col nzSpan="2" class="c1 c2">{{docVehException.engineExValue[0].m12}}</div>
+                </div>
+            </div>
+        </div>
+        <div nz-row>
+            <div nz-col nzSpan="2" class="c1" style="height: 36px;">
+                <div class="s1">{{docVehException.engineExName[1]}}</div>
+            </div>
+            <div nz-col nzSpan="22" class="s0">
+                <div nz-row>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.engineExValue[1].m1}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.engineExValue[1].m2}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.engineExValue[1].m3}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.engineExValue[1].m4}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.engineExValue[1].m5}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.engineExValue[1].m6}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.engineExValue[1].m7}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.engineExValue[1].m8}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.engineExValue[1].m9}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.engineExValue[1].m10}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.engineExValue[1].m11}}</div>
+                    <div nz-col nzSpan="2" class="c1 c2">{{docVehException.engineExValue[1].m12}}</div>
+                </div>
+            </div>
+        </div>
+        <div nz-row>
+            <div nz-col nzSpan="2" class="c1 c3" style="height: 36px;">
+                <div class="s1">{{docVehException.engineExName[2]}}</div>
+            </div>
+            <div nz-col nzSpan="22" class="s0">
+                <div nz-row>
+                    <div nz-col nzSpan="2" class="c1 c3">{{docVehException.engineExValue[2].m1}}</div>
+                    <div nz-col nzSpan="2" class="c1 c3">{{docVehException.engineExValue[2].m2}}</div>
+                    <div nz-col nzSpan="2" class="c1 c3">{{docVehException.engineExValue[2].m3}}</div>
+                    <div nz-col nzSpan="2" class="c1 c3">{{docVehException.engineExValue[2].m4}}</div>
+                    <div nz-col nzSpan="2" class="c1 c3">{{docVehException.engineExValue[2].m5}}</div>
+                    <div nz-col nzSpan="2" class="c1 c3">{{docVehException.engineExValue[2].m6}}</div>
+                    <div nz-col nzSpan="2" class="c1 c3">{{docVehException.engineExValue[2].m7}}</div>
+                    <div nz-col nzSpan="2" class="c1 c3">{{docVehException.engineExValue[2].m8}}</div>
+                    <div nz-col nzSpan="2" class="c1 c3">{{docVehException.engineExValue[2].m9}}</div>
+                    <div nz-col nzSpan="2" class="c1 c3">{{docVehException.engineExValue[2].m10}}</div>
+                    <div nz-col nzSpan="2" class="c1 c3">{{docVehException.engineExValue[2].m11}}</div>
+                    <div nz-col nzSpan="2" class="c1 c2 c3">{{docVehException.engineExValue[2].m12}}</div>
+                </div>
+            </div>
+        </div>
+    </nz-collapse-panel>
+
+    <nz-collapse-panel nzHeader="OBD诊断年报" nzActive="false" nzDisabled="false">
+        <nz-button-group>
+            <button nz-button *ngFor="let item of yyyys">{{item}}</button>
+        </nz-button-group>
+        <div nz-row>
+            <div nz-col nzSpan="2" class="c1" style="height: 36px;">
+                <div class="s1">异常项</div>
+            </div>
+            <div nz-col nzSpan="22" class="s0">
+                <div nz-row>
+                    <div nz-col nzSpan="2" class="c1">1月</div>
+                    <div nz-col nzSpan="2" class="c1">2月</div>
+                    <div nz-col nzSpan="2" class="c1">3月</div>
+                    <div nz-col nzSpan="2" class="c1">4月</div>
+                    <div nz-col nzSpan="2" class="c1">5月</div>
+                    <div nz-col nzSpan="2" class="c1">6月</div>
+                    <div nz-col nzSpan="2" class="c1">7月</div>
+                    <div nz-col nzSpan="2" class="c1">8月</div>
+                    <div nz-col nzSpan="2" class="c1">9月</div>
+                    <div nz-col nzSpan="2" class="c1">10月</div>
+                    <div nz-col nzSpan="2" class="c1">11月</div>
+                    <div nz-col nzSpan="2" class="c1 c2">12月</div>
+                </div>
+            </div>
+        </div>
+
+        <div nz-row>
+            <div nz-col nzSpan="2" class="c1" style="height: 36px;">
+                <div class="s1">{{docVehException.obdExName[0]}}</div>
+            </div>
+            <div nz-col nzSpan="22" class="s0">
+                <div nz-row>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[0].m1}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[0].m2}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[0].m3}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[0].m4}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[0].m5}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[0].m6}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[0].m7}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[0].m8}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[0].m9}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[0].m10}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[0].m11}}</div>
+                    <div nz-col nzSpan="2" class="c1 c2">{{docVehException.obdExValue[0].m12}}</div>
+                </div>
+            </div>
+        </div>
+        <div nz-row>
+            <div nz-col nzSpan="2" class="c1" style="height: 36px;">
+                <div class="s1">{{docVehException.obdExName[1]}}</div>
+            </div>
+            <div nz-col nzSpan="22" class="s0">
+                <div nz-row>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[1].m1}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[1].m2}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[1].m3}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[1].m4}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[1].m5}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[1].m6}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[1].m7}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[1].m8}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[1].m9}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[1].m10}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[1].m11}}</div>
+                    <div nz-col nzSpan="2" class="c1 c2">{{docVehException.obdExValue[1].m12}}</div>
+                </div>
+            </div>
+        </div>
+        <div nz-row>
+            <div nz-col nzSpan="2" class="c1" style="height: 36px;">
+                <div class="s1">{{docVehException.obdExName[2]}}</div>
+            </div>
+            <div nz-col nzSpan="22" class="s0">
+                <div nz-row>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[2].m1}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[2].m2}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[2].m3}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[2].m4}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[2].m5}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[2].m6}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[2].m7}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[2].m8}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[2].m9}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[2].m10}}</div>
+                    <div nz-col nzSpan="2" class="c1">{{docVehException.obdExValue[2].m11}}</div>
+                    <div nz-col nzSpan="2" class="c1 c2">{{docVehException.obdExValue[2].m12}}</div>
+                </div>
+            </div>
+        </div>
+        <div nz-row>
+            <div nz-col nzSpan="2" class="c1 c3" style="height: 36px;">
+                <div class="s1">{{docVehException.obdExName[3]}}</div>
+            </div>
+            <div nz-col nzSpan="22" class="s0">
+                <div nz-row>
+                    <div nz-col nzSpan="2" class="c1 c3">{{docVehException.obdExValue[3].m1}}</div>
+                    <div nz-col nzSpan="2" class="c1 c3">{{docVehException.obdExValue[3].m2}}</div>
+                    <div nz-col nzSpan="2" class="c1 c3">{{docVehException.obdExValue[3].m3}}</div>
+                    <div nz-col nzSpan="2" class="c1 c3">{{docVehException.obdExValue[3].m4}}</div>
+                    <div nz-col nzSpan="2" class="c1 c3">{{docVehException.obdExValue[3].m5}}</div>
+                    <div nz-col nzSpan="2" class="c1 c3">{{docVehException.obdExValue[3].m6}}</div>
+                    <div nz-col nzSpan="2" class="c1 c3">{{docVehException.obdExValue[3].m7}}</div>
+                    <div nz-col nzSpan="2" class="c1 c3">{{docVehException.obdExValue[3].m8}}</div>
+                    <div nz-col nzSpan="2" class="c1 c3">{{docVehException.obdExValue[3].m9}}</div>
+                    <div nz-col nzSpan="2" class="c1 c3">{{docVehException.obdExValue[3].m10}}</div>
+                    <div nz-col nzSpan="2" class="c1 c3">{{docVehException.obdExValue[3].m11}}</div>
+                    <div nz-col nzSpan="2" class="c1 c2 c3">{{docVehException.obdExValue[3].m12}}</div>
+                </div>
+            </div>
+        </div>
+    </nz-collapse-panel>
+</nz-collapse>

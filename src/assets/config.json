@@ -1,0 +1,6 @@
+{
+    "web_title": "航天科技车联网云平台",
+    "web_favicon": "/assets/src/htkj/favicon.ico",
+    "web_logo": "/assets/src/htkj/logo.png",
+    "g6_doc_api_host": "http://127.0.0.1:10100"
+}

@@ -1,0 +1,105 @@
+<form nz-form class="searchbar">
+    <nz-form-item>
+        <nz-form-label [nzSpan]="2">VIN</nz-form-label>
+        <nz-form-control [nzSpan]="4">
+            <app-vin [(vin)]="searchModel.vin" [(vid)]="searchModel.vid"></app-vin>
+        </nz-form-control>
+
+        <nz-form-label [nzSpan]="2">日期(起)</nz-form-label>
+        <nz-form-control [nzSpan]="4">
+            <nz-date-picker nzShowTime nzAllowClear="false" [(ngModel)]="searchModel.dtb" name="searchModel.dateStart"></nz-date-picker>
+        </nz-form-control>
+
+        <nz-form-label [nzSpan]="2">日期(止)</nz-form-label>
+        <nz-form-control [nzSpan]="4">
+            <nz-date-picker nzShowTime nzAllowClear="false" [(ngModel)]="searchModel.dte" name="searchModel.dateEnd"></nz-date-picker>
+        </nz-form-control>
+    </nz-form-item>
+</form>
+<div class="toolbar">
+    <div class="toolbar-left">
+        <button nz-button (click)="showModal_add()"><i nz-icon nzType="plus-circle" nzTheme="twotone" nzTwotoneColor="green"></i>添加</button>
+    </div>
+    <div class="toolbar-right">
+        <button nz-button (click)="getData(true)"><i nz-icon nzType="filter" nzTheme="twotone" nzTwotoneColor="green"></i>查找</button>
+        <button nz-button (click)="reset()"><i nz-icon nzType="interaction" nzTheme="twotone" nzTwotoneColor="blue"></i>清空</button>
+    </div>
+</div>
+<nz-table #dataTable [nzData]="dataList" nzFrontPagination="true" nzShowSizeChanger="true" [nzShowTotal]="rangeTemplate" [nzLoading]="loading" [(nzPageIndex)]="searchModel.pageNum" [(nzPageSize)]="searchModel.pageSize" [nzScroll]="{x:'3000px',y:'350px'}">
+    <thead>
+        <tr>
+            <th nzWidth="200px" nzLeft="0px">任务名称</th>
+            <th nzWidth="200px">VIN</th>
+            <th nzWidth="200px">数据类型</th>
+            <th nzWidth="300px">创建时间</th>
+            <th nzWidth="300px">完成时间</th>
+            <th nzWidth="500px">任务起止时间</th>
+            <th nzWidth="200px">创建人</th>
+            <th nzWidth="200px">任务状态</th>
+            <th nzWidth="80px" nzRight="0px">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of dataTable.data">
+            <td nzLeft="0px">{{data.tname}}</td>
+            <td>{{data.vin}}</td>
+            <td>{{data.flag==0?'OBD':data.flag==1?'发动机':'发动机(偏移)'}}</td>
+            <td>{{data.sysTimeStr}}</td>
+            <td>{{data.overTimeStr}}</td>
+            <td>{{data.dtb|date:'yyyy-MM-dd HH:mm:ss'}} - {{data.dte|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>{{data.uname}}</td>
+            <td>{{data.stateStr}}</td>
+            <td nzRight="0px">
+                <button [disabled]="data.state==0" nz-button (click)="downLoad(data)">
+                    <i nz-icon class="ht-icon icon-toolbar-download"></i>
+                    <span>下载</span>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>
+<ng-template #rangeTemplate let-range="range" let-total>
+    第{{range[0]}}-{{range[1]}}条 共{{total}}条
+</ng-template>
+<nz-modal [nzStyle]="{ top: '20px' }" [(nzVisible)]="isVisible_add" nzTitle="添加" (nzOnCancel)="isVisible_add=false" [nzFooter]="modalFooter_add">
+    <form nz-form>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="8">*&nbsp;任务名称</nz-form-label>
+            <nz-form-control [nzSpan]="12">
+                <input nz-input [(ngModel)]="dataModel.tname" name="dataModel.tname">
+            </nz-form-control>
+
+            <nz-form-label [nzSpan]="8">*&nbsp;VIN</nz-form-label>
+            <nz-form-control [nzSpan]="12">
+                <app-vin [(vin)]="dataModel.vin" [(vid)]="dataModel.vid"></app-vin>
+            </nz-form-control>
+
+            <nz-form-label [nzSpan]="8">*&nbsp;起始时间</nz-form-label>
+            <nz-form-control [nzSpan]="12">
+                <nz-date-picker nzAllowClear="false" [(ngModel)]="dataModel.dtb" name="dataModel.dtb" nzShowTime></nz-date-picker>
+            </nz-form-control>
+
+            <nz-form-label [nzSpan]="8">*&nbsp;结束时间</nz-form-label>
+            <nz-form-control [nzSpan]="12">
+                <nz-date-picker nzAllowClear="false" [(ngModel)]="dataModel.dte" name="dataModel.dte" nzShowTime></nz-date-picker>
+            </nz-form-control>
+
+            <nz-form-label [nzSpan]="8">*&nbsp;数据类型</nz-form-label>
+            <nz-form-control [nzSpan]="12">
+                <nz-select nzAllowClear="false" [(ngModel)]="dataModel.flag" name="dataModel.flag">
+                    <nz-option nzValue="0" nzLabel="OBD数据"></nz-option>
+                    <nz-option nzValue="1" nzLabel="发动机数据"></nz-option>
+                    <nz-option nzValue="2" nzLabel="发动机数据(偏移)"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+    <ng-template #modalFooter_add>
+        <button nz-button (click)="isVisible_add=false">
+            <i nz-icon class="ht-icon icon-toolbar-cancel"></i>取消
+        </button>
+        <button nz-button (click)="handleOk_add()">
+            <i nz-icon class="ht-icon icon-toolbar-save"></i>保存
+        </button>
+    </ng-template>
+</nz-modal>

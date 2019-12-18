@@ -1,0 +1,19 @@
+<div nz-row>
+    <div nz-col nzSpan="6">
+        <app-schveh (vidsChanged)="onVidsChanged($event)"></app-schveh>
+    </div>
+    <div nz-col nzSpan="18">
+        <div class="c">
+
+            <nz-radio-group [(ngModel)]="cmdType" [nzButtonStyle]="'solid'" class="b">
+                <label nz-radio-button nzValue="11">808终端参数配置</label>
+                <label nz-radio-button nzValue="12">808终端信息查询</label>
+                <label nz-radio-button nzValue="13">808终端控制</label>
+            </nz-radio-group>
+            <app-jt808-dtu-config [vids]="vids" [hidden]="cmdType!=11"></app-jt808-dtu-config>
+            <app-jt808-dtu-search [vids]="vids" [hidden]="cmdType!=12"></app-jt808-dtu-search>
+            <app-jt808-dtu-ctrl [vids]="vids" [hidden]="cmdType!=13"></app-jt808-dtu-ctrl>
+
+        </div>
+    </div>
+</div>

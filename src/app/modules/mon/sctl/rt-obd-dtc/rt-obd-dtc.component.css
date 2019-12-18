@@ -1,0 +1,14 @@
+.panel {
+  position: absolute;
+  bottom: 10px;
+  min-height: 180px;
+  left: 432px;
+  min-width: 300px;
+  border: solid 1px #1e7ab3;
+  background-color: rgba(03, 30, 71, 0.8);
+  padding: 15px 10px;
+}
+
+.iov-close {
+  float: right;
+}

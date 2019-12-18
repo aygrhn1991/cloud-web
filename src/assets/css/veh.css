@@ -1,0 +1,40 @@
+/*自定义车辆图标*/
+
+.vm {
+    position: absolute;
+    font-size: 12px;
+    display: inline-block;
+}
+
+.v-icon {
+    height: 47px;
+    width: 34px;
+    display: block;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.run {
+    background-image: url("/assets/img/veh_running.png");
+}
+
+.stop {
+    background-image: url("/assets/img/veh_stop.png");
+}
+
+.v-dir {
+    width: 34px;
+    height: 30px;
+    padding: 4px 10px 6px;
+    -webkit-transform: rotate(0deg);
+}
+
+.veh-label {
+    display: block;
+    min-width: 80px;
+    text-align: center;
+    color: white;
+    background-color: blue;
+    padding: 2px 6px;
+    cursor: pointer;
+}

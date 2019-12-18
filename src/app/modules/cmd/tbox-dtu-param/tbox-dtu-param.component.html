@@ -1,0 +1,11 @@
+<nz-input-group [nzAddOnBefore]="addOnBeforeTemplate" [nzSuffix]="suffixIconButton" [title]="title">
+    <input type="text" nz-input [(ngModel)]="val" [placeholder]="'lg:'+default" (ngModelChange)="inputChange($event)">
+</nz-input-group>
+
+<ng-template #addOnBeforeTemplate>
+    {{code}} <i nz-icon nzType="plus-circle" nzTheme="outline" (click)="defaultClick()"></i>
+</ng-template>
+
+<ng-template #suffixIconButton>
+    <i nz-icon nzType="close-circle" nzTheme="outline" (click)="removeClick()"></i>
+</ng-template>

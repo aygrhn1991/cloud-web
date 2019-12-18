@@ -1,0 +1,26 @@
+<div class="s">
+    <nz-input-group nzAddOnBefore="通讯码" [nzSuffix]="suffixIconSearch">
+        <input type="text" nz-input [(ngModel)]="vin" (change)="vidChanged($event)">
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+        <i nz-icon nzType="search" nzTheme="outline" (click)="vidChanged($event)"></i>
+    </ng-template>
+
+    <nz-table #vehsTable nzSize="small" [nzData]="vehs" [nzPageSize]="20" [nzScroll]="{y: '600px'}" class="t">
+        <thead>
+            <tr>
+                <th nzShowCheckbox [(nzChecked)]="isAllChecked" [(nzIndeterminate)]="isIndeterminate" (nzCheckedChange)="checkAll($event)"></th>
+                <th>VIN</th>
+                <th nzWidth="120px">号牌号码</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of vehsTable.data">
+                <td nzShowCheckbox [(nzChecked)]="data.checked" (nzCheckedChange)="refreshStatus()"></td>
+                <td>{{ data.vin}}</td>
+                <td>{{ data.vehNo}}</td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>

@@ -1,0 +1,43 @@
+<div class="sch-veh" [hidden]="hidden">
+
+    <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
+        <input type="text" [(ngModel)]="vin" nz-input placeholder="请输入VIN码" (keyup)="onInputChanged()">
+    </nz-input-group>
+
+    <ng-template #suffixButton>
+        <button nz-button nzType="primary" nzSize="large" nzSearch (click)="onSchBtnClick()">
+            <i nz-icon nzType="search"></i></button>
+    </ng-template>
+
+</div>
+
+<div class="sch-veh-rst" [hidden]="hidden||hiddenRst">
+    <div style="height: 20px;">
+        <i nz-icon nzType="up-circle" nzTheme="outline" (click)="onSchRstBtnClick()" [hidden]="!hiddenTree" style="padding-right: 5px;"></i>
+        <i nz-icon nzType="down-circle" nzTheme="outline" (click)="onSchRstBtnClick()" [hidden]="hiddenTree" style="padding-right: 5px;"></i> {{schRstHint}}
+        <nz-switch [(ngModel)]="disResultFlag" style="float: right" nzCheckedChildren="车牌号" nzUnCheckedChildren="VIN码"></nz-switch>
+    </div>
+    <nz-tree [(nzData)]="vsnodes" [hidden]="hiddenTree" [nzAsyncData]="true" (nzExpandChange)="mouseAction('expand',$event)">>
+        <ng-template #nzTreeTemplate let-node>
+            <span class="custom-node" [class.active]="node.isSelected">
+          <span *ngIf="node.origin.type==1">
+            {{node.title|xzqh:true}}({{node.origin.online}}/{{node.origin.total}})
+             <span style="float:right;">
+              <i nz-icon nzType="desktop" nzTheme="outline" title="多车监控" (click)="loadMVehs(node.key)"></i>               
+            </span>
+            </span>
+            <span *ngIf="node.origin.type==0">
+                <i nz-icon nzType="car" nzTheme="outline" class="vstatus-{{node.origin.isOnline ? 'on':'off'}}"
+                style="padding-right: 5px;"></i>
+                <span *ngIf="disResultFlag">{{node.title}}</span>
+            <span *ngIf="!disResultFlag">{{node.origin.vin}}</span>
+
+            <span style="float:right;">
+                        <i nz-icon nzType="mobile" nzTheme="outline" title="单车监控" (click)="loadMVeh(node.key)"></i>
+                        </span>
+            </span>
+            </span>
+        </ng-template>
+    </nz-tree>
+
+</div>

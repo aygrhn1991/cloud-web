@@ -1,0 +1,17 @@
+.c1{
+    border-top:1px solid #04558f;
+    border-left: 1px solid #04558f;
+}
+.c2{
+    border-right: 1px solid #04558f;
+}
+.c3{
+   border-bottom: 1px solid #04558f;
+}
+.s0{
+    line-height: 35px
+}
+.s1{
+    position: relative;
+    top: 7px
+}

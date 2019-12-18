@@ -1,0 +1,133 @@
+<form nz-form >
+    <div class="toolbar-area">
+      <div class="toolbar-left">
+        <button nz-button nzType="primary" (click)="showModal_add()">
+          <i nz-icon class="ht-icon icon-toolbar-add"></i><span>添加</span>
+        </button>
+        <button nz-button nzType="primary" (click)="showModal_edit()">
+          <i nz-icon class="ht-icon icon-toolbar-edit"></i><span>修改</span>
+        </button>
+        <button nz-button nzType="primary" (click)="delete()">
+          <i nz-icon class="ht-icon icon-toolbar-delete"></i><span>删除</span>
+        </button>
+      </div>
+    </div>
+  </form>
+  <nz-table #dataTable [nzShowPagination]='false' [nzData]="roleList" [nzLoading]="loading" [nzScroll]="{x:'1000px'}">
+    <thead>
+      <tr>
+        <th nzWidth="100px" nzLeft="0px">角色名称</th>
+        <th>添加时间</th>
+        <th>创建人</th>
+        <th>备注</th>
+        <th nzWidth="30px" nzRight="0px">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of dataTable.data;let i=index" (click)="choose(data,i)" class="{{i==tr?'tr_color_change':'tr_color_nochange'}}" style="cursor: pointer;">
+        <td nzLeft="0px">{{data.name}}</td>
+        <td>{{data.attime| date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td>{{data.uidStr}}</td>
+        <td>{{data.desc}}</td>
+        <td nzRight="0px">
+          <button nz-button nzType="primary" (click)="loadPageGroupDetail(data)">
+            <i nz-icon class="ht-icon icon-toolbar-detail"></i><span>角色权限</span>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+  
+  <nz-modal [nzStyle]="{ top: '20px' }" [(nzVisible)]="isVisible_add" nzTitle="添加" (nzOnCancel)="isVisible_add=false"
+    [nzFooter]="modalFooter_add">
+    <form nz-form>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="5">*&nbsp;角色名称</nz-form-label>
+        <nz-form-control [nzSpan]="7">
+          <input nz-input nzSize="small" [(ngModel)]="dataModel.name" name="dataModel.name">
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="5">备注说明</nz-form-label>
+        <nz-form-control [nzSpan]="19">
+          <textarea nz-input [nzAutosize]="{ minRows: 3, maxRows: 3 }" [(ngModel)]="dataModel.desc" name="dataModel.desc"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+    <ng-template #modalFooter_add>
+      <button nz-button nzType="primary" (click)="isVisible_add=false">
+        <i nz-icon class="ht-icon icon-toolbar-cancel"></i>取消
+      </button>
+      <button nz-button nzType="primary" (click)="handleOk_add()">
+        <i nz-icon class="ht-icon icon-toolbar-save"></i>保存
+      </button>
+    </ng-template>
+  </nz-modal>
+  
+  <nz-modal [nzStyle]="{ top: '20px' }" [(nzVisible)]="isVisible_edit" nzTitle="修改" (nzOnCancel)="handleCancel_edit()"
+    [nzFooter]="modalFooter_edit">
+    <form nz-form>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="5">角色名称</nz-form-label>
+        <nz-form-control [nzSpan]="7">
+          <input nz-input nzSize="small" [(ngModel)]="dataModel.name" name="dataModel.name">
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="5">备注说明</nz-form-label>
+        <nz-form-control [nzSpan]="19">
+          <textarea nz-input [nzAutosize]="{ minRows: 3, maxRows: 3 }" [(ngModel)]="dataModel.desc" name="dataModel.desc"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+    <div style="height:300px;overflow:scroll;">
+      <nz-table #pageGroupListTable [nzFrontPagination]='false' [nzShowPagination]='false' [nzData]="pageGroupList" [nzScroll]="{x:'450px'}">
+        <tbody>
+          <ng-template ngFor let-data [ngForOf]="pageGroupListTable.data">
+            <tr style="background:linear-gradient(#005392,#021E47);">
+              <td nzShowExpand [(nzExpand)]="data.expand"></td>
+              <td colspan="2">{{data.name}}</td>
+            </tr>
+            <tr [nzExpand]="data.expand" *ngFor="let page of data.svcs">
+              <td>
+                <label nz-checkbox [(ngModel)]="page.checked"></label>
+              </td>
+              <td>{{page.name}}</td>
+              <td>{{page.url}}</td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </nz-table>
+    </div>
+    <ng-template #modalFooter_edit>
+      <button nz-button nzType="primary" (click)="handleCancel_edit()">
+        <i nz-icon class="ht-icon icon-toolbar-cancel"></i>取消
+      </button>
+      <button nz-button nzType="primary" (click)="handleOk_edit()">
+        <i nz-icon class="ht-icon icon-toolbar-save"></i>保存
+      </button>
+    </ng-template>
+  </nz-modal>
+  
+  <nz-modal [nzStyle]="{ top: '20px' }" [(nzVisible)]="isVisible_detail" nzTitle="查看" (nzOnCancel)="isVisible_detail=false"
+    [nzFooter]="modalFooter_detail">
+    <nz-table #pageGroupDetailListTable [nzShowPagination]='false' [nzData]="pageGroupDetailList" [nzScroll]="{x:'450px'}">
+      <thead>
+        <tr>
+          <th nzWidth="100px">权限分类</th>
+          <th>权限</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of pageGroupDetailListTable.data">
+          <td>{{item.gname}}</td>
+          <td>{{item.desc}}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <ng-template #modalFooter_detail>
+      <button nz-button nzType="primary" (click)="isVisible_detail=false">
+        <i nz-icon class="ht-icon icon-toolbar-back"></i>返回
+      </button>
+    </ng-template>
+  </nz-modal>

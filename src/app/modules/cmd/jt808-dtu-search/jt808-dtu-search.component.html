@@ -1,0 +1,17 @@
+<div>
+  <button nz-button nzType="primary" (click)="sendNormalCmd(0)">查询终端参数</button>
+  <button nz-button nzType="primary" (click)="sendNormalCmd(1)">查询终端属性</button>
+</div>
+<nz-divider></nz-divider>
+<div>
+  <button nz-button nzType="primary" (click)="sendSchCmd()">查询指定终端参数</button>
+  <button nz-button nzType="primary" (click)="selectAll()">全选</button>
+  <button nz-button nzType="primary" (click)="cancelAll()">取消选择</button>
+</div>
+
+<div>
+  <ng-container *ngFor="let item of config">
+    <label nz-checkbox [(ngModel)]="item.val">{{item.id|cmdId}},{{item.title}}</label><br/>
+  </ng-container>
+
+</div>

@@ -1,0 +1,91 @@
+<form nz-form class="searchbar">
+    <nz-form-item>
+        <nz-form-label nzSpan="2">VIN</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <app-vin [(vin)]="searchModel.vin" [(vid)]="searchModel.vid"></app-vin>
+        </nz-form-control>
+
+        <nz-form-label nzSpan="2">日期</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <nz-date-picker nzAllowClear="false" [(ngModel)]="searchModel.dateStart" name="searchModel.dateStart"></nz-date-picker>
+        </nz-form-control>
+    </nz-form-item>
+</form>
+<div class="toolbar">
+    <div class="toolbar-left"></div>
+    <div class="toolbar-right">
+        <button nz-button (click)="getData(true)"><i nz-icon nzType="filter" nzTheme="twotone" nzTwotoneColor="green"></i>查找</button>
+        <button nz-button (click)="reset()"><i nz-icon nzType="interaction" nzTheme="twotone" nzTwotoneColor="blue"></i>清空</button>
+    </div>
+</div>
+<nz-table #dataTable [nzData]="dataList" nzFrontPagination="true" nzShowSizeChanger="true" [nzShowTotal]="rangeTemplate" [nzLoading]="loading" [(nzPageIndex)]="searchModel.pageNum" [(nzPageSize)]="searchModel.pageSize" [nzScroll]="{x:'2600px',y:'350px'}">
+    <thead>
+        <tr>
+            <th nzWidth="200px" nzLeft="0px">VIN</th>
+            <th nzWidth="200px">OBD诊断协议</th>
+            <th nzWidth="200px">MIL状态</th>
+            <th nzWidth="200px">诊断支持状态</th>
+            <th nzWidth="200px">诊断就绪状态</th>
+            <th nzWidth="200px">车辆识别码</th>
+            <th nzWidth="200px">软件标定识别号</th>
+            <th nzWidth="200px">标定验证码</th>
+            <th nzWidth="600px">IUPR值</th>
+            <th nzWidth="200px">故障码总数</th>
+            <th nzWidth="200px" nzRight="0px">时间</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of dataTable.data">
+            <td nzLeft="0px">{{data.vin}}</td>
+            <td>{{data.obdProtocol|obdProtocol}}</td>
+            <td>{{data.milState|obdMil}}</td>
+            <td (click)="obdStateDecode(data)">{{data.supportState}}&nbsp;&nbsp;<i nz-icon nzType="eye" nzTheme="twotone" nzTwotoneColor="yellow"></i></td>
+            <td (click)="obdStateDecode(data)">{{data.readyState}}&nbsp;&nbsp;<i nz-icon nzType="eye" nzTheme="twotone" nzTwotoneColor="yellow"></i></td>
+            <td>{{data.vin}}</td>
+            <td>{{data.softwareId}}</td>
+            <td>{{data.cvn}}</td>
+            <td (click)="iuprDecode(data)">{{data.iupr}}&nbsp;&nbsp;<i nz-icon nzType="eye" nzTheme="twotone" nzTwotoneColor="yellow"></i></td>
+            <td (click)="faultDecode(data)">{{data.faultNum}}&nbsp;&nbsp;<i nz-icon nzType="eye" nzTheme="twotone" nzTwotoneColor="yellow"></i></td>
+            <td nzRight="0px">{{data.attm|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        </tr>
+    </tbody>
+</nz-table>
+<ng-template #rangeTemplate let-range="range" let-total>
+    第{{range[0]}}-{{range[1]}}条 共{{total}}条
+</ng-template>
+
+<nz-modal [(nzVisible)]="isVisibleObdState" nzTitle="OBD状态解析" (nzOnCancel)="isVisibleObdState=false" [nzFooter]="modalFooterObdState">
+    <ul>
+        <li *ngFor="let item of g6Service.obdStateOptions">{{item.label}}：<span [ngStyle]="{'color':item.value=='不支持'?'red':item.value=='未完成'?'yellow':'green'}">{{item.value}}</span></li>
+    </ul>
+    <ng-template #modalFooterObdState>
+        <button nz-button (click)="isVisibleObdState=false"><i nz-icon nzType="left-circle" nzTheme="twotone" nzTwotoneColor="blue"></i>返回</button>
+    </ng-template>
+</nz-modal>
+<nz-modal [(nzVisible)]="isVisibleIupr" nzTitle="IUPR解析" (nzOnCancel)="isVisibleIupr=false" [nzFooter]="modalFooterIupr">
+    <ul>
+        <li *ngFor="let item of g6Service.iuprOptions">{{item.label}}：{{item.value}}</li>
+    </ul>
+    <ng-template #modalFooterIupr>
+        <button nz-button (click)="isVisibleIupr=false"><i nz-icon nzType="left-circle" nzTheme="twotone" nzTwotoneColor="blue"></i>返回</button>
+    </ng-template>
+</nz-modal>
+<nz-modal [(nzVisible)]="isVisibleFault" nzTitle="故障码列表" (nzOnCancel)="isVisibleFault=false" [nzFooter]="modalFooterFault">
+    <nz-table #faultTable [nzData]="faultList" [(nzPageIndex)]="falutPageNum">
+        <thead>
+            <tr>
+                <th>故障码</th>
+                <th>故障名称</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of faultTable.data">
+                <td>{{data.code}}</td>
+                <td>{{data.name}}</td>
+            </tr>
+        </tbody>
+    </nz-table>
+    <ng-template #modalFooterFault>
+        <button nz-button (click)="isVisibleFault=false"><i nz-icon nzType="left-circle" nzTheme="twotone" nzTwotoneColor="blue"></i>返回</button>
+    </ng-template>
+</nz-modal>

@@ -1,0 +1,42 @@
+<app-card [ngStyle]="mstyle" *ngIf="data">
+    <header>
+        OBD实时数据
+    </header>
+
+    <content>
+        <app-label-text label="诊断协议" [value]="data.obdProtocol|obdProtocol"></app-label-text>
+        <app-label-text label="MIL状态" [value]="data.milState|obdMil"></app-label-text>
+        <app-label-text label="vin" [value]="data.vin?data.vin:'空'"></app-label-text>
+        <app-label-text label="标定识别号" [value]="data.softwareId?data.softwareId:'空'"></app-label-text>
+        <app-label-text label="标定验证码" [value]="data.cvn?data.cvn:'空'"></app-label-text>
+        <app-label-text label="更新时间" [value]="data.attm| date: 'yyyy-MM-dd HH:mm:ss'"></app-label-text>
+
+        <nz-divider nzText="各监控器状态" nzOrientation="left" [nzDashed]="true" class="divider"></nz-divider>
+
+        <div nz-row>
+            <app-label-icon nz-col nzSpan="12" label="催化转化器" [value]="calcMonitorStatus(data.supportState,data.readyState,0)" [lbSize]="lbsize">
+                <i nz-icon type="bulb" theme="outline"></i>
+            </app-label-icon>
+            <app-label-icon nz-col nzSpan="12" label="加热催化转化器" [value]="calcMonitorStatus(data.supportState,data.readyState,1)" [lbSize]="lbsize"></app-label-icon>
+            <app-label-icon nz-col nzSpan="12" label="蒸发系统" [value]="calcMonitorStatus(data.supportState,data.readyState,2)" [lbSize]="lbsize"></app-label-icon>
+            <app-label-icon nz-col nzSpan="12" label="二次空气系统" [value]="calcMonitorStatus(data.supportState,data.readyState,3)" [lbSize]="lbsize"></app-label-icon>
+            <app-label-icon nz-col nzSpan="12" label="5A/C系统致冷剂" [value]="calcMonitorStatus(data.supportState,data.readyState,4)" [lbSize]="lbsize"></app-label-icon>
+            <app-label-icon nz-col nzSpan="12" label="排气传感器" [value]="calcMonitorStatus(data.supportState,data.readyState,5)" [lbSize]="lbsize"></app-label-icon>
+            <app-label-icon nz-col nzSpan="12" label="排气传感器加热器" [value]="calcMonitorStatus(data.supportState,data.readyState,6)" [lbSize]="lbsize"></app-label-icon>
+            <app-label-icon nz-col nzSpan="12" label="EGR系统和VVT" [value]="calcMonitorStatus(data.supportState,data.readyState,7)" [lbSize]="lbsize"></app-label-icon>
+            <app-label-icon nz-col nzSpan="12" label="冷启动辅助系统" [value]="calcMonitorStatus(data.supportState,data.readyState,8)" [lbSize]="lbsize"></app-label-icon>
+            <app-label-icon nz-col nzSpan="12" label="增压压力控制系统" [value]="calcMonitorStatus(data.supportState,data.readyState,9)" [lbSize]="lbsize"></app-label-icon>
+            <app-label-icon nz-col nzSpan="12" label="DPF 监控" [value]="calcMonitorStatus(data.supportState,data.readyState,10)" [lbSize]="lbsize"></app-label-icon>
+            <app-label-icon nz-col nzSpan="12" label="SCR 或 NOx 吸附器" [value]="calcMonitorStatus(data.supportState,data.readyState,11)" [lbSize]="lbsize"></app-label-icon>
+            <app-label-icon nz-col nzSpan="12" label="NMHC 氧化催化器" [value]="calcMonitorStatus(data.supportState,data.readyState,12)" [lbSize]="lbsize"></app-label-icon>
+            <app-label-icon nz-col nzSpan="12" label="失火监控" [value]="calcMonitorStatus(data.supportState,data.readyState,13)" [lbSize]="lbsize"></app-label-icon>
+            <app-label-icon nz-col nzSpan="12" label="燃油系统" [value]="calcMonitorStatus(data.supportState,data.readyState,14)" [lbSize]="lbsize"></app-label-icon>
+            <app-label-icon nz-col nzSpan="12" label="综合成分" [value]="calcMonitorStatus(data.supportState,data.readyState,15)" [lbSize]="lbsize"></app-label-icon>
+        </div>
+
+        <nz-divider nzText="故障码" nzOrientation="left" [nzDashed]="true" class="divider" *ngIf="data.faultNum>0"></nz-divider>
+        <div nz-row *ngIf="data.faultNum>0">
+            <div class="dtc" *ngFor="let dtc of data.dtcs; let idx=index" nz-col nzSpan="6" (click)="ondtcclikc(idx)">{{dtc}}</div>
+        </div>
+    </content>
+</app-card>

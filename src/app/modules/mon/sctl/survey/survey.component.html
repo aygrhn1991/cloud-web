@@ -1,0 +1,18 @@
+<app-card [ngStyle]="mstyle" *ngIf="data">
+  <header>
+    车辆概况
+  </header>
+
+  <content>
+    <app-label-text label="车牌颜色" value="{{data.color|vehColor}}"></app-label-text>
+    <app-label-text label="车身颜色" value="{{data.bodyColor}}"></app-label-text>
+    <app-label-text label="车型" value="{{data.vehm}}"></app-label-text>
+    <app-label-text *ngIf="data.c3sno" label="底盘号" value="{{data.c3sno}}"></app-label-text>
+    <app-label-text label="终端编号" value="{{data.dtucode}}"></app-label-text>
+    <app-label-text label="车籍地" value="{{data.xzqh}}"></app-label-text>
+    <app-label-text label="速度" value="{{data.spd|valid:2:1}}"></app-label-text>
+    <app-label-text label="累计里程" value="{{data.mil|valid:4:1}}"></app-label-text>
+    <app-label-text label="终端时间" value="{{data.dtuDt| date: 'yyyy-MM-dd HH:mm:ss'}}"></app-label-text>
+    <app-label-text label="位置" value="{{data.addr}}"></app-label-text>
+  </content>
+</app-card>

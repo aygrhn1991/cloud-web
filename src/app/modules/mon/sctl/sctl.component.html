@@ -1,0 +1,11 @@
+<div id="allmap"></div>
+<app-header (onVehInfoHide)="onVehInfoHide($event)" (onclear)="onclear_header()" (onselvehs)="onselvehs_header($event)" (onappendvehs)="onappendvehs_header($event)">
+</app-header>
+<!--查车组件-->
+<app-schveh (vehsLoaded)="onVehsLoaded($event)" [hidden]="!vehInfoHide"></app-schveh>
+
+<!--websocket通讯组件-->
+<app-htws (loaded)="onHtwsLoaded($event)" (acceptLngLat)="acceptLnglat($event)" (acceptObd)="acceptObd($event)" (acceptEngine)="acceptEngine($event)"></app-htws>
+
+<app-veh-info [data]="vehInfo" [(hidden)]="vehInfoHide" (dtcClick)="onDtcClick($event)"></app-veh-info>
+<app-rt-obd-dtc [data]="dtcInfo"></app-rt-obd-dtc>

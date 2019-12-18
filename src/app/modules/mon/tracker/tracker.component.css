@@ -1,0 +1,52 @@
+#allmap {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    font-family: "微软雅黑";
+}
+
+.lay_left {
+    position: absolute;
+    top: 100px;
+    left: 30px;
+    width: 320px;
+    z-index: 1000;
+}
+
+.sch_panel {
+    background-color: rgba(03, 30, 71, 0.8);
+    border: solid 1px #1e7ab3;
+    padding: 10px 20px;
+}
+
+.sch_panel div {
+    margin-bottom: 10px;
+}
+
+.lay_bottom {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    height: 60px;
+    width: 100%;
+    z-index: 1000;
+    background-color: #000c17;
+}
+
+.ctrl_panel {
+    float: left;
+    width: 400px;
+    padding: 10px 20px;
+}
+
+.desc_panel {
+    margin-left: 402px;
+    width: 100%;
+    padding: 10px 20px;
+}
+
+.desc_panel span {
+    line-height: 24px;
+    padding: 0 12px 0 0;
+}

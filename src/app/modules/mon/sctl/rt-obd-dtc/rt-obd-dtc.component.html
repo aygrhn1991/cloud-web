@@ -1,0 +1,9 @@
+<div class="panel" *ngIf="data">
+    <i nz-icon nzType="close" nzTheme="outline" class="iov-close" (click)="onclose()" style="margin-left: 5px" title="关闭"></i>
+    <app-label-text label="故障码" [value]="data.dtc"></app-label-text>
+    <app-label-text label="终端故障码" [value]="data.fc"></app-label-text>
+    <app-label-text label="OBD码" [value]="data.obdc"></app-label-text>
+    <app-label-text label="诊断仪名称" [value]="data.dtcName"></app-label-text>
+    <app-label-text label="仪表名称" [value]="data.ybName"></app-label-text>
+    <app-label-text label="终端时间" [value]="data.attm| date: 'yyyy-MM-dd HH:mm:ss'"></app-label-text>
+</div>

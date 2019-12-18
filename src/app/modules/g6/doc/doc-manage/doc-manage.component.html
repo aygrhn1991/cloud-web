@@ -1,0 +1,7 @@
+<form nz-form>
+    <nz-form-item *ngFor="let item of manageOptions">
+        <nz-form-control nzSpan="3" nzOffset="1">
+            <button nz-button (click)="sendG6DocCmd(item.value)">{{item.label}}</button>
+        </nz-form-control>
+    </nz-form-item>
+</form>

@@ -1,0 +1,75 @@
+<form nz-form class="searchbar">
+    <nz-form-item>
+        <nz-form-label nzSpan="2">VIN</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <app-vin [(vin)]="searchModel.vin" [(vid)]="searchModel.vid"></app-vin>
+        </nz-form-control>
+
+        <nz-form-label nzSpan="2">日期</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <nz-date-picker nzAllowClear="false" [(ngModel)]="searchModel.dateStart" name="searchModel.dateStart"></nz-date-picker>
+        </nz-form-control>
+    </nz-form-item>
+</form>
+<div class="toolbar">
+    <div class="toolbar-left"></div>
+    <div class="toolbar-right">
+        <button nz-button (click)="getData(true)"><i nz-icon nzType="filter" nzTheme="twotone" nzTwotoneColor="green"></i>查找</button>
+        <button nz-button (click)="reset()"><i nz-icon nzType="interaction" nzTheme="twotone" nzTwotoneColor="blue"></i>清空</button>
+    </div>
+</div>
+<nz-table #dataTable [nzData]="dataList" nzFrontPagination="true" nzShowSizeChanger="true" [nzShowTotal]="rangeTemplate" [nzLoading]="loading" [(nzPageIndex)]="searchModel.pageNum" [(nzPageSize)]="searchModel.pageSize" [nzScroll]="{x:'5000px',y:'350px'}">
+    <thead>
+        <tr>
+            <th nzWidth="200px" nzLeft="0px">VIN</th>
+            <th nzWidth="200px">车速(km/h)</th>
+            <th nzWidth="200px">大气压力(kPa)</th>
+            <th nzWidth="300px">发动机净输出扭矩(%)</th>
+            <th nzWidth="200px">摩擦扭矩(%)</th>
+            <th nzWidth="200px">发动机转速(rpm)</th>
+            <th nzWidth="300px">发动机燃料流量(L/h)</th>
+            <th nzWidth="300px">SCR上游NOx传感器输出值(ppm)</th>
+            <th nzWidth="300px">SCR下游NOx传感器输出值(ppm)</th>
+            <th nzWidth="300px">反应剂余量(%)</th>
+            <th nzWidth="200px">进气量(kg/h)</th>
+            <th nzWidth="200px">SCR入口温度(℃)</th>
+            <th nzWidth="200px">SCR出口温度(℃)</th>
+            <th nzWidth="200px">DPF压差(kPa)</th>
+            <th nzWidth="300px">发动机冷却液温度(℃)</th>
+            <th nzWidth="200px">油箱液位(%)</th>
+            <th nzWidth="200px">定位状态</th>
+            <th nzWidth="300px">经度</th>
+            <th nzWidth="300px">纬度</th>
+            <th nzWidth="200px">累计里程(km)</th>
+            <th nzWidth="200px" nzRight="0px">时间</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of dataTable.data">
+            <td nzLeft="0px">{{data.vin}}</td>
+            <td>{{data.vehicleSpeed|eng2:1/256:0}}（{{data.vehicleSpeed}}）</td>
+            <td>{{data.atmosphericPressure|eng1:0.5:0}}（{{data.atmosphericPressure}}）</td>
+            <td>{{data.engineNetoutputTorque|eng1:100:-125}}（{{data.engineNetoutputTorque}}）</td>
+            <td>{{data.frictionTorque|eng1:100:-125}}（{{data.frictionTorque}}）</td>
+            <td>{{data.engineSpeed|eng2:0.125:0}}（{{data.engineSpeed}}）</td>
+            <td>{{data.engineFuelFlow|eng2:0.05:0}}（{{data.engineFuelFlow}}）</td>
+            <td>{{data.scrupValue|eng2:0.05:0}}（{{data.scrupValue}}）</td>
+            <td>{{data.scrdownValue|eng2:0.05:0}}（{{data.scrdownValue}}）</td>
+            <td>{{data.reactantAllowance|eng1:100*0.4:0}}（{{data.reactantAllowance}}）</td>
+            <td>{{data.airInflow|eng2:0.05:0}}（{{data.airInflow}}）</td>
+            <td>{{data.scrinTemperature|eng2:0.03125:-273}}（{{data.scrinTemperature}}）</td>
+            <td>{{data.scroutTemperature|eng2:0.03125:-273}}（{{data.scroutTemperature}}）</td>
+            <td>{{data.dpfpressureDifferenc|eng2:0.1:0}}（{{data.dpfpressureDifferenc}}）</td>
+            <td>{{data.ect|eng1:1:-40}}（{{data.ect}}）</td>
+            <td>{{data.tankLevel|eng1:100*0.4:0}}（{{data.tankLevel}}）</td>
+            <td>{{data.positioningState|engLocate}}（{{data.positioningState}}）</td>
+            <td>{{data.longitude|eng4:0.00001:0}}（{{data.longitude}}）</td>
+            <td>{{data.latitude|eng4:0.00001:0}}（{{data.latitude}}）</td>
+            <td>{{data.mileage|eng4:0.1:0}}（{{data.mileage}}）</td>
+            <td nzRight="0px">{{data.attm|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        </tr>
+    </tbody>
+</nz-table>
+<ng-template #rangeTemplate let-range="range" let-total>
+    第{{range[0]}}-{{range[1]}}条 共{{total}}条
+</ng-template>
