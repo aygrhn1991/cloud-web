@@ -46,7 +46,7 @@ export class G6PlaybackComponent implements OnInit {
   }
 
   startG6Testing() {
-    this.http.startG6Testing(this.searchModel.vid).subscribe((data: Result2) => {
+    this.http.startG6Testing('',this.searchModel.vid).subscribe((data: Result2) => {
       this.vehInfo = data.data.data.map((x) => {
         let veh = new VehG6();
         veh.vid = x.C_ID;

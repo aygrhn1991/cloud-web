@@ -280,8 +280,8 @@ export class HttpService {
   //#endregion ----------tbox----------
 
   //#region 设备检测g6
-  startG6Testing(vid: number) {
-    return this.http.get(`/basic/g6/basic/veh/getVeh/1/10/${vid}/-1/-1/-1/-1/-1/-1/-1/946656000000/1573833599000`);
+  startG6Testing(clientId: string, vid: number) {
+    return this.http.get(`/g6testing/beat/${clientId}/${vid}`);
   }
   //#endregion
 

@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { SearchModel, Result2 } from 'src/app/models/result.model';
+import { SearchModel, Result2, Result1 } from 'src/app/models/result.model';
 import { VehG6 } from 'src/app/models/veh.model';
 import { HttpService } from 'src/app/services/http.service';
 import { NzNotificationService } from 'ng-zorro-antd';
 import { G6Service } from 'src/app/services/g6.service';
 import { ChartService } from 'src/app/services/chart.service';
+import { UUID } from 'angular2-uuid';
 declare var BMap: any;
 
 @Component({
@@ -13,6 +14,9 @@ declare var BMap: any;
   styleUrls: ['./g6-testing.component.css']
 })
 export class G6TestingComponent implements OnInit {
+
+  clientId: string = null;
+  beat: any = null;
 
   @ViewChild('map', null) mapContainer: ElementRef;
   map: any;
@@ -28,7 +32,7 @@ export class G6TestingComponent implements OnInit {
   key: string;
 
   log_auto_scroll;
-  autoScroll(){};
+  autoScroll() { };
 
   constructor(private http: HttpService,
     private notification: NzNotificationService,
@@ -36,6 +40,7 @@ export class G6TestingComponent implements OnInit {
     private chartService: ChartService) { }
 
   ngOnInit() {
+    this.clientId = UUID.UUID();
     this.map = new BMap.Map(this.mapContainer.nativeElement);
     let point = new BMap.Point(126.6323205181, 45.7492244111);
     let marker = new BMap.Marker(point);
@@ -48,31 +53,36 @@ export class G6TestingComponent implements OnInit {
   }
 
   startG6Testing() {
-    this.http.startG6Testing(this.searchModel.vid).subscribe((data: Result2) => {
-      this.vehInfo = data.data.data.map((x) => {
-        let veh = new VehG6();
-        veh.vid = x.C_ID;
-        veh.vin = x.C_VIN;
-        veh.vehNo = x.C_VEHNO;
-        veh.vehNoColor = x.C_COLOR;
-        veh.xzqh = x.C_XZQH;
-        veh.power = x.C_ET;
-        veh.vehMode = x.C_VEHM;
-        veh.simCode = x.C_IMSI;
-        veh.dtuCode = x.C_DTUCODE;
-        veh.engCode = x.C_ENGCODE;
-        veh.createTime = x.C_FTM;
-        veh.remark = x.C_DESC;
-        return veh;
-      })[0];
-      this.g6Service.obdStateDecode(123, 456);
-      this.g6Service.iuprDecode('002800EB0005000000000028000000000002000700000028000900280014002800000000');
-      this.notification.success('开始检测', null);
-    });
+    this.beat = setInterval(() => {
+      this.http.startG6Testing(this.clientId, this.searchModel.vid).subscribe((data: Result1) => {
+        console.log(data.data);
+        // this.vehInfo = data.data.data.map((x) => {
+        //   let veh = new VehG6();
+        //   veh.vid = x.C_ID;
+        //   veh.vin = x.C_VIN;
+        //   veh.vehNo = x.C_VEHNO;
+        //   veh.vehNoColor = x.C_COLOR;
+        //   veh.xzqh = x.C_XZQH;
+        //   veh.power = x.C_ET;
+        //   veh.vehMode = x.C_VEHM;
+        //   veh.simCode = x.C_IMSI;
+        //   veh.dtuCode = x.C_DTUCODE;
+        //   veh.engCode = x.C_ENGCODE;
+        //   veh.createTime = x.C_FTM;
+        //   veh.remark = x.C_DESC;
+        //   return veh;
+        // })[0];
+        // this.g6Service.obdStateDecode(123, 456);
+        // this.g6Service.iuprDecode('002800EB0005000000000028000000000002000700000028000900280014002800000000');
+        // this.notification.success('开始检测', null);
+      });
+    }, 1000);
+
   }
 
   stopG6Testing() {
     this.notification.success('停止检测', null);
+    clearInterval(this.beat);
   }
   onChartInit(e) {
     this.chart = e;

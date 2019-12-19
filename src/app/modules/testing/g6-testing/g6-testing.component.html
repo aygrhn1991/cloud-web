@@ -5,7 +5,7 @@
             <app-vin [(vin)]="searchModel.vin" [(vid)]="searchModel.vid"></app-vin>
         </div>
         <button nz-button (click)="startG6Testing()"><i nz-icon nzType="play-circle" nzTheme="twotone" nzTwotoneColor="green"></i>开始</button>
-        <button nz-button><i nz-icon nzType="stop" nzTheme="twotone" nzTwotoneColor="red"></i>停止</button>
+        <button nz-button (click)="stopG6Testing()"><i nz-icon nzType="stop" nzTheme="twotone" nzTwotoneColor="red"></i>停止</button>
     </div>
     <div class="testing-panel testing-g6-2">
         <div class="testing-title">基本信息</div>
