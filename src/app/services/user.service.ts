@@ -14,6 +14,7 @@ export class UserService {
     let userModel = new UserModel();
     userModel.id = user.id;
     userModel.name = user.name;
+    userModel.entId = user.entId;
     userModel.entName = user.entName;
     return userModel;
   }

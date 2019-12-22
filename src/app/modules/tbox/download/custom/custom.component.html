@@ -3,7 +3,7 @@
 
         <nz-form-label [nzSpan]="2">VIN码</nz-form-label>
         <nz-form-control [nzSpan]="4">
-            <app-vin [(vin)]="searchModel.vin" [(vid)]="searchModel.vid"></app-vin>
+            <app-vin [(vin)]="searchModel.vin" [(vid)]="searchModel.vid" platform="2"></app-vin>
         </nz-form-control>
 
         <nz-form-label [nzSpan]="2">起始时间</nz-form-label>
@@ -89,7 +89,7 @@
 
             <nz-form-label [nzSpan]="8">*&nbsp;VIN</nz-form-label>
             <nz-form-control [nzSpan]="12">
-                <app-vin [(vin)]="dataModel.vin" [(vid)]="dataModel.vid"></app-vin>
+                <app-vin [(vin)]="dataModel.vin" [(vid)]="dataModel.vid" platform="2"></app-vin>
             </nz-form-control>
 
             <nz-form-label [nzSpan]="8">*&nbsp;起始时间</nz-form-label>

@@ -11,5 +11,6 @@ export class User {
 export class UserModel {
     id: number;
     name: String;
+    entId: number;
     entName: String;
 }
