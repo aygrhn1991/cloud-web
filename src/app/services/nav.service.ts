@@ -37,21 +37,6 @@ export class NavService {
       { title: '地图监控', path: '/mon/sctl', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [] },
       { title: '轨迹查询', path: '/mon/track', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [] },
     ];
-    let cmdMenuList: Array<NavModel> = [
-      { title: '国六指令', path: '/cmd/g6', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [] },
-      { title: 'TBOX指令', path: '/cmd/tbox', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [] },
-      { title: '新能源指令', path: '/cmd/ne', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [] },
-    ];
-    let docMenuList: Array<NavModel> = [
-      { title: '国六档案', path: '/doc/g6', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [] },
-      { title: 'TBOX档案', path: '/doc/tbox', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [] },
-      { title: '新能源档案', path: '/doc/ne', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [] },
-    ];
-    let testingMenuList: Array<NavModel> = [
-      { title: '国六检测', path: '/testing/g6/testing', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [] },
-      { title: 'TBOX检测', path: '/testing/tbox/testing', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [] },
-      { title: '新能源检测', path: '/testing/ne/testing', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [] },
-    ];
     let g6MenuList: Array<NavModel> = [
       {
         title: '基本信息', path: '/g6/basic', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [
@@ -71,6 +56,27 @@ export class NavService {
       {
         title: '任务下载', path: '/g6/download', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [
           { title: '自定义任务下载', path: '/g6/download/custom', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [] },
+        ]
+      },
+      {
+        title: '车辆报告', path: '/g6/report', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [
+          { title: '车辆报告', path: '/g6/report/report', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [] },
+        ]
+      },
+      {
+        title: '指令下发', path: '/g6/cmd', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [
+          { title: '指令下发', path: '/g6/cmd/cmd', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [] },
+        ]
+      },
+      {
+        title: '电子围栏', path: '/g6/enc', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [
+          { title: '电子围栏', path: '/g6/enc/enc', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [] },
+        ]
+      },
+      {
+        title: '设备检测', path: '/g6/testing', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [
+          { title: '设备检测', path: '/g6/testing/testing', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [] },
+          { title: '历史回放', path: '/g6/testing/playback', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [] },
         ]
       },
       {
@@ -103,18 +109,16 @@ export class NavService {
       { title: '首页', path: '/index', selected: false, active: false, show: true, subnavs: [], menus: indexMenuList, pages: [] },
       { title: '系统', path: '/system', selected: false, active: false, show: true, subnavs: [], menus: systemMenuList, pages: [] },
       { title: '监控', path: '/mon', selected: false, active: false, show: true, subnavs: [], menus: monMenuList, pages: [] },
-      { title: '指令', path: '/cmd', selected: false, active: false, show: true, subnavs: [], menus: cmdMenuList, pages: [] },
-      { title: '围栏', path: '/enc', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [] },
-      { title: '档案', path: '/doc', selected: false, active: false, show: true, subnavs: [], menus: docMenuList, pages: [] },
-      { title: '行为', path: '/behavior', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [] },
-      { title: '检测', path: '/testing', selected: false, active: false, show: true, subnavs: [], menus: testingMenuList, pages: [] },
-      {
-        title: '平台', path: null, selected: false, active: false, show: true, subnavs: [
-          { title: '国六', path: '/g6', selected: false, active: false, show: true, subnavs: [], menus: g6MenuList, pages: [] },
-          { title: 'T-BOX', path: '/tbox', selected: false, active: false, show: true, subnavs: [], menus: tboxMenuList, pages: [] },
-          { title: '新能源', path: '/ne', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [] }
-        ], menus: [], pages: []
-      }
+      { title: '国六', path: '/g6', selected: false, active: false, show: true, subnavs: [], menus: g6MenuList, pages: [] },
+      { title: 'T-BOX', path: '/tbox', selected: false, active: false, show: true, subnavs: [], menus: tboxMenuList, pages: [] },
+      { title: '新能源', path: '/ne', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [] },
+      // {
+      //   title: '平台', path: null, selected: false, active: false, show: true, subnavs: [
+      //     { title: '国六', path: '/g6', selected: false, active: false, show: true, subnavs: [], menus: g6MenuList, pages: [] },
+      //     { title: 'T-BOX', path: '/tbox', selected: false, active: false, show: true, subnavs: [], menus: tboxMenuList, pages: [] },
+      //     { title: '新能源', path: '/ne', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [] }
+      //   ], menus: [], pages: []
+      // }
     ];
     return navList;
   }

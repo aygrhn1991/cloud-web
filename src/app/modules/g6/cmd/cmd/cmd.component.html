@@ -1,0 +1,41 @@
+<div class="panel">
+
+    <span class="item">
+          <span class="title">
+            IP：
+          </span>
+    <span class="value">
+            <input nz-input [(ngModel)]="ip">
+          </span>
+    </span>
+
+    <span class="item">
+          <span class="title">
+            账号：
+          </span>
+    <span class="value">
+            <input nz-input [(ngModel)]="account">
+          </span>
+    </span>
+
+    <span class="item">
+          <span class="title">
+            密码：
+          </span>
+    <span class="value">
+            <input nz-input [(ngModel)]="pwd">
+          </span>
+    </span>
+    <span class="item">
+        <span class="title">
+         
+        </span>
+    <span class="value">
+          <button nz-button nzType="primary" (click)="sendUpgrade()">终端升级</button>
+        </span>
+    </span>
+</div>
+
+<div class="panel">
+    <button nz-button nzType="primary" (click)="sendNormalCtrlCmd()">查询终端软件版本</button>
+</div>

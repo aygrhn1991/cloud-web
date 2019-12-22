@@ -1,21 +1,21 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { SearchModel, Result1 } from 'src/app/models/result.model';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { VehG6 } from 'src/app/models/veh.model';
+import { SearchModel, Result1 } from 'src/app/models/result.model';
 import { HttpService } from 'src/app/services/http.service';
 import { NzNotificationService } from 'ng-zorro-antd';
 import { G6Service } from 'src/app/services/g6.service';
 import { ChartService } from 'src/app/services/chart.service';
-import { UUID } from 'angular2-uuid';
 import { UtilService } from 'src/app/services/util.service';
+import { UUID } from 'angular2-uuid';
 import { G6DataType } from 'src/app/enums/g6.data.type.enum';
 declare var BMap: any;
 
 @Component({
-  selector: 'app-g6-testing',
-  templateUrl: './g6-testing.component.html',
-  styleUrls: ['./g6-testing.component.css']
+  selector: 'app-testing',
+  templateUrl: './testing.component.html',
+  styleUrls: ['./testing.component.css']
 })
-export class G6TestingComponent implements OnInit, OnDestroy {
+export class TestingComponent implements OnInit {
 
   clientId: string = null;
   beat: any = null;

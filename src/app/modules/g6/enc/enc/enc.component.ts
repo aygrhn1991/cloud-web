@@ -1,17 +1,17 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
-import { NzNotificationService, NzModalService } from "ng-zorro-antd";
-import { EncService } from "./enc.service";
-import { UtilService } from "src/app/services/util.service";
-
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { UtilService } from 'src/app/services/util.service';
+import { EncService } from 'src/app/services/enc.service';
+import { NzNotificationService, NzModalService } from 'ng-zorro-antd';
 declare var BMapLib: any;
 declare var BMap: any;
 declare var SEMapLib: any;
 @Component({
-  selector: "app-enc",
-  templateUrl: "./enc.component.html",
-  styleUrls: ["./enc.component.css"]
+  selector: 'app-enc',
+  templateUrl: './enc.component.html',
+  styleUrls: ['./enc.component.css']
 })
 export class EncComponent implements OnInit {
+
   @ViewChild("enc_map", { static: true }) enc_map: ElementRef;
   constructor(
     private util: UtilService,

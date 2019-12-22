@@ -4,7 +4,7 @@
             <img src="{{configService.config.web_logo}}">
         </div>
         <ul nz-menu nzMode="horizontal" style="line-height:64px;">
-            <li nz-menu-item [hidden]="nav.subnavs.length!=0" [nzSelected]="nav.selected" [routerLink]="nav.path" *ngFor="let nav of navService.navList">{{nav.title}}</li>
+            <!-- <li nz-menu-item [hidden]="nav.subnavs.length!=0" [nzSelected]="nav.selected" [routerLink]="nav.path" *ngFor="let nav of navService.navList">{{nav.title}}</li>
             <li nz-menu-item [hidden]="nav.subnavs.length==0" [nzSelected]="nav.selected" *ngFor="let nav of navService.navList">
                 <span nz-dropdown nzPlacement="bottomCenter" [nzDropdownMenu]="menu">{{nav.title}}<i nz-icon nzType="down"></i></span>
                 <nz-dropdown-menu #menu="nzDropdownMenu">
@@ -12,7 +12,8 @@
                         <li nz-menu-item [routerLink]="snav.path" *ngFor="let snav of nav.subnavs">{{snav.title}}</li>
                     </ul>
                 </nz-dropdown-menu>
-            </li>
+            </li> -->
+            <li nz-menu-item [hidden]="nav.subnavs.length!=0" [nzSelected]="nav.selected" [routerLink]="nav.path" *ngFor="let nav of navService.navList">{{nav.title}}</li>
             <li nz-menu-item style="float:right;">
                 <span nz-dropdown nzPlacement="bottomCenter" [nzDropdownMenu]="menu"><i nz-icon nzType="idcard" nzTheme="twotone"></i>{{userService.currentUser.entName+' '+userService.currentUser.name}}<i nz-icon nzType="down"></i></span>
                 <nz-dropdown-menu #menu="nzDropdownMenu">

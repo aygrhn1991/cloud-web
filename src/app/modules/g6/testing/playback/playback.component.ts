@@ -6,14 +6,12 @@ import { NzNotificationService } from 'ng-zorro-antd';
 import { G6Service } from 'src/app/services/g6.service';
 import { ChartService } from 'src/app/services/chart.service';
 declare var BMap: any;
-declare var BMapLib: any;
-
 @Component({
-  selector: 'app-g6-playback',
-  templateUrl: './g6-playback.component.html',
-  styleUrls: ['./g6-playback.component.css']
+  selector: 'app-playback',
+  templateUrl: './playback.component.html',
+  styleUrls: ['./playback.component.css']
 })
-export class G6PlaybackComponent implements OnInit {
+export class PlaybackComponent implements OnInit {
 
   @ViewChild('map', null) mapContainer: ElementRef;
   map: any;

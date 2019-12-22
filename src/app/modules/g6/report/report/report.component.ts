@@ -5,11 +5,12 @@ import { NzNotificationService, NzModalService } from 'ng-zorro-antd';
 import { SearchModel, Result2 } from 'src/app/models/result.model';
 
 @Component({
-  selector: 'app-g6-doc',
-  templateUrl: './g6-doc.component.html',
-  styleUrls: ['./g6-doc.component.css']
+  selector: 'app-report',
+  templateUrl: './report.component.html',
+  styleUrls: ['./report.component.css']
 })
-export class G6DocComponent implements OnInit {
+export class ReportComponent implements OnInit {
+
   docveh: any = {};
   docVehException: any = {};
   loading: boolean = false;
@@ -62,6 +63,5 @@ export class G6DocComponent implements OnInit {
       this.docVehException = data.data;
     })
   }
-
 
 }

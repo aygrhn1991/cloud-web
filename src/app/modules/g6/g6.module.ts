@@ -24,6 +24,12 @@ import { ApiTestComponent } from './doc/api-test/api-test.component';
 import { DocManageComponent } from './doc/doc-manage/doc-manage.component';
 import { FuelMonthComponent } from './data/fuel-month/fuel-month.component';
 import { FuelDayComponent } from './data/fuel-day/fuel-day.component';
+import { TestingComponent } from './testing/testing/testing.component';
+import { PlaybackComponent } from './testing/playback/playback.component';
+import { NgxEchartsModule } from 'ngx-echarts';
+import { ReportComponent } from './report/report/report.component';
+import { CmdComponent } from './cmd/cmd/cmd.component';
+import { EncComponent } from './enc/enc/enc.component';
 
 const routes: Routes = [
   {
@@ -32,13 +38,25 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'basic/veh', pathMatch: 'full' },
       { path: 'basic/veh', component: VehComponent, canActivate: [GuardService] },
+
       { path: 'data/data-eng', component: DataEngComponent, canActivate: [GuardService] },
       { path: 'data/data-obd', component: DataObdComponent, canActivate: [GuardService] },
       { path: 'data/odo-mile', component: OdoMileComponent, canActivate: [GuardService] },
+      { path: 'data/online-log', component: OnlineLogComponent, canActivate: [GuardService] },
       { path: 'data/fuel-month', component: FuelMonthComponent, canActivate: [GuardService] },
       { path: 'data/fuel-day', component: FuelDayComponent, canActivate: [GuardService] },
-      { path: 'data/online-log', component: OnlineLogComponent, canActivate: [GuardService] },
+
       { path: 'download/custom', component: CustomComponent, canActivate: [GuardService] },
+
+      { path: 'report/report', component: ReportComponent, canActivate: [GuardService] },
+
+      { path: 'cmd/cmd', component: CmdComponent, canActivate: [GuardService] },
+
+      { path: 'enc/enc', component: EncComponent, canActivate: [GuardService] },
+
+      { path: 'testing/testing', component: TestingComponent, canActivate: [GuardService] },
+      { path: 'testing/playback', component: PlaybackComponent, canActivate: [GuardService] },
+
       { path: 'doc/eng-mode', component: EngModeComponent, canActivate: [GuardService] },
       { path: 'doc/veh-mode', component: VehModeComponent, canActivate: [GuardService] },
       { path: 'doc/chip-mode', component: ChipModeComponent, canActivate: [GuardService] },
@@ -72,6 +90,11 @@ const routes: Routes = [
     DocManageComponent,
     FuelMonthComponent,
     FuelDayComponent,
+    TestingComponent,
+    PlaybackComponent,
+    ReportComponent,
+    CmdComponent,
+    EncComponent,
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -80,6 +103,7 @@ const routes: Routes = [
     FormsModule,
     ComponentsModule,
     PipesModule,
+    NgxEchartsModule
   ]
 })
 export class G6Module { }
