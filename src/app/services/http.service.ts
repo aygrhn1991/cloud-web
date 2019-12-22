@@ -110,10 +110,10 @@ export class HttpService {
     return this.http.get(`/report/statCtrl/queryVehDayOil/${vid}/${dateStart}/${dateEnd}`);
   }
   exportG6FuelMonth(dateStart: number, dateEnd: number) {
-    return `/report/statCtrl/statVehMonthDataArea/${dateStart}/${dateEnd}`;
+    return `/report/statCtrl/exportMonthOil/${dateStart}/${dateEnd}`;
   }
   exportG6FuelDay(vid: number, dateStart: number, dateEnd: number) {
-    return `/report/statCtrl/queryVehDayOil/${vid}/${dateStart}/${dateEnd}`;
+    return `/report/statCtrl/exportDayOil/${vid}/${dateStart}/${dateEnd}`;
   }
   //#endregion
 

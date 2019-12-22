@@ -60,7 +60,8 @@ export class FuelDayComponent implements OnInit {
   }
   //#endregion
   export(){
-    window.open(this.http.exportG6FuelMonth(this.util.getDayStart(this.util.getMonthStartDay(this.searchModel.dateStart)).getTime(),
+    window.open(this.http.exportG6FuelDay(this.util.parameterTransfer(this.searchModel.vid, -1),
+    this.util.getDayStart(this.util.getMonthStartDay(this.searchModel.dateStart)).getTime(),
     this.util.getDayEnd(this.util.getMonthEndDay(this.searchModel.dateStart)).getTime()), '_blank');
   }
 }
