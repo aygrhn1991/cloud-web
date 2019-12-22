@@ -64,6 +64,8 @@ export class NavService {
           { title: 'OBD数据查询', path: '/g6/data/data-obd', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [] },
           { title: 'ODO里程查询', path: '/g6/data/odo-mile', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [] },
           { title: '在线日志查询', path: '/g6/data/online-log', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [] },
+          { title: '百公里油耗统计', path: '/g6/data/fuel-month', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [] },
+          { title: '百公里油耗明细', path: '/g6/data/fuel-day', selected: false, active: false, show: true, subnavs: [], menus: [], pages: [] },
         ]
       },
       {

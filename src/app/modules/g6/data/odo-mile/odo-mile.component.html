@@ -22,8 +22,8 @@
     <thead>
         <tr>
             <th>VIN</th>
-            <th>当月里程(km)</th>
-            <th>ODO里程(km)</th>
+            <th>当月ODO里程(km)</th>
+            <th>累计里程(km)</th>
             <th>车辆添加时间</th>
             <th>明细</th>
         </tr>
@@ -31,9 +31,9 @@
     <tbody>
         <tr *ngFor="let data of dataTable.data">
             <td>{{data.vin}}</td>
-            <td>{{data.vehicleSpeed}}</td>
-            <td>{{data.vehicleSpeed}}</td>
-            <td>{{data.attm|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>{{data.mil}}</td>
+            <td>{{data.odo}}</td>
+            <td>{{data.attime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
             <td><button nz-button (click)="getDataModal1(data)"><i nz-icon nzType="eye" nzTheme="twotone" nzTwotoneColor="yellow"></i>明细</button></td>
         </tr>
     </tbody>
@@ -47,17 +47,17 @@
         <thead>
             <tr>
                 <th>VIN</th>
-                <th>当日里程(km)</th>
-                <th>ODO里程(km)</th>
+                <th>当日ODO里程(km)</th>
+                <th>累计里程(km)</th>
                 <th>日期</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let data of odoMileTable.data">
                 <td>{{data.vin}}</td>
-                <td>{{data.vehicleSpeed}}</td>
-                <td>{{data.vehicleSpeed}}</td>
-                <td>{{data.attm|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                <td>{{data.mil}}</td>
+                <td>{{data.odo}}</td>
+                <td>{{data.attime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
             </tr>
         </tbody>
     </nz-table>

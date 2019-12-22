@@ -5,13 +5,11 @@ import { G6Service } from 'src/app/services/g6.service';
 import { SearchModel, Result2 } from 'src/app/models/result.model';
 
 @Component({
-  selector: 'app-online-log',
-  templateUrl: './online-log.component.html',
-  styleUrls: ['./online-log.component.css']
+  selector: 'app-fuel-month',
+  templateUrl: './fuel-month.component.html',
+  styleUrls: ['./fuel-month.component.css']
 })
-export class OnlineLogComponent implements OnInit {
-
-  form_flag='1';
+export class FuelMonthComponent implements OnInit {
 
   constructor(private http: HttpService,
     private util: UtilService,
@@ -30,7 +28,8 @@ export class OnlineLogComponent implements OnInit {
     if (reset) {
       this.searchModel.pageNum = 1;
     }
-    this.http.getG6OnlineLogSum(this.form_flag).subscribe((data: Result2) => {
+    this.http.getG6FuelMonth(this.util.getDayStart(this.util.getMonthStartDay(this.searchModel.dateStart)).getTime(),
+      this.util.getDayEnd(this.util.getMonthEndDay(this.searchModel.dateStart)).getTime()).subscribe((data: Result2) => {
         this.loading = false;
         this.dataList = data.data;
       })
@@ -45,12 +44,12 @@ export class OnlineLogComponent implements OnInit {
   }
   //#endregion
 
-  //#region 单车上线明细
+  //#region 单车odo里程明细
   isVisibleModal1: boolean = false;
   pageNumModal1: number = 1;
   dataListModal1: Array<any> = [];
   getDataModal1(e): void {
-    this.http.getG6OdoMile(this.util.parameterTransfer(e.vin, -1),
+    this.http.getG6OdoMile(this.util.parameterTransfer(e.vid, -1),
       this.util.getDayStart(this.util.getMonthStartDay(this.searchModel.dateStart)).getTime(),
       this.util.getDayEnd(this.util.getMonthEndDay(this.searchModel.dateStart)).getTime()).subscribe((data: Result2) => {
         this.dataListModal1 = data.data;
@@ -59,5 +58,9 @@ export class OnlineLogComponent implements OnInit {
     this.isVisibleModal1 = true;
   }
   //#endregion
+  export(){
+    window.open(this.http.exportG6FuelMonth(this.util.getDayStart(this.util.getMonthStartDay(this.searchModel.dateStart)).getTime(),
+    this.util.getDayEnd(this.util.getMonthEndDay(this.searchModel.dateStart)).getTime()), '_blank');
+  }
 
 }

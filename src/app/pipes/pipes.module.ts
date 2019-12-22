@@ -16,6 +16,7 @@ import { EngLocatePipe } from './g6/eng-locate.pipe';
 import { ObdProtocolPipe } from './g6/obd-protocol.pipe';
 import { ObdMilPipe } from './g6/obd-mil.pipe';
 import { VehStatePipe } from './g6/g6doc/veh-state.pipe';
+import { LocatePipe } from './locate.pipe';
 
 @NgModule({
   imports: [CommonModule],
@@ -34,7 +35,8 @@ import { VehStatePipe } from './g6/g6doc/veh-state.pipe';
     Eng4Pipe,
     EngLocatePipe,
     ObdProtocolPipe,
-    VehStatePipe
+    VehStatePipe,
+    LocatePipe
   ],
   exports: [
     CmdIdPipe,
@@ -51,7 +53,8 @@ import { VehStatePipe } from './g6/g6doc/veh-state.pipe';
     Eng4Pipe,
     EngLocatePipe,
     ObdProtocolPipe,
-    VehStatePipe
+    VehStatePipe,
+    LocatePipe
   ]
 
 })

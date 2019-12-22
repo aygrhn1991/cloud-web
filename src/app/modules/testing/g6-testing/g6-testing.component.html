@@ -27,15 +27,15 @@
         <div class="testing-title">OBD数据</div>
         <div class="testing-fit">
             <div class="testing-content">
-                <div>OBD诊断协议：{{vehInfo.vin}}</div>
-                <div>MIL状态：{{vehInfo.vin}}</div>
-                <div>诊断支持状态：{{vehInfo.vin}}</div>
-                <div>诊断就绪状态：{{vehInfo.vin}}</div>
-                <div>车辆识别码：{{vehInfo.vin}}</div>
-                <div>软件标定识别号：{{vehInfo.vin}}</div>
-                <div>标定验证码：{{vehInfo.vin}}</div>
-                <div>IUPR值：{{vehInfo.vin}}</div>
-                <div>故障码总数：{{vehInfo.vin}}</div>
+                <div>OBD诊断协议：{{vehObd.obdProtocol}}</div>
+                <div>MIL状态：{{vehObd.milState}}</div>
+                <div>诊断支持状态：{{vehObd.supportState}}</div>
+                <div>诊断就绪状态：{{vehObd.readyState}}</div>
+                <div>车辆识别码：{{vehObd.vin}}</div>
+                <div>软件标定识别号：{{vehObd.softwareId}}</div>
+                <div>标定验证码：{{vehObd.cvn}}</div>
+                <div>IUPR值：{{vehObd.iupr}}</div>
+                <div>故障码总数：{{vehObd.faultNum}}</div>
             </div>
             <div class="testing-subtitle">监控器状态</div>
             <div class="testing-content">
@@ -47,32 +47,32 @@
             </div>
             <div class="testing-subtitle">故障码列表</div>
             <div class="testing-content">
-                123456,234567,345678
+                <span *ngFor="let item of vehObd.faultCodes">{{item}}，</span>
             </div>
         </div>
     </div>
     <div class="testing-panel testing-g6-4">
         <div class="testing-title">发动机数据</div>
         <div class="testing-content">
-            <div class="testing-half">车速：{{vehInfo.vin}}(km/h)</div>
-            <div class="testing-half">大气压力：{{vehInfo.vin}}(kPa)</div>
-            <div class="testing-half">发动机净输出扭矩：{{vehInfo.vin}}(%)</div>
-            <div class="testing-half">摩擦扭矩：{{vehInfo.vin}}(%)</div>
-            <div class="testing-half">发动机转速：{{vehInfo.vin}}(rpm)</div>
-            <div class="testing-half">发动机燃料流量：{{vehInfo.vin}}(L/h)</div>
-            <div class="testing-half">SCR上游NOx传感器输出值：{{vehInfo.vin}}(ppm)</div>
-            <div class="testing-half">SCR下游NOx传感器输出值：{{vehInfo.vin}}(ppm)</div>
-            <div class="testing-half">反应剂余量：{{vehInfo.vin}}(%)</div>
-            <div class="testing-half">进气量：{{vehInfo.vin}}(kg/h)</div>
-            <div class="testing-half">SCR入口温度：{{vehInfo.vin}}(℃)</div>
-            <div class="testing-half">SCR出口温度：{{vehInfo.vin}}(℃)</div>
-            <div class="testing-half">DPF压差：{{vehInfo.vin}}(kPa)</div>
-            <div class="testing-half">发动机冷却液温度：{{vehInfo.vin}}(℃)</div>
-            <div class="testing-half">油箱液位：{{vehInfo.vin}}(%)</div>
-            <div class="testing-half">定位状态：{{vehInfo.vin}}</div>
-            <div class="testing-half">经度：{{vehInfo.vin}}</div>
-            <div class="testing-half">纬度：{{vehInfo.vin}}</div>
-            <div class="testing-half">累计里程：{{vehInfo.vin}}(km)</div>
+            <div class="testing-half">车速：{{vehEng.vehicleSpeed|eng2:1/256:0}}(km/h)</div>
+            <div class="testing-half">大气压力：{{vehEng.atmosphericPressure|eng1:0.5:0}}(kPa)</div>
+            <div class="testing-half">发动机净输出扭矩：{{vehEng.engineNetoutputTorque|eng1:100:-125}}(%)</div>
+            <div class="testing-half">摩擦扭矩：{{vehEng.frictionTorque|eng1:100:-125}}(%)</div>
+            <div class="testing-half">发动机转速：{{vehEng.engineSpeed|eng2:0.125:0}}(rpm)</div>
+            <div class="testing-half">发动机燃料流量：{{vehEng.engineFuelFlow|eng2:0.05:0}}(L/h)</div>
+            <div class="testing-half">SCR上游NOx传感器输出值：{{vehEng.scrupValue|eng2:0.05:0}}(ppm)</div>
+            <div class="testing-half">SCR下游NOx传感器输出值：{{vehEng.scrdownValue|eng2:0.05:0}}(ppm)</div>
+            <div class="testing-half">反应剂余量：{{vehEng.reactantAllowance|eng1:100*0.4:0}}(%)</div>
+            <div class="testing-half">进气量：{{vehEng.airInflow|eng2:0.05:0}}(kg/h)</div>
+            <div class="testing-half">SCR入口温度：{{vehEng.scrinTemperature|eng2:0.03125:-273}}(℃)</div>
+            <div class="testing-half">SCR出口温度：{{vehEng.scroutTemperature|eng2:0.03125:-273}}(℃)</div>
+            <div class="testing-half">DPF压差：{{vehEng.dpfpressureDifferenc|eng2:0.1:0}}(kPa)</div>
+            <div class="testing-half">发动机冷却液温度：{{vehEng.ect|eng1:1:-40}}(℃)</div>
+            <div class="testing-half">油箱液位：{{vehEng.tankLevel|eng1:100*0.4:0}}(%)</div>
+            <div class="testing-half">定位状态：{{vehEng.positioningState|engLocate}}</div>
+            <div class="testing-half">经度：{{vehEng.longitude|locate:3}}</div>
+            <div class="testing-half">纬度：{{vehEng.latitude|locate:2}}</div>
+            <div class="testing-half">累计里程：{{vehEng.mileage|eng4:0.1:0}}(km)</div>
         </div>
         <div echarts [options]="chartOption" (chartInit)="onChartInit($event)" style="width:100%;height:150px;"></div>
     </div>
@@ -81,37 +81,23 @@
             实时数据
             <div class="testing-key">
                 <nz-input-group nzSuffixIcon="search">
-                    <input type="text" nz-input placeholder="搜索..." />
+                    <input type="text" nz-input placeholder="搜索..." [(ngModel)]="key" (ngModelChange)="drawSearch()" />
                 </nz-input-group>
             </div>
             <div class="testing-tip">
-                <input type="checkbox" (click)="autoScroll()" [(ngModel)]="log_auto_scroll">
+                <input type="checkbox" [(ngModel)]="autoLogScroll">
                 <span>自动滚动</span>
-                <span>数据条数：888条</span>
-                <span>数据频率：61条/分</span>
-                <span (click)="c1()">click1</span>
-                <span (click)="c2()">click2</span>
+                <span style="text-decoration:underline;cursor:pointer;" (click)="vehLog=[]">清空日志</span>
+                <span>数据条数：{{total}}条</span>
+                <span>数据频率：{{hz}}条/分</span>
             </div>
         </div>
-        <div class="testing-fit">
+        <div #logWrapper class="testing-fit">
             <div class="testing-content">
-                <div>[2019-11-15 14:43:01] 123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123A</div>
-                <div>[2019-11-15 14:43:01] 123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123B</div>
-                <div>[2019-11-15 14:43:01] 123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123C</div>
-                <div>[2019-11-15 14:43:01] 123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123D</div>
-                <div>[2019-11-15 14:43:01] 123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123E</div>
-                <div>[2019-11-15 14:43:01] 123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123F</div>
-                <div>[2019-11-15 14:43:01] 123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123</div>
-                <div>[2019-11-15 14:43:01] 123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123</div>
-                <div>[2019-11-15 14:43:01] 123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123</div>
-                <div>[2019-11-15 14:43:01] 123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123</div>
-                <div>[2019-11-15 14:43:01] 123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123</div>
-                <div>[2019-11-15 14:43:01] 123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123</div>
-                <div>[2019-11-15 14:43:01] 123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123</div>
-                <div>[2019-11-15 14:43:01] 123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123</div>
-                <div>[2019-11-15 14:43:01] 123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123</div>
-                <div>[2019-11-15 14:43:01] 123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123</div>
-                <div>[2019-11-15 14:43:01] 123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123</div>
+                <div *ngFor="let item of vehLog">
+                    [&nbsp;{{item.msgval.atTime}}&nbsp;]&nbsp;&nbsp;&nbsp;<span [innerHTML]="item.org2"></span>
+                </div>
+                <div>&nbsp;</div>
             </div>
         </div>
     </div>

@@ -51,7 +51,7 @@ export class OdoMileComponent implements OnInit {
   pageNumModal1: number = 1;
   dataListModal1: Array<any> = [];
   getDataModal1(e): void {
-    this.http.getG6OdoMile(this.util.parameterTransfer(e.vin, -1),
+    this.http.getG6OdoMile(this.util.parameterTransfer(e.vid, -1),
       this.util.getDayStart(this.util.getMonthStartDay(this.searchModel.dateStart)).getTime(),
       this.util.getDayEnd(this.util.getMonthEndDay(this.searchModel.dateStart)).getTime()).subscribe((data: Result2) => {
         this.dataListModal1 = data.data;

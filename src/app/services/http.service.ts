@@ -92,16 +92,28 @@ export class HttpService {
     return this.http.get(`/bgdata/bigDataDetailCtrl/queryObdDataDetail/${vid}/${dateStart}/${dateEnd}`);
   }
   getG6OdoMileSum(vid: number, dateStart: number, dateEnd: number) {
-    return this.http.get('/bgdata/bigDataDetailCtrl/queryEngineDataDetail/10002460/1572796800000/1572883199999');
+    return this.http.get(`/report/odoCtrl/statVehMonthOdo/${vid}/${dateStart}/${dateEnd}`);
   }
   getG6OdoMile(vid: number, dateStart: number, dateEnd: number) {
-    return this.http.get('/bgdata/bigDataDetailCtrl/queryEngineDataDetail/10002460/1572796800000/1572883199999');
+    return this.http.get(`/report/odoCtrl/queryVehMonthOdo/${vid}/${dateStart}/${dateEnd}`);
   }
-  getG6OnlineLogSum(vid: number) {
-    return this.http.get('/bgdata/bigDataDetailCtrl/queryEngineDataDetail/10002460/1572796800000/1572883199999');
+  getG6OnlineLogSum(flag: any) {
+    return this.http.get('/report/dtuOnlineCtrl/statDtuOnline/'+flag);
   }
   getG6Online(vid: number) {
     return this.http.get('/bgdata/bigDataDetailCtrl/queryEngineDataDetail/10002460/1572796800000/1572883199999');
+  }
+  getG6FuelMonth(dateStart: number, dateEnd: number) {
+    return this.http.get(`/report/statCtrl/statVehMonthDataArea/${dateStart}/${dateEnd}`);
+  }
+  getG6FuelDay(vid: number, dateStart: number, dateEnd: number) {
+    return this.http.get(`/report/statCtrl/queryVehDayOil/${vid}/${dateStart}/${dateEnd}`);
+  }
+  exportG6FuelMonth(dateStart: number, dateEnd: number) {
+    return `/report/statCtrl/statVehMonthDataArea/${dateStart}/${dateEnd}`;
+  }
+  exportG6FuelDay(vid: number, dateStart: number, dateEnd: number) {
+    return `/report/statCtrl/queryVehDayOil/${vid}/${dateStart}/${dateEnd}`;
   }
   //#endregion
 
@@ -282,6 +294,9 @@ export class HttpService {
   //#region 设备检测g6
   startG6Testing(clientId: string, vid: number) {
     return this.http.get(`/g6testing/beat/${clientId}/${vid}`);
+  }
+  getG6VehInfo(vid: number) {
+    return this.http.get(`/g6testing/getVehInfo/${vid}`);
   }
   //#endregion
 

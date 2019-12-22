@@ -360,6 +360,7 @@ nz-date-picker,
 }
 
 .testing-fit {
+    height: 100%;
     max-height: calc(100% - 30px);
     overflow: auto;
 }

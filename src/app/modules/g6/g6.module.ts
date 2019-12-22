@@ -22,6 +22,8 @@ import { ChipPrefixComponent } from './doc/chip-prefix/chip-prefix.component';
 import { DtuAuthorityComponent } from './doc/dtu-authority/dtu-authority.component';
 import { ApiTestComponent } from './doc/api-test/api-test.component';
 import { DocManageComponent } from './doc/doc-manage/doc-manage.component';
+import { FuelMonthComponent } from './data/fuel-month/fuel-month.component';
+import { FuelDayComponent } from './data/fuel-day/fuel-day.component';
 
 const routes: Routes = [
   {
@@ -33,6 +35,8 @@ const routes: Routes = [
       { path: 'data/data-eng', component: DataEngComponent, canActivate: [GuardService] },
       { path: 'data/data-obd', component: DataObdComponent, canActivate: [GuardService] },
       { path: 'data/odo-mile', component: OdoMileComponent, canActivate: [GuardService] },
+      { path: 'data/fuel-month', component: FuelMonthComponent, canActivate: [GuardService] },
+      { path: 'data/fuel-day', component: FuelDayComponent, canActivate: [GuardService] },
       { path: 'data/online-log', component: OnlineLogComponent, canActivate: [GuardService] },
       { path: 'download/custom', component: CustomComponent, canActivate: [GuardService] },
       { path: 'doc/eng-mode', component: EngModeComponent, canActivate: [GuardService] },
@@ -66,6 +70,8 @@ const routes: Routes = [
     DtuAuthorityComponent,
     ApiTestComponent,
     DocManageComponent,
+    FuelMonthComponent,
+    FuelDayComponent,
   ],
   imports: [
     RouterModule.forChild(routes),

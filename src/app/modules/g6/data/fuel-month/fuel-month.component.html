@@ -5,17 +5,15 @@
             <app-vin [(vin)]="searchModel.vin" [(vid)]="searchModel.vid"></app-vin>
         </nz-form-control> -->
 
-        <nz-form-label [nzSpan]="2">类型</nz-form-label>
-        <nz-form-control [nzSpan]="4">
-            <nz-select nzSize="small" [nzAllowClear]="false" [(ngModel)]="form_flag" name="form_flag">
-                <nz-option nzValue="0" nzLabel="未上线"></nz-option>
-                <nz-option nzValue="1" nzLabel="上线"></nz-option>
-            </nz-select>
+        <nz-form-label nzSpan="2">日期</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <nz-month-picker nzAllowClear="false" [(ngModel)]="searchModel.dateStart" name="searchModel.dateStart"></nz-month-picker>
         </nz-form-control>
     </nz-form-item>
 </form>
 <div class="toolbar">
-    <div class="toolbar-left"></div>
+    <div class="toolbar-left">
+        <button nz-button (click)="export()">导出</button></div>
     <div class="toolbar-right">
         <button nz-button (click)="getData(true)"><i nz-icon nzType="filter" nzTheme="twotone" nzTwotoneColor="green"></i>查找</button>
         <button nz-button (click)="reset()"><i nz-icon nzType="interaction" nzTheme="twotone" nzTwotoneColor="blue"></i>清空</button>
@@ -25,19 +23,21 @@
     <thead>
         <tr>
             <th>VIN</th>
-            <th>最后定位经度</th>
-            <th>最后定位纬度</th>
-            <th>最后在线时间</th>
-            <!-- <th>明细</th> -->
+            <th>行驶里程(km)</th>
+            <th>能耗(L)</th>
+            <th>百公里能耗</th>
+            <th>运行时长(h)</th>
+            <th>ODO里程(km)</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let data of dataTable.data">
             <td>{{data.vin}}</td>
-            <td>{{data.lng}}</td>
-            <td>{{data.lat}}</td>
-            <td>{{data.dtudt|date:'yyyy-MM-dd HH:mm:ss'}}</td>
-            <!-- <td><button nz-button (click)="getDataModal1(data)"><i nz-icon nzType="eye" nzTheme="twotone" nzTwotoneColor="yellow"></i>明细</button></td> -->
+            <td>{{data.mil}}</td>
+            <td>{{data.oil}}</td>
+            <td>{{data.per}}</td>
+            <td>{{data.odo}}</td>
+            <td>{{data.mil}}</td>
         </tr>
     </tbody>
 </nz-table>
@@ -45,26 +45,32 @@
     第{{range[0]}}-{{range[1]}}条 共{{total}}条
 </ng-template>
 
-<nz-modal [(nzVisible)]="isVisibleModal1" nzTitle="在线日志明细" (nzOnCancel)="isVisibleModal1=false" [nzFooter]="modalFooter1">
+<nz-modal [(nzVisible)]="isVisibleModal1" nzTitle="ODO里程明细" (nzOnCancel)="isVisibleModal1=false" [nzFooter]="modalFooterOdoMile">
     <nz-table #odoMileTable [nzData]="dataListModal1" [(nzPageIndex)]="pageNumModal1">
         <thead>
             <tr>
                 <th>VIN</th>
-                <th>经度</th>
-                <th>纬度</th>
+                <th>行驶里程(km)</th>
+                <th>能耗(L)</th>
+                <th>百公里能耗</th>
+                <th>运行时长(h)</th>
+                <th>ODO里程(km)</th>
                 <th>时间</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let data of odoMileTable.data">
                 <td>{{data.vin}}</td>
-                <td>{{data.vehicleSpeed}}</td>
-                <td>{{data.vehicleSpeed}}</td>
-                <td>{{data.attm|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                <td>{{data.mil}}</td>
+                <td>{{data.oil}}</td>
+                <td>{{data.per}}</td>
+                <td>{{data.odo}}</td>
+                <td>{{data.mil}}</td>
+                <td>{{data.attime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
             </tr>
         </tbody>
     </nz-table>
-    <ng-template #modalFooter1>
+    <ng-template #modalFooterOdoMile>
         <button nz-button (click)="isVisibleModal1=false"><i nz-icon nzType="left-circle" nzTheme="twotone" nzTwotoneColor="blue"></i>返回</button>
     </ng-template>
 </nz-modal>

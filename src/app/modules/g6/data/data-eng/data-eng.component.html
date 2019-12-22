@@ -63,8 +63,8 @@
             <td>{{data.ect|eng1:1:-40}}（{{data.ect}}）</td>
             <td>{{data.tankLevel|eng1:100*0.4:0}}（{{data.tankLevel}}）</td>
             <td>{{data.positioningState|engLocate}}（{{data.positioningState}}）</td>
-            <td>{{data.longitude|eng4:0.00001:0}}（{{data.longitude}}）</td>
-            <td>{{data.latitude|eng4:0.00001:0}}（{{data.latitude}}）</td>
+            <td>{{data.longitude|locate:3}}（{{data.longitude}}）</td>
+            <td>{{data.latitude|locate:2}}（{{data.latitude}}）</td>
             <td>{{data.mileage|eng4:0.1:0}}（{{data.mileage}}）</td>
             <td nzRight="0px">{{data.attm|date:'yyyy-MM-dd HH:mm:ss'}}</td>
         </tr>
