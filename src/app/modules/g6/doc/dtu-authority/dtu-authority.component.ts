@@ -5,6 +5,7 @@ import { UtilService } from 'src/app/services/util.service';
 import { Result1, G6DocResult } from 'src/app/models/result.model';
 import { DtuModeModel } from 'src/app/models/g6/g6doc/dtu-mode.model';
 import { DtuAuthorityModel } from 'src/app/models/g6/g6doc/dtu-authority.model';
+import { G6DocHttpService } from 'src/app/services/g6/g6doc/g6-doc-http.service';
 
 @Component({
   selector: 'app-dtu-authority',
@@ -13,7 +14,7 @@ import { DtuAuthorityModel } from 'src/app/models/g6/g6doc/dtu-authority.model';
 })
 export class DtuAuthorityComponent implements OnInit {
 
-  constructor(private http: HttpService,
+  constructor(private http: G6DocHttpService,
     private notification: NzNotificationService,
     private util: UtilService) { }
 

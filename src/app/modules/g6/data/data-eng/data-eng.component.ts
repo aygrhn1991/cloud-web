@@ -3,6 +3,7 @@ import { HttpService } from 'src/app/services/http.service';
 import { UtilService } from 'src/app/services/util.service';
 import { NzNotificationService } from 'ng-zorro-antd';
 import { SearchModel, Result2 } from 'src/app/models/result.model';
+import { G6HttpService } from 'src/app/services/g6/g6-http.service';
 
 @Component({
   selector: 'app-data-eng',
@@ -11,7 +12,7 @@ import { SearchModel, Result2 } from 'src/app/models/result.model';
 })
 export class DataEngComponent implements OnInit {
 
-  constructor(private http: HttpService,
+  constructor(private http: G6HttpService,
     private util: UtilService,
     private notification: NzNotificationService) { }
 

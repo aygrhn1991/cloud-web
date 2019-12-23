@@ -10,6 +10,7 @@ import { ChipPrefixModel } from 'src/app/models/g6/g6doc/chip-prefix.model';
 import { DtuModeModel } from 'src/app/models/g6/g6doc/dtu-mode.model';
 import { DtuAuthorityModel } from 'src/app/models/g6/g6doc/dtu-authority.model';
 import { VehDocModel } from 'src/app/models/g6/g6doc/veh-doc.model';
+import { G6DocHttpService } from 'src/app/services/g6/g6doc/g6-doc-http.service';
 
 @Component({
   selector: 'app-api-test',
@@ -18,7 +19,7 @@ import { VehDocModel } from 'src/app/models/g6/g6doc/veh-doc.model';
 })
 export class ApiTestComponent implements OnInit {
 
-  constructor(private http: HttpService,
+  constructor(private http: G6DocHttpService,
     private notification: NzNotificationService,
     private util: UtilService) { }
 

@@ -5,6 +5,7 @@ import { NzNotificationService, NzModalService, UploadFile } from 'ng-zorro-antd
 import { VehG6 } from 'src/app/models/veh.model';
 import { Result2, SearchModel } from 'src/app/models/result.model';
 import { CommonService } from 'src/app/services/common.service';
+import { G6HttpService } from 'src/app/services/g6/g6-http.service';
 
 @Component({
   selector: 'app-veh',
@@ -18,7 +19,7 @@ export class VehComponent implements OnInit {
   powerOptions = this.commonService.vehPowerOptions;
   //#endregion
 
-  constructor(private http: HttpService,
+  constructor(private http: G6HttpService,
     private util: UtilService,
     private notification: NzNotificationService,
     private modalService: NzModalService,

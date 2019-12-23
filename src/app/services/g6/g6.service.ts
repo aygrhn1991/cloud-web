@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { UtilService } from './util.service';
-import { ObdStateModel, IuprModel, DataDownloadModel } from '../models/g6/g6.model';
+import { UtilService } from '../util.service';
+import { ObdStateModel, IuprModel, DataDownloadModel } from '../../models/g6/g6.model';
 
 @Injectable({
   providedIn: 'root'

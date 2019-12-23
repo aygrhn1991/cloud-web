@@ -4,6 +4,7 @@ import { Task } from 'src/app/models/task';
 import { Result2, SearchModel } from 'src/app/models/result.model';
 import { HttpService } from 'src/app/services/http.service';
 import { UtilService } from 'src/app/services/util.service';
+import { G6HttpService } from 'src/app/services/g6/g6-http.service';
 
 @Component({
   selector: 'app-custom',
@@ -20,7 +21,7 @@ export class CustomComponent implements OnInit {
   dataModel: Task = new Task();
   tempData: any = {};;//点击一行的时候使用
   form_state: any = null;
-  constructor(private http: HttpService,
+  constructor(private http: G6HttpService,
     private util: UtilService,
     private notification: NzNotificationService,
     private modalService: NzModalService) { }

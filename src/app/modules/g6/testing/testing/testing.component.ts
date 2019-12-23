@@ -3,7 +3,7 @@ import { VehG6 } from 'src/app/models/veh.model';
 import { SearchModel, Result1 } from 'src/app/models/result.model';
 import { HttpService } from 'src/app/services/http.service';
 import { NzNotificationService } from 'ng-zorro-antd';
-import { G6Service } from 'src/app/services/g6.service';
+import { G6Service } from 'src/app/services/g6/g6.service';
 import { ChartService } from 'src/app/services/chart.service';
 import { UtilService } from 'src/app/services/util.service';
 import { UUID } from 'angular2-uuid';

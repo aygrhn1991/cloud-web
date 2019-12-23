@@ -4,6 +4,7 @@ import { NzNotificationService, UploadFile } from 'ng-zorro-antd';
 import { G6DocResult, Result1 } from 'src/app/models/result.model';
 import { UtilService } from 'src/app/services/util.service';
 import { VehModeModel } from 'src/app/models/g6/g6doc/veh-mode.model';
+import { G6DocHttpService } from 'src/app/services/g6/g6doc/g6-doc-http.service';
 
 @Component({
   selector: 'app-veh-mode',
@@ -12,7 +13,7 @@ import { VehModeModel } from 'src/app/models/g6/g6doc/veh-mode.model';
 })
 export class VehModeComponent implements OnInit {
 
-  constructor(private http: HttpService,
+  constructor(private http: G6DocHttpService,
     private notification: NzNotificationService,
     private util: UtilService) { }
 

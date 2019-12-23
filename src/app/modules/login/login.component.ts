@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private navService: NavService,
     private userService: UserService,
-    private configService: ConfigService) { }
+    public configService: ConfigService) { }
 
   ngOnInit() {
     this.createCode();

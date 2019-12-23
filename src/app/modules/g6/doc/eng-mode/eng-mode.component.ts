@@ -4,6 +4,7 @@ import { G6DocResult, Result1 } from 'src/app/models/result.model';
 import { NzNotificationService, UploadFile } from 'ng-zorro-antd';
 import { EngModeModel } from 'src/app/models/g6/g6doc/eng-mode.model';
 import { UtilService } from 'src/app/services/util.service';
+import { G6DocHttpService } from 'src/app/services/g6/g6doc/g6-doc-http.service';
 
 @Component({
   selector: 'app-eng-mode',
@@ -12,7 +13,7 @@ import { UtilService } from 'src/app/services/util.service';
 })
 export class EngModeComponent implements OnInit {
 
-  constructor(private http: HttpService,
+  constructor(private http: G6DocHttpService,
     private notification: NzNotificationService,
     private util: UtilService) { }
 

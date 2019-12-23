@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
 import { UtilService } from 'src/app/services/util.service';
-import { G6Service } from 'src/app/services/g6.service';
+import { G6Service } from 'src/app/services/g6/g6.service';
 import { SearchModel, Result2 } from 'src/app/models/result.model';
+import { G6HttpService } from 'src/app/services/g6/g6-http.service';
 
 @Component({
   selector: 'app-fuel-month',
@@ -11,7 +12,7 @@ import { SearchModel, Result2 } from 'src/app/models/result.model';
 })
 export class FuelMonthComponent implements OnInit {
 
-  constructor(private http: HttpService,
+  constructor(private http: G6HttpService,
     private util: UtilService,
     public g6Service: G6Service) { }
 

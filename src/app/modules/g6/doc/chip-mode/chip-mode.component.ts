@@ -4,6 +4,7 @@ import { NzNotificationService, UploadFile } from 'ng-zorro-antd';
 import { UtilService } from 'src/app/services/util.service';
 import { Result1, G6DocResult } from 'src/app/models/result.model';
 import { ChipModeModel } from 'src/app/models/g6/g6doc/chip-mode.model';
+import { G6DocHttpService } from 'src/app/services/g6/g6doc/g6-doc-http.service';
 
 @Component({
   selector: 'app-chip-mode',
@@ -12,7 +13,7 @@ import { ChipModeModel } from 'src/app/models/g6/g6doc/chip-mode.model';
 })
 export class ChipModeComponent implements OnInit {
 
-  constructor(private http: HttpService,
+  constructor(private http: G6DocHttpService,
     private notification: NzNotificationService,
     private util: UtilService) { }
 
