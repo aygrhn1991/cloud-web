@@ -33,7 +33,6 @@ export class VinComponent implements OnInit {
       this.vidChange.emit(this.vid);
       return;
     }
-    //this.http.get(`/basic/g6/comp/getVinTop10/${value}/${this.util.parameterTransfer(this.platform, -1)}/${this.util.parameterTransfer(this.userService.currentUser.entId, -1)}`).subscribe((data: Result2) => {
     this.http.get(`/basic/g6/comp/getVinTop10/${value}`).subscribe((data: Result2) => {
       this.options = data.data;
       if (this.options.filter(e => { return e.C_VIN == this.vin }).length == 0) {

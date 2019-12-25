@@ -193,17 +193,18 @@ export class DashBoardComponent implements OnInit {
       let chart11_ne_line_y = [];
       let chart11_ne_bar_y = [];
       let chart11_ne_bar_y_sum = [];
-      for (let i = 0; i < 7; i++) {
+      //for (let i = 0; i < 7; i++) {
+        for (let i = 0; i < org_g6.length; i++) {
         chart11_x.push(this.util.dateToMMDD(new Date(org_g6[i].C_ATTIME)));
         chart11_g6_bar_y.push(org_g6[i].C_ONUM);
         chart11_g6_bar_y_sum.push(org_g6[i].C_TNUM - org_g6[i].C_ONUM);
         chart11_g6_line_y.push((org_g6[i].C_ONUM / org_g6[i].C_TNUM * 100).toFixed(2));
-        chart11_tbox_bar_y.push(org_tbox[i].C_ONUM);
-        chart11_tbox_bar_y_sum.push(org_tbox[i].C_TNUM - org_tbox[i].C_ONUM);
-        chart11_tbox_line_y.push((org_tbox[i].C_ONUM / org_tbox[i].C_TNUM * 100).toFixed(2));
-        chart11_ne_bar_y.push(org_ne[i].C_ONUM);
-        chart11_ne_bar_y_sum.push(org_ne[i].C_TNUM - org_ne[i].C_ONUM);
-        chart11_ne_line_y.push((org_ne[i].C_ONUM / org_ne[i].C_TNUM * 100).toFixed(2));
+        // chart11_tbox_bar_y.push(org_tbox[i].C_ONUM);
+        // chart11_tbox_bar_y_sum.push(org_tbox[i].C_TNUM - org_tbox[i].C_ONUM);
+        // chart11_tbox_line_y.push((org_tbox[i].C_ONUM / org_tbox[i].C_TNUM * 100).toFixed(2));
+        // chart11_ne_bar_y.push(org_ne[i].C_ONUM);
+        // chart11_ne_bar_y_sum.push(org_ne[i].C_TNUM - org_ne[i].C_ONUM);
+        // chart11_ne_line_y.push((org_ne[i].C_ONUM / org_ne[i].C_TNUM * 100).toFixed(2));
       }
       this.chart11Option = this.chartService.makeDashBoard11(chart11_x, chart11_g6_line_y, chart11_g6_bar_y_sum, chart11_g6_bar_y, chart11_tbox_line_y, chart11_tbox_bar_y_sum, chart11_tbox_bar_y, chart11_ne_line_y, chart11_ne_bar_y_sum, chart11_ne_bar_y);
     });
