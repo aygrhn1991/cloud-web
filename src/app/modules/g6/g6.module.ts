@@ -30,13 +30,17 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { ReportComponent } from './report/report/report.component';
 import { CmdComponent } from './cmd/cmd/cmd.component';
 import { EncComponent } from './enc/enc/enc.component';
+import { IndexComponent } from './index/index/index.component';
 
 const routes: Routes = [
   {
     path: '',
     component: G6Component,
     children: [
-      { path: '', redirectTo: 'basic/veh', pathMatch: 'full' },
+      { path: '', redirectTo: 'index/index', pathMatch: 'full' },
+
+      { path: 'index/index', component: IndexComponent, canActivate: [GuardService] },
+
       { path: 'basic/veh', component: VehComponent, canActivate: [GuardService] },
 
       { path: 'data/data-eng', component: DataEngComponent, canActivate: [GuardService] },
@@ -95,6 +99,7 @@ const routes: Routes = [
     ReportComponent,
     CmdComponent,
     EncComponent,
+    IndexComponent,
   ],
   imports: [
     RouterModule.forChild(routes),

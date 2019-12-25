@@ -15,8 +15,8 @@ export class HttpService {
     public configService: ConfigService) { }
 
   //#region 登录，获取access_url
-  login(account: string, password: string) {
-    return this.http.post('/sec/authc/login', { acc: account, pwd: password });
+  login(platform: number, account: string, password: string) {
+    return this.http.post('/sec/authc/login', { plat: platform, acc: account, pwd: password });
   }
   getPages() {
     return of(new Result2());

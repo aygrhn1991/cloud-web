@@ -6,21 +6,31 @@
         <div class="login-earth"></div>
         <div class="login-form">
             <form nz-form>
-                <nz-form-item style="margin-bottom:10px;">
-                    欢迎登录
-                </nz-form-item>
+                <nz-form-item style="margin-bottom:10px;">欢迎登录</nz-form-item>
                 <nz-form-item>
                     <nz-form-control>
-                        <nz-input-group nzPrefixIcon="user">
-                            <input type="text" nz-input placeholder="请输入用户名称" [(ngModel)]="loginModel.account" name="accountModel.username" />
+                        <nz-input-group [nzPrefix]="platform">
+                            <nz-select style="text-indent:18px;" [(ngModel)]="loginModel.platform" nzPlaceHolder="请选择登录平台" name="accountModel.platform">
+                                <nz-option *ngFor="let item of commonService.platformOptions" [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
+                            </nz-select>
                         </nz-input-group>
+                        <ng-template #platform><i nz-icon nzType="apartment"></i></ng-template>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-control>
-                        <nz-input-group nzPrefixIcon="lock">
+                        <nz-input-group [nzPrefix]="user">
+                            <input type="text" nz-input placeholder="请输入用户名称" [(ngModel)]="loginModel.account" name="accountModel.username" />
+                        </nz-input-group>
+                        <ng-template #user><i nz-icon nzType="user"></i></ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-control>
+                        <nz-input-group [nzPrefix]="lock">
                             <input type="password" nz-input placeholder="请输入用户密码" [(ngModel)]="loginModel.password" name="accountModel.password" />
                         </nz-input-group>
+                        <ng-template #lock><i nz-icon nzType="lock"></i></ng-template>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>

@@ -141,58 +141,6 @@ nz-date-picker,
     margin-right: 3px;
 }
 
-.login-bg {
-    height: 100%;
-    min-height: 750px;
-    background-color: #000;
-    background-image: url('./assets/img/login-bg.png');
-    background-repeat: no-repeat;
-    background-size: 100% 800px;
-    background-position: top;
-}
-
-.login-logo {
-    height: 64px;
-    line-height: 64px;
-    border-bottom: 1px solid var(--jb-start);
-}
-
-.login-logo>img {
-    height: 70%;
-}
-
-.login-wrapper {
-    width: 800px;
-    height: 400px;
-    margin: 0 auto;
-    margin-top: 100px;
-}
-
-.login-earth {
-    float: left;
-    width: 50%;
-    height: 100%;
-    background-image: url('./assets/img/login-earth.png');
-    background-size: 100% 100%;
-}
-
-.login-form {
-    margin-left: 50%;
-}
-
-.login-form form {
-    display: inline-block;
-    width: 300px;
-    margin: 80px 0 0 100px;
-    padding: 20px 50px 70px 50px;
-    background-image: url('./assets/img/login-form.png');
-    background-size: 100% 100%;
-}
-
-.login-form i {
-    color: #fff !important;
-}
-
 .sitemap-wrapper {
     position: relative;
     text-align: center;

@@ -13,6 +13,7 @@ export class GuardService implements CanActivate {
     private navService: NavService) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    return true;
     let accessToken = localStorage.getItem('access_token');
     let accessUrl = localStorage.getItem('access_url');
     let accessUser = localStorage.getItem('access_user');

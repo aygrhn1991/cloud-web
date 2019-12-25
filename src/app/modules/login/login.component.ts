@@ -9,6 +9,8 @@ import { NavService } from 'src/app/services/nav.service';
 import { Md5 } from 'ts-md5';
 import { UserService } from 'src/app/services/user.service';
 import { ConfigService } from 'src/app/services/config.service';
+import { CommonService } from 'src/app/services/common.service';
+import { Platform } from 'src/app/enums/platform.enum';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +25,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private navService: NavService,
     private userService: UserService,
-    public configService: ConfigService) { }
+    public configService: ConfigService,
+    public commonService: CommonService) { }
 
   ngOnInit() {
     this.createCode();
@@ -33,6 +36,10 @@ export class LoginComponent implements OnInit {
   isLoading: boolean = false;
   loginModel: LoginModel = new LoginModel();
   login(): void {
+    if (this.util.isNull(this.loginModel.platform)) {
+      this.notification.error('请选择登录平台', null);
+      return;
+    }
     if (this.util.isNull(this.loginModel.account) || this.util.isNull(this.loginModel.password)) {
       this.notification.error('请填写用户名和密码', null);
       return;
@@ -42,7 +49,7 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.isLoading = true;
-    this.http.login(this.loginModel.account, Md5.hashStr(this.loginModel.password).toString()).subscribe((data: Result2) => {
+    this.http.login(this.loginModel.platform, this.loginModel.account, Md5.hashStr(this.loginModel.password).toString()).subscribe((data: Result2) => {
       if (data.successed) {
         localStorage.setItem('access_token', data.data);
         this.http.getPages().subscribe((data: Result2) => {
@@ -51,7 +58,20 @@ export class LoginComponent implements OnInit {
           this.http.getUser().subscribe((d: Result2) => {
             localStorage.setItem('access_user', JSON.stringify(this.userService.makeUser(d.data)));
             this.userService.currentUser = this.userService.getUser();
-            this.router.navigate(['/index']);
+            switch (this.loginModel.platform) {
+              case Platform.g6:
+                this.router.navigate(['/g6/index/index']);
+                break;
+              case Platform.tbox:
+                this.router.navigate(['/tbox/index/index']);
+                break;
+              case Platform.ne:
+                this.router.navigate(['/ne/index/index']);
+                break;
+              default:
+                this.notification.error('重定向错误', null);
+                break;
+            }
           })
         });
       } else {
