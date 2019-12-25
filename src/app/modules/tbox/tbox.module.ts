@@ -9,6 +9,7 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { FormsModule } from '@angular/forms';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 import { CustomComponent } from './download/custom/custom.component';
+import { IndexComponent } from './index/index/index.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
     component: TboxComponent,
     children: [
       { path: '', redirectTo: 'basic/veh', pathMatch: 'full' },
+      { path: 'index/index', component: IndexComponent, canActivate: [GuardService] },
       { path: 'basic/veh', component: VehComponent, canActivate: [GuardService] },
       { path: 'download/custom', component: CustomComponent, canActivate: [] },
     ]
@@ -26,7 +28,8 @@ const routes: Routes = [
   declarations: [
     TboxComponent,
     VehComponent,
-    CustomComponent
+    CustomComponent,
+    IndexComponent
   ],
   imports: [
     RouterModule.forChild(routes),

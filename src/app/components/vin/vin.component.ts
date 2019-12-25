@@ -2,7 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { UtilService } from 'src/app/services/util.service';
 import { HttpClient } from '@angular/common/http';
 import { Result2 } from 'src/app/models/result.model';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-vin',
@@ -20,14 +19,11 @@ export class VinComponent implements OnInit {
   options = [];
 
   constructor(private util: UtilService,
-    private http: HttpClient,
-    private userService: UserService) { }
+    private http: HttpClient) { }
 
   ngOnInit() { }
 
   onChange(value: string): void {
-    console.log(this.platform);
-    console.log(this.userService.currentUser.entId);
     if (this.util.isNull(value)) {
       this.vid = null;
       this.vidChange.emit(this.vid);

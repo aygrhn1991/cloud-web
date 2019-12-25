@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavService } from 'src/app/services/nav.service';
+import { MenuService } from 'src/app/services/menu.service';
 import { fromEvent } from 'rxjs';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
@@ -21,7 +21,7 @@ export class LayoutComponent implements OnInit {
     overflow: 'auto',
   };
 
-  constructor(public navService: NavService,
+  constructor(public menuService: MenuService,
     public userService: UserService,
     private router: Router,
     public configService: ConfigService) { }

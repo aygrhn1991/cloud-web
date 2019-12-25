@@ -62,7 +62,7 @@ export class G6HttpService extends HttpService {
     return this.http.get(`/report/odoCtrl/queryVehMonthOdo/${vid}/${dateStart}/${dateEnd}`);
   }
   getG6OnlineLogSum(flag: any) {
-    return this.http.get('/report/dtuOnlineCtrl/statDtuOnline/'+flag);
+    return this.http.get('/report/dtuOnlineCtrl/statDtuOnline/' + flag);
   }
   getG6Online() {
     return this.http.get('/bgdata/bigDataDetailCtrl/queryEngineDataDetail/10002460/1572796800000/1572883199999');
@@ -91,7 +91,7 @@ export class G6HttpService extends HttpService {
   //#endregion
 
   //#region g6故障码查询 在obd数据查询页面点击故障码数量时进行的查询
-  getG6FaultCodeByObdFaultArray(fault:string) {
+  getG6FaultCodeByObdFaultArray(fault: string) {
     let f1 = new FaultModel();
     f1.code = '11111';
     f1.name = '故障1';

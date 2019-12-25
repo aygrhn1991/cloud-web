@@ -11,6 +11,8 @@ export class User {
 export class UserModel {
     id: number;
     name: String;
-    entId: number;
-    entName: String;
+    oemId: number;
+    oemName: String;
+    platformId: number;
+    platformIndex: string;
 }

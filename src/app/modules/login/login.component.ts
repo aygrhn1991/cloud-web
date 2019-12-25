@@ -5,12 +5,11 @@ import { NzNotificationService } from 'ng-zorro-antd';
 import { UtilService } from 'src/app/services/util.service';
 import { LoginModel } from 'src/app/models/login.model';
 import { Result2 } from 'src/app/models/result.model';
-import { NavService } from 'src/app/services/nav.service';
+import { MenuService } from 'src/app/services/menu.service';
 import { Md5 } from 'ts-md5';
 import { UserService } from 'src/app/services/user.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { CommonService } from 'src/app/services/common.service';
-import { Platform } from 'src/app/enums/platform.enum';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +22,7 @@ export class LoginComponent implements OnInit {
     private http: HttpService,
     private notification: NzNotificationService,
     private router: Router,
-    private navService: NavService,
+    private menuService: MenuService,
     private userService: UserService,
     public configService: ConfigService,
     public commonService: CommonService) { }
@@ -53,25 +52,12 @@ export class LoginComponent implements OnInit {
       if (data.successed) {
         localStorage.setItem('access_token', data.data);
         this.http.getPages().subscribe((data: Result2) => {
-          localStorage.setItem('access_url', JSON.stringify(this.navService.makeNav(data.data)));
-          this.navService.navList = this.navService.getNav();
+          localStorage.setItem('access_url', JSON.stringify(this.menuService.makeMenu(data.data)));
+          this.menuService.menuList = this.menuService.getMenu();
           this.http.getUser().subscribe((d: Result2) => {
-            localStorage.setItem('access_user', JSON.stringify(this.userService.makeUser(d.data)));
+            localStorage.setItem('access_user', JSON.stringify(this.userService.makeUser(d.data, this.loginModel.platform)));
             this.userService.currentUser = this.userService.getUser();
-            switch (this.loginModel.platform) {
-              case Platform.g6:
-                this.router.navigate(['/g6/index/index']);
-                break;
-              case Platform.tbox:
-                this.router.navigate(['/tbox/index/index']);
-                break;
-              case Platform.ne:
-                this.router.navigate(['/ne/index/index']);
-                break;
-              default:
-                this.notification.error('重定向错误', null);
-                break;
-            }
+            this.router.navigate([this.userService.currentUser.platformIndex]);
           })
         });
       } else {

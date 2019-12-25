@@ -4,9 +4,9 @@
             <img src="{{configService.config.web_logo}}">
         </div>
         <ul nz-menu nzMode="horizontal" style="line-height:64px;">
-            <!-- <li nz-menu-item [routerLink]="{{}}">{{nav.title}}</li> -->
+            <li nz-menu-item [routerLink]="userService.currentUser.platformIndex">首页</li>
             <li nz-menu-item style="float:right;">
-                <span nz-dropdown nzPlacement="bottomCenter" [nzDropdownMenu]="menu"><i nz-icon nzType="idcard" nzTheme="twotone"></i>{{userService.currentUser.entName+' '+userService.currentUser.name}}<i nz-icon nzType="down"></i></span>
+                <span nz-dropdown nzPlacement="bottomCenter" [nzDropdownMenu]="menu"><i nz-icon nzType="idcard" nzTheme="twotone"></i>{{userService.currentUser.oemName+' '+userService.currentUser.name}}<i nz-icon nzType="down"></i></span>
                 <nz-dropdown-menu #menu="nzDropdownMenu">
                     <ul nz-menu nzSelectable>
                         <li nz-menu-item routerLink="/system/security/password">修改密码</li>
@@ -17,10 +17,9 @@
         </ul>
     </nz-header>
     <nz-layout>
-        <nz-sider nzWidth="200px" [hidden]="navService.currentNav.path=='/mon'" [ngStyle]="siderStyle">
+        <nz-sider nzWidth="200px" [ngStyle]="siderStyle">
             <ul nz-menu nzMode="inline">
-                <li nz-menu-item [hidden]="menu.pages.length!=0" [nzSelected]="menu.selected" [routerLink]="menu.path" *ngFor="let menu of navService.currentNav.menus">{{menu.title}}</li>
-                <li nz-submenu [nzOpen]="menu.selected" [hidden]="menu.pages.length==0" [nzTitle]="menu.title" *ngFor="let menu of navService.currentNav.menus">
+                <li nz-submenu [nzOpen]="menu.selected" [nzTitle]="menu.title" *ngFor="let menu of menuService.menuList">
                     <ul>
                         <li nz-menu-item [nzSelected]="page.selected" [routerLink]="page.path" *ngFor="let page of menu.pages">{{page.title}}</li>
                     </ul>
@@ -28,8 +27,8 @@
             </ul>
         </nz-sider>
         <nz-layout>
-            <nz-breadcrumb [hidden]="navService.currentNav.path=='/mon'">
-                <nz-breadcrumb-item *ngFor="let path of navService.currentPath">{{path}}</nz-breadcrumb-item>
+            <nz-breadcrumb>
+                <nz-breadcrumb-item *ngFor="let path of menuService.currentPath">{{path}}</nz-breadcrumb-item>
             </nz-breadcrumb>
             <nz-content [ngStyle]="contentStyle">
                 <router-outlet></router-outlet>

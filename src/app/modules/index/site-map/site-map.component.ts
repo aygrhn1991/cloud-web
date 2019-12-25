@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UtilService } from 'src/app/services/util.service';
-import { NavService } from 'src/app/services/nav.service';
-import { NavModel } from 'src/app/models/nav.model';
+import { MenuService } from 'src/app/services/menu.service';
+import { MenuModel } from 'src/app/models/menu.model';
 
 @Component({
   selector: 'app-site-map',
@@ -11,17 +11,17 @@ import { NavModel } from 'src/app/models/nav.model';
 export class SiteMapComponent implements OnInit {
 
   keyword: string;
-  navList: Array<NavModel> = [];
+  navList: Array<MenuModel> = [];
 
   constructor(private util: UtilService,
-    public navService: NavService) { }
+    public menuService: MenuService) { }
 
   ngOnInit() {
-    this.navService.navList.forEach((e) => {
-      if (e.subnavs.length == 0) {
+    this.menuService.menuList.forEach((e) => {
+      if (e.pages.length == 0) {
         this.navList.push(e);
       } else {
-        e.subnavs.forEach((f) => {
+        e.pages.forEach((f) => {
           this.navList.push(f);
         });
       }
@@ -30,7 +30,7 @@ export class SiteMapComponent implements OnInit {
 
   onChange(value): void {
     this.navList.forEach((e) => {
-      e.menus.forEach((f) => {
+      e.pages.forEach((f) => {
         if (f.pages.length == 0) {
           if (!this.util.isNull(value) && f.title.indexOf(value) >= 0) {
             f.active = true;
