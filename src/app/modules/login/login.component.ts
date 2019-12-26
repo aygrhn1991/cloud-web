@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { HttpService } from 'src/app/services/http.service';
 import { NzNotificationService } from 'ng-zorro-antd';
 import { UtilService } from 'src/app/services/util.service';
-import { LoginModel } from 'src/app/models/login.model';
+import { AccountModel } from 'src/app/models/account.model';
 import { Result2 } from 'src/app/models/result.model';
 import { MenuService } from 'src/app/services/menu.service';
 import { Md5 } from 'ts-md5';
@@ -33,29 +33,29 @@ export class LoginComponent implements OnInit {
 
   //#region 登录
   isLoading: boolean = false;
-  loginModel: LoginModel = new LoginModel();
+  accountModel: AccountModel = new AccountModel();
   login(): void {
-    if (this.util.isNull(this.loginModel.platform)) {
+    if (this.util.isNull(this.accountModel.platform)) {
       this.notification.error('请选择登录平台', null);
       return;
     }
-    if (this.util.isNull(this.loginModel.account) || this.util.isNull(this.loginModel.password)) {
+    if (this.util.isNull(this.accountModel.account) || this.util.isNull(this.accountModel.password)) {
       this.notification.error('请填写用户名和密码', null);
       return;
     }
-    if (this.util.isNull(this.loginModel.code) || this.loginModel.code.toString() != this._code) {
+    if (this.util.isNull(this.accountModel.code) || this.accountModel.code.toString() != this._code) {
       this.notification.error('验证码错误', null);
       return;
     }
     this.isLoading = true;
-    this.http.login(this.loginModel.platform, this.loginModel.account, Md5.hashStr(this.loginModel.password).toString()).subscribe((data: Result2) => {
+    this.http.login(this.accountModel.platform, this.accountModel.account, Md5.hashStr(this.accountModel.password).toString()).subscribe((data: Result2) => {
       if (data.successed) {
         localStorage.setItem('access_token', data.data);
         this.http.getPages().subscribe((data: Result2) => {
           localStorage.setItem('access_url', JSON.stringify(this.menuService.makeMenu(data.data)));
           this.menuService.menuList = this.menuService.getMenu();
           this.http.getUser().subscribe((d: Result2) => {
-            localStorage.setItem('access_user', JSON.stringify(this.userService.makeUser(d.data, this.loginModel.platform)));
+            localStorage.setItem('access_user', JSON.stringify(this.userService.makeUser(d.data, this.accountModel.platform)));
             this.userService.currentUser = this.userService.getUser();
             this.router.navigate([this.userService.currentUser.platformIndex]);
           })

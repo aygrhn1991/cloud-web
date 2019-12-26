@@ -24,6 +24,9 @@ export class HttpService {
   getUser() {
     return this.http.get('/sec/authc/loadUser');
   }
+  changePassword(oldPassword: string, newPassword: string) {
+    return this.http.post('/sec/authc/changePassword', { oldPassword: oldPassword, newPassword: newPassword });
+  }
   //#endregion
 
   //#region 平台首页

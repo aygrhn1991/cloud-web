@@ -10,7 +10,7 @@
                 <nz-form-item>
                     <nz-form-control>
                         <nz-input-group [nzPrefix]="platform">
-                            <nz-select style="text-indent:18px;" [(ngModel)]="loginModel.platform" nzPlaceHolder="请选择登录平台" name="accountModel.platform">
+                            <nz-select style="text-indent:18px;" [(ngModel)]="accountModel.platform" nzPlaceHolder="请选择登录平台" name="accountModel.platform">
                                 <nz-option *ngFor="let item of commonService.platformOptions" [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
                             </nz-select>
                         </nz-input-group>
@@ -20,7 +20,7 @@
                 <nz-form-item>
                     <nz-form-control>
                         <nz-input-group [nzPrefix]="user">
-                            <input type="text" nz-input placeholder="请输入用户名称" [(ngModel)]="loginModel.account" name="accountModel.username" />
+                            <input type="text" nz-input placeholder="请输入用户名称" [(ngModel)]="accountModel.account" name="accountModel.username" />
                         </nz-input-group>
                         <ng-template #user><i nz-icon nzType="user"></i></ng-template>
                     </nz-form-control>
@@ -28,7 +28,7 @@
                 <nz-form-item>
                     <nz-form-control>
                         <nz-input-group [nzPrefix]="lock">
-                            <input type="password" nz-input placeholder="请输入用户密码" [(ngModel)]="loginModel.password" name="accountModel.password" />
+                            <input type="password" nz-input placeholder="请输入用户密码" [(ngModel)]="accountModel.password" name="accountModel.password" />
                         </nz-input-group>
                         <ng-template #lock><i nz-icon nzType="lock"></i></ng-template>
                     </nz-form-control>
@@ -36,7 +36,7 @@
                 <nz-form-item>
                     <nz-form-control>
                         <nz-input-group>
-                            <input type="text" nz-input placeholder="验证码" style="width:100px;" [(ngModel)]="loginModel.code" name="accountModel.code" />
+                            <input type="text" nz-input placeholder="验证码" style="width:100px;" [(ngModel)]="accountModel.code" name="accountModel.code" />
                             <canvas #codeCanvas width="100px" height="24px" (click)="createCode()"></canvas>
                         </nz-input-group>
                     </nz-form-control>
