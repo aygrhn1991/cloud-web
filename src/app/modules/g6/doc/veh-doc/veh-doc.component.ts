@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from 'src/app/services/http.service';
 import { UtilService } from 'src/app/services/util.service';
 import { NzNotificationService, UploadFile } from 'ng-zorro-antd';
 import { SearchModel, Result1, G6DocResult } from 'src/app/models/result.model';
@@ -250,7 +249,7 @@ export class VehDocComponent implements OnInit {
       this.http.getG6DocVehState(this.token, e.C_ID, this.typeOptions[2].value).subscribe((data: G6DocResult) => {
         if (data.type == 'success' && data.code == 200) {
           this.notification.info(e.C_VIN + data.data.retDetail, null);
-          this.http.editG6DocVehState(e.C_ID, this.typeOptions[2].value, data.data.retStatus).subscribe((d: Result1) => {
+          this.http.editG6DocVehState(e.C_ID, this.typeOptions[2].value, data.data.retStatus).subscribe(() => {
             this.notification.info(e.C_VIN + '状态已更新', null);
           });
         } else {

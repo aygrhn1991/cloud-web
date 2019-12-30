@@ -104,5 +104,7 @@ export class G6HttpService extends HttpService {
   }
   //#endregion
 
-
+  //#region 车辆报告
+  
+  //#endregion
 }

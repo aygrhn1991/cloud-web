@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UtilService } from 'src/app/services/util.service';
-import { HttpService } from 'src/app/services/http.service';
 import { NzNotificationService, NzModalService, UploadFile } from 'ng-zorro-antd';
 import { VehG6 } from 'src/app/models/veh.model';
 import { Result2, SearchModel } from 'src/app/models/result.model';

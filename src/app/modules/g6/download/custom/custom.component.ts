@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NzNotificationService, NzModalService } from 'ng-zorro-antd';
 import { Task } from 'src/app/models/task';
 import { Result2, SearchModel } from 'src/app/models/result.model';
-import { HttpService } from 'src/app/services/http.service';
 import { UtilService } from 'src/app/services/util.service';
 import { G6HttpService } from 'src/app/services/g6/g6-http.service';
 

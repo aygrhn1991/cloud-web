@@ -31,6 +31,25 @@ import { ReportComponent } from './report/report/report.component';
 import { CmdComponent } from './cmd/cmd/cmd.component';
 import { EncComponent } from './enc/enc/enc.component';
 import { IndexComponent } from './index/index/index.component';
+import { VehDaySumComponent } from './report/veh-day-sum/veh-day-sum.component';
+import { VehDayReportComponent } from './report/veh-day-report/veh-day-report.component';
+import { VehDayFaultComponent } from './report/veh-day-fault/veh-day-fault.component';
+import { VehMonthReportComponent } from './report/veh-month-report/veh-month-report.component';
+import { VehYearReportComponent } from './report/veh-year-report/veh-year-report.component';
+import { VehIdlingComponent } from './report/veh-idling/veh-idling.component';
+import { VehSpeedFuelComponent } from './report/veh-speed-fuel/veh-speed-fuel.component';
+import { VehSpeedFuelDiffComponent } from './report/veh-speed-fuel-diff/veh-speed-fuel-diff.component';
+import { VehSpeedOutputComponent } from './report/veh-speed-output/veh-speed-output.component';
+import { VehSpeedOutputDiffComponent } from './report/veh-speed-output-diff/veh-speed-output-diff.component';
+import { OemSpeedDurationComponent } from './report/oem-speed-duration/oem-speed-duration.component';
+import { OemSpeedMileComponent } from './report/oem-speed-mile/oem-speed-mile.component';
+import { OemSpeedFuelComponent } from './report/oem-speed-fuel/oem-speed-fuel.component';
+import { OemSpeedOutputComponent } from './report/oem-speed-output/oem-speed-output.component';
+import { OemConditionComponent } from './report/oem-condition/oem-condition.component';
+import { OemConditionSumComponent } from './report/oem-condition-sum/oem-condition-sum.component';
+import { OemIdlingComponent } from './report/oem-idling/oem-idling.component';
+import { OemFaultComponent } from './report/oem-fault/oem-fault.component';
+import { OemAverageReportComponent } from './report/oem-average-report/oem-average-report.component';
 
 const routes: Routes = [
   {
@@ -53,6 +72,25 @@ const routes: Routes = [
       { path: 'download/custom', component: CustomComponent, canActivate: [GuardService] },
 
       { path: 'report/report', component: ReportComponent, canActivate: [GuardService] },
+      { path: 'report/veh-day-report', component: VehDayReportComponent, canActivate: [GuardService] },
+      { path: 'report/veh-day-sum', component: VehDaySumComponent, canActivate: [GuardService] },
+      { path: 'report/veh-day-fault', component: VehDayFaultComponent, canActivate: [GuardService] },
+      { path: 'report/veh-month-report', component: VehMonthReportComponent, canActivate: [GuardService] },
+      { path: 'report/veh-year-report', component: VehYearReportComponent, canActivate: [GuardService] },
+      { path: 'report/veh-idling', component: VehIdlingComponent, canActivate: [GuardService] },
+      { path: 'report/veh-speed-fuel', component: VehSpeedFuelComponent, canActivate: [GuardService] },
+      { path: 'report/veh-speed-fuel-diff', component: VehSpeedFuelDiffComponent, canActivate: [GuardService] },
+      { path: 'report/veh-speed-output', component: VehSpeedOutputComponent, canActivate: [GuardService] },
+      { path: 'report/veh-speed-output-diff', component: VehSpeedOutputDiffComponent, canActivate: [GuardService] },
+      { path: 'report/oem-speed-duration', component: OemSpeedDurationComponent, canActivate: [GuardService] },
+      { path: 'report/oem-speed-mile', component: OemSpeedMileComponent, canActivate: [GuardService] },
+      { path: 'report/oem-speed-fuel', component: OemSpeedFuelComponent, canActivate: [GuardService] },
+      { path: 'report/oem-speed-output', component: OemSpeedOutputComponent, canActivate: [GuardService] },
+      { path: 'report/oem-condition', component: OemConditionComponent, canActivate: [GuardService] },
+      { path: 'report/oem-condition-sum', component: OemConditionSumComponent, canActivate: [GuardService] },
+      { path: 'report/oem-idling', component: OemIdlingComponent, canActivate: [GuardService] },
+      { path: 'report/oem-fault', component: OemFaultComponent, canActivate: [GuardService] },
+      { path: 'report/oem-average-report', component: OemAverageReportComponent, canActivate: [GuardService] },
 
       { path: 'cmd/cmd', component: CmdComponent, canActivate: [GuardService] },
 
@@ -100,6 +138,25 @@ const routes: Routes = [
     CmdComponent,
     EncComponent,
     IndexComponent,
+    VehDaySumComponent,
+    VehDayReportComponent,
+    VehDayFaultComponent,
+    VehMonthReportComponent,
+    VehYearReportComponent,
+    VehIdlingComponent,
+    VehSpeedFuelComponent,
+    VehSpeedFuelDiffComponent,
+    VehSpeedOutputComponent,
+    VehSpeedOutputDiffComponent,
+    OemSpeedDurationComponent,
+    OemSpeedMileComponent,
+    OemSpeedFuelComponent,
+    OemSpeedOutputComponent,
+    OemConditionComponent,
+    OemConditionSumComponent,
+    OemIdlingComponent,
+    OemFaultComponent,
+    OemAverageReportComponent,
   ],
   imports: [
     RouterModule.forChild(routes),

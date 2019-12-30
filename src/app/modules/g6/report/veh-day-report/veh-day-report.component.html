@@ -1,0 +1,197 @@
+<form nz-form class="searchbar">
+    <nz-form-item>
+        <nz-form-label nzSpan="2">VIN</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <app-vin [(vin)]="searchModel.vin" [(vid)]="searchModel.vid" platform="1"></app-vin>
+        </nz-form-control>
+
+        <nz-form-label nzSpan="2">日期</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <nz-date-picker nzAllowClear="false" [(ngModel)]="searchModel.dateStart" name="searchModel.dateStart"></nz-date-picker>
+        </nz-form-control>
+    </nz-form-item>
+</form>
+<div class="toolbar">
+    <div class="toolbar-left"></div>
+    <div class="toolbar-right">
+        <button nz-button (click)="getData(true)"><i nz-icon nzType="filter" nzTheme="twotone" nzTwotoneColor="green"></i>查找</button>
+        <button nz-button (click)="reset()"><i nz-icon nzType="interaction" nzTheme="twotone" nzTwotoneColor="blue"></i>清空</button>
+    </div>
+</div>
+<nz-table #dataTable nzBordered [nzWidthConfig]="['100px','100px','100px','100px','100px','100px','100px','100px','100px','100px',
+'100px','100px','100px','100px','100px','100px','100px','100px','100px','100px',
+'100px','100px','100px','100px','100px','100px','100px','100px','100px','100px',
+'100px','100px','100px','100px','100px','100px','100px','100px','100px','100px',
+'100px','100px','100px','100px','100px','100px','100px','100px','100px','100px',
+'100px','100px','100px','100px','100px','100px','100px','100px','100px']" [nzData]="dataList" nzFrontPagination="true" nzShowSizeChanger="true" [nzShowTotal]="rangeTemplate" [nzLoading]="loading" [(nzPageIndex)]="searchModel.pageNum" [(nzPageSize)]="searchModel.pageSize"
+    [nzScroll]="{x:'8000px',y:'350px'}">
+    <thead>
+        <tr>
+            <th rowspan="2">VIN</th>
+            <th rowspan="2">日行驶里程</th>
+            <th rowspan="2">日油耗</th>
+
+            <th colspan="4">车速(km/h)</th>
+            <th colspan="4">发动机净输出扭矩(%)</th>
+            <th colspan="4">摩擦扭矩(%)</th>
+            <th colspan="4">发动机转速(rpm)</th>
+            <th colspan="4">发动机燃料流量(L/h)</th>
+            <th colspan="4">SCR上游NOx传感器输出值(ppm)</th>
+            <th colspan="4">SCR下游NOx传感器输出值(ppm)</th>
+            <th colspan="4">反应剂余量(%)</th>
+            <th colspan="4">进气量(kg/h)</th>
+            <th colspan="4">SCR入口温度(℃)</th>
+            <th colspan="4">SCR出口温度(℃)</th>
+            <th colspan="4">DPF压差(kPa)</th>
+            <th colspan="4">发动机冷却液温度(℃)</th>
+
+            <th rowspan="2">故障次数</th>
+            <th rowspan="2">定位坐标</th>
+            <th rowspan="2">数据总数</th>
+            <th rowspan="2">上线时长</th>
+        </tr>
+        <tr>
+            <th>最大值</th>
+            <th>最小值</th>
+            <th>平均值</th>
+            <th>有效值</th>
+
+            <th>最大值</th>
+            <th>最小值</th>
+            <th>平均值</th>
+            <th>有效值</th>
+
+            <th>最大值</th>
+            <th>最小值</th>
+            <th>平均值</th>
+            <th>有效值</th>
+
+            <th>最大值</th>
+            <th>最小值</th>
+            <th>平均值</th>
+            <th>有效值</th>
+
+            <th>最大值</th>
+            <th>最小值</th>
+            <th>平均值</th>
+            <th>有效值</th>
+
+            <th>最大值</th>
+            <th>最小值</th>
+            <th>平均值</th>
+            <th>有效值</th>
+
+            <th>最大值</th>
+            <th>最小值</th>
+            <th>平均值</th>
+            <th>有效值</th>
+
+            <th>最大值</th>
+            <th>最小值</th>
+            <th>平均值</th>
+            <th>有效值</th>
+
+            <th>最大值</th>
+            <th>最小值</th>
+            <th>平均值</th>
+            <th>有效值</th>
+
+            <th>最大值</th>
+            <th>最小值</th>
+            <th>平均值</th>
+            <th>有效值</th>
+
+            <th>最大值</th>
+            <th>最小值</th>
+            <th>平均值</th>
+            <th>有效值</th>
+
+            <th>最大值</th>
+            <th>最小值</th>
+            <th>平均值</th>
+            <th>有效值</th>
+
+            <th>最大值</th>
+            <th>最小值</th>
+            <th>平均值</th>
+            <th>有效值</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of dataTable.data">
+            <td>{{ data.name }}</td>
+            <td>{{ data.companyName }}</td>
+            <td>{{ data.gender }}</td>
+
+            <td>{{data.age}}</td>
+            <td>{{data.street}}</td>
+            <td>{{data.building}}</td>
+            <td>{{data.number}}</td>
+
+            <td>{{data.age}}</td>
+            <td>{{data.street}}</td>
+            <td>{{data.building}}</td>
+            <td>{{data.number}}</td>
+
+            <td>{{data.age}}</td>
+            <td>{{data.street}}</td>
+            <td>{{data.building}}</td>
+            <td>{{data.number}}</td>
+
+            <td>{{data.age}}</td>
+            <td>{{data.street}}</td>
+            <td>{{data.building}}</td>
+            <td>{{data.number}}</td>
+
+            <td>{{data.age}}</td>
+            <td>{{data.street}}</td>
+            <td>{{data.building}}</td>
+            <td>{{data.number}}</td>
+
+            <td>{{data.age}}</td>
+            <td>{{data.street}}</td>
+            <td>{{data.building}}</td>
+            <td>{{data.number}}</td>
+
+            <td>{{data.age}}</td>
+            <td>{{data.street}}</td>
+            <td>{{data.building}}</td>
+            <td>{{data.number}}</td>
+
+            <td>{{data.age}}</td>
+            <td>{{data.street}}</td>
+            <td>{{data.building}}</td>
+            <td>{{data.number}}</td>
+
+            <td>{{data.age}}</td>
+            <td>{{data.street}}</td>
+            <td>{{data.building}}</td>
+            <td>{{data.number}}</td>
+
+            <td>{{data.age}}</td>
+            <td>{{data.street}}</td>
+            <td>{{data.building}}</td>
+            <td>{{data.number}}</td>
+
+            <td>{{data.age}}</td>
+            <td>{{data.street}}</td>
+            <td>{{data.building}}</td>
+            <td>{{data.number}}</td>
+
+            <td>{{data.age}}</td>
+            <td>{{data.street}}</td>
+            <td>{{data.building}}</td>
+            <td>{{data.number}}</td>
+
+            <td>{{data.age}}</td>
+            <td>{{data.street}}</td>
+            <td>{{data.building}}</td>
+            <td>{{data.number}}</td>
+
+            <td>{{ data.companyAddress }}</td>
+            <td>{{ data.companyName }}</td>
+            <td>{{ data.gender }}</td>
+            <td>{{ data.gender }}</td>
+        </tr>
+    </tbody>
+</nz-table>

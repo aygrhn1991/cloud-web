@@ -14,7 +14,7 @@ import { InterceptorService } from './services/interceptor.service';
 registerLocaleData(zh);
 
 const routes: Routes = [
-  { path: '', redirectTo: '/index/dash-board', pathMatch: 'full' },
+  { path: '', redirectTo: '/g6/index/index', pathMatch: 'full' },
   { path: 'login', loadChildren: () => import('./modules/login/login.module').then(m => m.LoginModule) },
   { path: 'index', loadChildren: () => import('./modules/index/index.module').then(m => m.IndexModule) },
   { path: 'system', loadChildren: () => import('./modules/system/system.module').then(m => m.SystemModule) },

@@ -1,0 +1,22 @@
+<button (click)="get20()">getData1</button>
+<button (click)="get100()">getData2</button>
+<button (click)="get200()">getData3</button>
+<nz-table #dataTable [nzData]="dataList" nzFrontPagination="true" nzShowSizeChanger="true" [nzShowTotal]="rangeTemplate">
+    <thead>
+        <tr>
+            <th nzWidth="200px" nzLeft="0px">VIN</th>
+            <th nzWidth="200px">OBD诊断协议</th>
+            <th nzWidth="200px">MIL状态</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of dataTable.data">
+            <td nzLeft="0px">{{data.id}}</td>
+            <td>{{data.name}}</td>
+            <td>{{data.value}}</td>
+        </tr>
+    </tbody>
+</nz-table>
+<ng-template #rangeTemplate let-range="range" let-total>
+    第{{range[0]}}-{{range[1]}}条 共{{total}}条
+</ng-template>

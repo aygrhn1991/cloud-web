@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from 'src/app/services/http.service';
 import { NzNotificationService, UploadFile } from 'ng-zorro-antd';
 import { UtilService } from 'src/app/services/util.service';
 import { Result1, G6DocResult } from 'src/app/models/result.model';

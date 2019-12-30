@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from 'src/app/services/http.service';
 import { NzNotificationService, UploadFile } from 'ng-zorro-antd';
 import { UtilService } from 'src/app/services/util.service';
 import { Result1, G6DocResult } from 'src/app/models/result.model';
-import { DtuModeModel } from 'src/app/models/g6/g6doc/dtu-mode.model';
 import { DtuAuthorityModel } from 'src/app/models/g6/g6doc/dtu-authority.model';
 import { G6DocHttpService } from 'src/app/services/g6/g6doc/g6-doc-http.service';
 
