@@ -14,17 +14,17 @@
 <div class="toolbar">
     <div class="toolbar-left"></div>
     <div class="toolbar-right">
-        <button nz-button (click)="getData(true)"><i nz-icon nzType="filter" nzTheme="twotone" nzTwotoneColor="green"></i>查找</button>
+        <button nz-button (click)="getData()"><i nz-icon nzType="filter" nzTheme="twotone" nzTwotoneColor="green"></i>查找</button>
         <button nz-button (click)="reset()"><i nz-icon nzType="interaction" nzTheme="twotone" nzTwotoneColor="blue"></i>清空</button>
     </div>
 </div>
-<nz-table #dataTable nzBordered [nzWidthConfig]="['100px','100px','100px','100px','100px','100px','100px','100px','100px','100px',
+<nz-table #dataTable nzBordered [nzWidthConfig]="['200px','100px','100px','100px','100px','100px','100px','100px','100px','100px',
 '100px','100px','100px','100px','100px','100px','100px','100px','100px','100px',
 '100px','100px','100px','100px','100px','100px','100px','100px','100px','100px',
 '100px','100px','100px','100px','100px','100px','100px','100px','100px','100px',
 '100px','100px','100px','100px','100px','100px','100px','100px','100px','100px',
 '100px','100px','100px','100px','100px','100px','100px','100px','100px']" [nzData]="dataList" nzFrontPagination="true" nzShowSizeChanger="true" [nzShowTotal]="rangeTemplate" [nzLoading]="loading" [(nzPageIndex)]="searchModel.pageNum" [(nzPageSize)]="searchModel.pageSize"
-    [nzScroll]="{x:'8000px',y:'350px'}">
+    [nzScroll]="{x:'8100px',y:'350px'}">
     <thead>
         <tr>
             <th rowspan="2">VIN</th>
@@ -119,79 +119,79 @@
     </thead>
     <tbody>
         <tr *ngFor="let data of dataTable.data">
-            <td>{{ data.name }}</td>
-            <td>{{ data.companyName }}</td>
-            <td>{{ data.gender }}</td>
+            <td>{{data.C_VIN}}</td>
+            <td>{{data.C_TMIL}}</td>
+            <td>{{data.C_OIL}}</td>
 
-            <td>{{data.age}}</td>
-            <td>{{data.street}}</td>
-            <td>{{data.building}}</td>
-            <td>{{data.number}}</td>
+            <td>{{data.C_VEHSPDMAX}}</td>
+            <td>{{data.C_VEHSPDMIN}}</td>
+            <td>{{data.C_VEHSPDAVG}}</td>
+            <td>{{data.C_VEHSPDVAL}}</td>
 
-            <td>{{data.age}}</td>
-            <td>{{data.street}}</td>
-            <td>{{data.building}}</td>
-            <td>{{data.number}}</td>
+            <td>{{data.C_ENGTORQUEMAX}}</td>
+            <td>{{data.C_ENGTORQUEMIN}}</td>
+            <td>{{data.C_ENGTORQUEAVG}}</td>
+            <td>{{data.C_ENGTORQUEVAL}}</td>
 
-            <td>{{data.age}}</td>
-            <td>{{data.street}}</td>
-            <td>{{data.building}}</td>
-            <td>{{data.number}}</td>
+            <td>{{data.C_FRICTIONTORQUEMAX}}</td>
+            <td>{{data.C_FRICTIONTORQUEMIN}}</td>
+            <td>{{data.C_FRICTIONTORQUEAVG}}</td>
+            <td>{{data.C_FRICTIONTORQUEVAL}}</td>
 
-            <td>{{data.age}}</td>
-            <td>{{data.street}}</td>
-            <td>{{data.building}}</td>
-            <td>{{data.number}}</td>
+            <td>{{data.C_ENGSPDMAX}}</td>
+            <td>{{data.C_ENGSPDMIN}}</td>
+            <td>{{data.C_ENGSPDAVG}}</td>
+            <td>{{data.C_ENGSPDVAL}}</td>
 
-            <td>{{data.age}}</td>
-            <td>{{data.street}}</td>
-            <td>{{data.building}}</td>
-            <td>{{data.number}}</td>
+            <td>{{data.C_ENGFUELMAX}}</td>
+            <td>{{data.C_ENGFUELMIN}}</td>
+            <td>{{data.C_ENGFUELAVG}}</td>
+            <td>{{data.C_ENGFUELVAL}}</td>
 
-            <td>{{data.age}}</td>
-            <td>{{data.street}}</td>
-            <td>{{data.building}}</td>
-            <td>{{data.number}}</td>
+            <td>{{data.C_SCRUPVALMAX}}</td>
+            <td>{{data.C_SCRUPVALMIN}}</td>
+            <td>{{data.C_SCRUPVALAVG}}</td>
+            <td>{{data.C_SCRUPVALVAL}}</td>
 
-            <td>{{data.age}}</td>
-            <td>{{data.street}}</td>
-            <td>{{data.building}}</td>
-            <td>{{data.number}}</td>
+            <td>{{data.C_SCRDOWNVALMAX}}</td>
+            <td>{{data.C_SCRDOWNVALMIN}}</td>
+            <td>{{data.C_SCRDOWNVALAVG}}</td>
+            <td>{{data.C_SCRDOWNVALVAL}}</td>
 
-            <td>{{data.age}}</td>
-            <td>{{data.street}}</td>
-            <td>{{data.building}}</td>
-            <td>{{data.number}}</td>
+            <td>{{data.C_REACTANTMAX}}</td>
+            <td>{{data.C_REACTANTMIN}}</td>
+            <td>{{data.C_REACTANTAVG}}</td>
+            <td>{{data.C_REACTANTVAL}}</td>
 
-            <td>{{data.age}}</td>
-            <td>{{data.street}}</td>
-            <td>{{data.building}}</td>
-            <td>{{data.number}}</td>
+            <td>{{data.C_AIRINFLOWMAX}}</td>
+            <td>{{data.C_AIRINFLOWMIN}}</td>
+            <td>{{data.C_AIRINFLOWAVG}}</td>
+            <td>{{data.C_AIRINFLOWVAL}}</td>
 
-            <td>{{data.age}}</td>
-            <td>{{data.street}}</td>
-            <td>{{data.building}}</td>
-            <td>{{data.number}}</td>
+            <td>{{data.C_SCRINTEMPMAX}}</td>
+            <td>{{data.C_SCRINTEMPMIN}}</td>
+            <td>{{data.C_SCRINTEMPAVG}}</td>
+            <td>{{data.C_SCRINTEMPVAL}}</td>
 
-            <td>{{data.age}}</td>
-            <td>{{data.street}}</td>
-            <td>{{data.building}}</td>
-            <td>{{data.number}}</td>
+            <td>{{data.C_SCROUTTEMPMAX}}</td>
+            <td>{{data.C_SCROUTTEMPMIN}}</td>
+            <td>{{data.C_SCROUTTEMPAVG}}</td>
+            <td>{{data.C_SCROUTTEMPVAL}}</td>
 
-            <td>{{data.age}}</td>
-            <td>{{data.street}}</td>
-            <td>{{data.building}}</td>
-            <td>{{data.number}}</td>
+            <td>{{data.C_DPFMAX}}</td>
+            <td>{{data.C_DPFMIN}}</td>
+            <td>{{data.C_DPFAVG}}</td>
+            <td>{{data.C_DPFVAL}}</td>
 
-            <td>{{data.age}}</td>
-            <td>{{data.street}}</td>
-            <td>{{data.building}}</td>
-            <td>{{data.number}}</td>
+            <td>{{data.C_ECTMAX}}</td>
+            <td>{{data.C_ECTMIN}}</td>
+            <td>{{data.C_ECTAVG}}</td>
+            <td>{{data.C_ECTVAL}}</td>
 
-            <td>{{ data.companyAddress }}</td>
-            <td>{{ data.companyName }}</td>
-            <td>{{ data.gender }}</td>
-            <td>{{ data.gender }}</td>
+            <td>{{data.C_DTC_NUM}}</td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
     </tbody>
 </nz-table>

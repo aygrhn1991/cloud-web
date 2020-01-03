@@ -21,14 +21,18 @@
 <nz-table #dataTable [nzData]="dataList" nzFrontPagination="true" nzShowSizeChanger="true" [nzShowTotal]="rangeTemplate" [nzLoading]="loading" [(nzPageIndex)]="searchModel.pageNum" [(nzPageSize)]="searchModel.pageSize">
     <thead>
         <tr>
-            <th>车速</th>
+            <th>时间</th>
+            <th>时长</th>
             <th>油耗</th>
+            <th>排放</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let data of dataTable.data">
-            <td>{{data.C_SPD}}</td>
+            <td>{{data.MONTH}}</td>
+            <td>{{data.DUR}}</td>
             <td>{{data.OIL}}</td>
+            <td>{{data.SCRDOWN}}</td>
         </tr>
     </tbody>
 </nz-table>

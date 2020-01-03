@@ -36,7 +36,6 @@ import { VehDayReportComponent } from './report/veh-day-report/veh-day-report.co
 import { VehDayFaultComponent } from './report/veh-day-fault/veh-day-fault.component';
 import { VehMonthReportComponent } from './report/veh-month-report/veh-month-report.component';
 import { VehYearReportComponent } from './report/veh-year-report/veh-year-report.component';
-import { VehIdlingComponent } from './report/veh-idling/veh-idling.component';
 import { VehSpeedFuelComponent } from './report/veh-speed-fuel/veh-speed-fuel.component';
 import { VehSpeedFuelDiffComponent } from './report/veh-speed-fuel-diff/veh-speed-fuel-diff.component';
 import { VehSpeedOutputComponent } from './report/veh-speed-output/veh-speed-output.component';
@@ -50,6 +49,8 @@ import { OemConditionSumComponent } from './report/oem-condition-sum/oem-conditi
 import { OemIdlingComponent } from './report/oem-idling/oem-idling.component';
 import { OemFaultComponent } from './report/oem-fault/oem-fault.component';
 import { OemAverageReportComponent } from './report/oem-average-report/oem-average-report.component';
+import { VehIdlingMonthComponent } from './report/veh-idling-month/veh-idling-month.component';
+import { VehIdlingYearComponent } from './report/veh-idling-year/veh-idling-year.component';
 
 const routes: Routes = [
   {
@@ -77,7 +78,8 @@ const routes: Routes = [
       { path: 'report/veh-day-fault', component: VehDayFaultComponent, canActivate: [GuardService] },
       { path: 'report/veh-month-report', component: VehMonthReportComponent, canActivate: [GuardService] },
       { path: 'report/veh-year-report', component: VehYearReportComponent, canActivate: [GuardService] },
-      { path: 'report/veh-idling', component: VehIdlingComponent, canActivate: [GuardService] },
+      { path: 'report/veh-idling-month', component: VehIdlingMonthComponent, canActivate: [GuardService] },
+      { path: 'report/veh-idling-year', component: VehIdlingYearComponent, canActivate: [GuardService] },
       { path: 'report/veh-speed-fuel', component: VehSpeedFuelComponent, canActivate: [GuardService] },
       { path: 'report/veh-speed-fuel-diff', component: VehSpeedFuelDiffComponent, canActivate: [GuardService] },
       { path: 'report/veh-speed-output', component: VehSpeedOutputComponent, canActivate: [GuardService] },
@@ -143,7 +145,6 @@ const routes: Routes = [
     VehDayFaultComponent,
     VehMonthReportComponent,
     VehYearReportComponent,
-    VehIdlingComponent,
     VehSpeedFuelComponent,
     VehSpeedFuelDiffComponent,
     VehSpeedOutputComponent,
@@ -157,6 +158,8 @@ const routes: Routes = [
     OemIdlingComponent,
     OemFaultComponent,
     OemAverageReportComponent,
+    VehIdlingMonthComponent,
+    VehIdlingYearComponent,
   ],
   imports: [
     RouterModule.forChild(routes),

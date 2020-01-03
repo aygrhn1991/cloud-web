@@ -1,1 +1,59 @@
-<p>veh-speed-output-diff works!</p>
+<form nz-form class="searchbar">
+    <nz-form-item>
+        <nz-form-label nzSpan="2">VIN</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <app-vin [(vin)]="searchModel.vin" [(vid)]="searchModel.vid" platform="1"></app-vin>
+        </nz-form-control>
+
+        <nz-form-label nzSpan="2">日期</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <nz-date-picker nzAllowClear="false" [(ngModel)]="searchModel.dateStart" name="searchModel.dateStart"></nz-date-picker>
+        </nz-form-control>
+    </nz-form-item>
+</form>
+<div class="toolbar">
+    <div class="toolbar-left"></div>
+    <div class="toolbar-right">
+        <button nz-button (click)="getData()"><i nz-icon nzType="filter" nzTheme="twotone" nzTwotoneColor="green"></i>查找</button>
+        <button nz-button (click)="reset()"><i nz-icon nzType="interaction" nzTheme="twotone" nzTwotoneColor="blue"></i>清空</button>
+    </div>
+</div>
+<nz-table #dataTable [nzData]="dataList" nzFrontPagination="true" nzShowSizeChanger="true" [nzShowTotal]="rangeTemplate" [nzLoading]="loading" [(nzPageIndex)]="searchModel.pageNum" [(nzPageSize)]="searchModel.pageSize">
+    <thead>
+        <tr>
+            <th>车速</th>
+            <th>1月油耗差值</th>
+            <th>2月油耗差值</th>
+            <th>3月油耗差值</th>
+            <th>4月油耗差值</th>
+            <th>5月油耗差值</th>
+            <th>6月油耗差值</th>
+            <th>7月油耗差值</th>
+            <th>8月油耗差值</th>
+            <th>9月油耗差值</th>
+            <th>10月油耗差值</th>
+            <th>11月油耗差值</th>
+            <th>12月油耗差值</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of dataTable.data">
+            <td>{{data.C_SPD}}</td>
+            <td>{{data.M1PER}}</td>
+            <td>{{data.M2PER}}</td>
+            <td>{{data.M3PER}}</td>
+            <td>{{data.M4PER}}</td>
+            <td>{{data.M5PER}}</td>
+            <td>{{data.M6PER}}</td>
+            <td>{{data.M7PER}}</td>
+            <td>{{data.M8PER}}</td>
+            <td>{{data.M9PER}}</td>
+            <td>{{data.M10PER}}</td>
+            <td>{{data.M11PER}}</td>
+            <td>{{data.M12PER}}</td>
+        </tr>
+    </tbody>
+</nz-table>
+<ng-template #rangeTemplate let-range="range" let-total>
+    第{{range[0]}}-{{range[1]}}条 共{{total}}条
+</ng-template>

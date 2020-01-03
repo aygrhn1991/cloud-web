@@ -105,6 +105,68 @@ export class G6HttpService extends HttpService {
   //#endregion
 
   //#region 车辆报告
-  
+  g6Report1(vid: number, dateStart: number, dateEnd: number){
+    return this.http.get(`/report/report/reportCtrl/queryVehDayData/${vid}/${dateStart}/${dateEnd}`);
+  }
+  g6Report2(vid: number, dateStart: number, dateEnd: number){
+    return this.http.get(`/report/report/reportCtrl/queryVehSpdData/${vid}/${dateStart}/${dateEnd}`);
+  }
+  g6Report3(vid: number, dateStart: number, dateEnd: number){
+    return this.http.get(`/report/report/reportCtrl/queryFcDay/${vid}/${dateStart}/${dateEnd}`);
+  }
+  g6Report4(vid: number, dateStart: number, dateEnd: number){
+    return this.http.get(`/report/report/reportCtrl/queryRunDataByMonth/${vid}/${dateStart}/${dateEnd}`);
+  }
+  g6Report5(vid: number, dateStart: number, dateEnd: number){
+    return this.http.get(`/report/report/reportCtrl/queryRunDataByYear/${vid}/${dateStart}/${dateEnd}`);
+  }
+  g6Report6(vid: number, dateStart: number, dateEnd: number){
+    return this.http.get(`/report/report/reportCtrl/queryIdlingByMonth/${vid}/${dateStart}/${dateEnd}`);
+  }
+  g6Report7(vid: number, dateStart: number, dateEnd: number){
+    return this.http.get(`/report/report/reportCtrl/queryIdlingByYear/${vid}/${dateStart}/${dateEnd}`);
+  }
+  g6Report8(vid: number, dateStart: number, dateEnd: number){
+    return this.http.get(`/report/report/reportCtrl/querySpdOil/${vid}/${dateStart}/${dateEnd}`);
+  }
+  g6Report9(vid: number, dateStart: number, dateEnd: number){
+    return this.http.get(`/report/report/reportCtrl/querySpdOil100/${vid}/${dateStart}/${dateEnd}`);
+  }
+  g6Report10(vid: number, dateStart: number, dateEnd: number){
+    return this.http.get(`/report/report/reportCtrl/querySpdNox/${vid}/${dateStart}/${dateEnd}`);
+  }
+  g6Report11(vid: number, dateStart: number, dateEnd: number){
+    return this.http.get(`/report/report/reportCtrl/querySpdNox100/${vid}/${dateStart}/${dateEnd}`);
+  }
+  g6Report12(vid: number, dateStart: number, dateEnd: number){
+    return this.http.get(`/report/report/reportCtrl/statSpdRunTime/${vid}/${dateStart}/${dateEnd}`);
+  }
+  g6Report13(vid: number, dateStart: number, dateEnd: number){
+    return this.http.get(`/report/report/reportCtrl/statSpdMil/${vid}/${dateStart}/${dateEnd}`);
+  }
+  g6Report14(vid: number, dateStart: number, dateEnd: number){
+    return this.http.get(`/report/report/reportCtrl/statSpdOil/${vid}/${dateStart}/${dateEnd}`);
+  }
+  g6Report15(vid: number, dateStart: number, dateEnd: number){
+    return this.http.get(`/report/report/reportCtrl/statSpdNox/${vid}/${dateStart}/${dateEnd}`);
+  }
+  g6Report16(vid: number, dateStart: number, dateEnd: number){
+    return this.http.get(`/report/report/reportCtrl/queryWorkDetail/${vid}/${dateStart}/${dateEnd}`);
+  }
+  g6Report17(vid: number, dateStart: number, dateEnd: number){
+    return this.http.get(`/report/report/reportCtrl/statWork/${vid}/${dateStart}/${dateEnd}`);
+  }
+  g6Report18(vid: number, dateStart: number, dateEnd: number){
+    return this.http.get(`/report/report/reportCtrl/statIdlingData/${vid}/${dateStart}/${dateEnd}`);
+  }
+  g6Report19(vid: number, dateStart: number, dateEnd: number){
+    return this.http.get(`/report/report/reportCtrl/queryIdlingVehsByVehm/${vid}/${dateStart}/${dateEnd}`);
+  }
+  g6Report20(vid: number, dateStart: number, dateEnd: number){
+    return this.http.get(`/report/report/reportCtrl/statFc/${vid}/${dateStart}/${dateEnd}`);
+  }
+  g6Report21(vid: number, dateStart: number, dateEnd: number){
+    return this.http.get(`/report/report/reportCtrl/statAvg100/${vid}/${dateStart}/${dateEnd}`);
+  }
   //#endregion
 }

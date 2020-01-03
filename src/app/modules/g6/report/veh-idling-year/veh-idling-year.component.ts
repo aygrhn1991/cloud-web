@@ -5,11 +5,11 @@ import { NzNotificationService } from 'ng-zorro-antd';
 import { SearchModel, Result2 } from 'src/app/models/result.model';
 
 @Component({
-  selector: 'app-veh-speed-fuel',
-  templateUrl: './veh-speed-fuel.component.html',
-  styleUrls: ['./veh-speed-fuel.component.css']
+  selector: 'app-veh-idling-year',
+  templateUrl: './veh-idling-year.component.html',
+  styleUrls: ['./veh-idling-year.component.css']
 })
-export class VehSpeedFuelComponent implements OnInit {
+export class VehIdlingYearComponent implements OnInit {
 
   constructor(private http: G6HttpService,
     private util: UtilService,
@@ -30,7 +30,7 @@ export class VehSpeedFuelComponent implements OnInit {
     }
     this.loading = true;
     this.searchModel.pageNum = 1;
-    this.http.g6Report8(this.util.parameterTransfer(this.searchModel.vid, -1),
+    this.http.g6Report7(this.util.parameterTransfer(this.searchModel.vid, -1),
       this.util.getDayStart(this.searchModel.dateStart).getTime(),
       this.util.getDayEnd(this.searchModel.dateStart).getTime()).subscribe((data: Result2) => {
         this.loading = false;

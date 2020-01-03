@@ -23,20 +23,18 @@ export class VehDaySumComponent implements OnInit {
   loading: boolean = false;
   dataList: Array<any> = [];
   searchModel: SearchModel = new SearchModel();
-  getData(reset: boolean = false): void {
+  getData(): void {
     if (this.util.isNull(this.searchModel.vid)) {
       this.notification.error('VIN不能为空', null);
       return;
     }
     this.loading = true;
-    if (reset) {
-      this.searchModel.pageNum = 1;
-    }
-    this.http.getG6EngData(this.util.parameterTransfer(this.searchModel.vid, -1),
+    this.searchModel.pageNum = 1;
+    this.http.g6Report2(this.util.parameterTransfer(this.searchModel.vid, -1),
       this.util.getDayStart(this.searchModel.dateStart).getTime(),
       this.util.getDayEnd(this.searchModel.dateStart).getTime()).subscribe((data: Result2) => {
         this.loading = false;
-        this.dataList = data.data;
+        this.dataList = data.data.data;
       })
   }
   reset(): void {

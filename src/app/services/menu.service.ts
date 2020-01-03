@@ -54,7 +54,8 @@ export class MenuService {
 
           { title: '运行分析（月）', path: '/g6/report/veh-month-report', selected: false, active: false, show: true, pages: [] },
           { title: '运行分析（年）', path: '/g6/report/veh-year-report', selected: false, active: false, show: true, pages: [] },
-          { title: '怠速停车分析', path: '/g6/report/veh-idling', selected: false, active: false, show: true, pages: [] },
+          { title: '怠速停车（月）', path: '/g6/report/veh-idling-month', selected: false, active: false, show: true, pages: [] },
+          { title: '怠速停车（年）', path: '/g6/report/veh-idling-year', selected: false, active: false, show: true, pages: [] },
           { title: '车速-油耗', path: '/g6/report/veh-speed-fuel', selected: false, active: false, show: true, pages: [] },
           { title: '车速-百公里油耗差值', path: '/g6/report/veh-speed-fuel-diff', selected: false, active: false, show: true, pages: [] },
           { title: '车速-排放', path: '/g6/report/veh-speed-output', selected: false, active: false, show: true, pages: [] },

@@ -1,1 +1,51 @@
-<p>veh-year-report works!</p>
+<form nz-form class="searchbar">
+    <nz-form-item>
+        <nz-form-label nzSpan="2">VIN</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <app-vin [(vin)]="searchModel.vin" [(vid)]="searchModel.vid" platform="1"></app-vin>
+        </nz-form-control>
+
+        <nz-form-label nzSpan="2">日期</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <nz-date-picker nzAllowClear="false" [(ngModel)]="searchModel.dateStart" name="searchModel.dateStart"></nz-date-picker>
+        </nz-form-control>
+    </nz-form-item>
+</form>
+<div class="toolbar">
+    <div class="toolbar-left"></div>
+    <div class="toolbar-right">
+        <button nz-button (click)="getData()"><i nz-icon nzType="filter" nzTheme="twotone" nzTwotoneColor="green"></i>查找</button>
+        <button nz-button (click)="reset()"><i nz-icon nzType="interaction" nzTheme="twotone" nzTwotoneColor="blue"></i>清空</button>
+    </div>
+</div>
+<nz-table #dataTable [nzData]="dataList" nzFrontPagination="true" nzShowSizeChanger="true" [nzShowTotal]="rangeTemplate" [nzLoading]="loading" [(nzPageIndex)]="searchModel.pageNum" [(nzPageSize)]="searchModel.pageSize">
+    <thead>
+        <tr>
+            <th>时间</th>
+            <th>里程</th>
+            <th>油耗</th>
+            <th>用时</th>
+            <th>排放</th>
+            <th>SRC转化</th>
+            <th>百公里油耗</th>
+            <th>百公里排放</th>
+            <th>百公里SRC转化</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of dataTable.data">
+            <td>{{data.MONTH}}</td>
+            <td>{{data.MIL}}</td>
+            <td>{{data.OIL}}</td>
+            <td>{{data.DUR}}</td>
+            <td>{{data.SCRDOWN}}</td>
+            <td>{{data.SCRPER}}</td>
+            <td>{{data.OILPER}}</td>
+            <td>{{data.NOXPER}}</td>
+            <td>{{data.SCRPER}}</td>
+        </tr>
+    </tbody>
+</nz-table>
+<ng-template #rangeTemplate let-range="range" let-total>
+    第{{range[0]}}-{{range[1]}}条 共{{total}}条
+</ng-template>

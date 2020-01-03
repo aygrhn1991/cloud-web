@@ -1,19 +1,36 @@
-<button (click)="get20()">getData1</button>
-<button (click)="get100()">getData2</button>
-<button (click)="get200()">getData3</button>
-<nz-table #dataTable [nzData]="dataList" nzFrontPagination="true" nzShowSizeChanger="true" [nzShowTotal]="rangeTemplate">
+<form nz-form class="searchbar">
+    <nz-form-item>
+        <nz-form-label nzSpan="2">VIN</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <app-vin [(vin)]="searchModel.vin" [(vid)]="searchModel.vid" platform="1"></app-vin>
+        </nz-form-control>
+
+        <nz-form-label nzSpan="2">日期</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <nz-date-picker nzAllowClear="false" [(ngModel)]="searchModel.dateStart" name="searchModel.dateStart"></nz-date-picker>
+        </nz-form-control>
+    </nz-form-item>
+</form>
+<div class="toolbar">
+    <div class="toolbar-left"></div>
+    <div class="toolbar-right">
+        <button nz-button (click)="getData()"><i nz-icon nzType="filter" nzTheme="twotone" nzTwotoneColor="green"></i>查找</button>
+        <button nz-button (click)="reset()"><i nz-icon nzType="interaction" nzTheme="twotone" nzTwotoneColor="blue"></i>清空</button>
+    </div>
+</div>
+<nz-table #dataTable [nzData]="dataList" nzFrontPagination="true" nzShowSizeChanger="true" [nzShowTotal]="rangeTemplate" [nzLoading]="loading" [(nzPageIndex)]="searchModel.pageNum" [(nzPageSize)]="searchModel.pageSize">
     <thead>
         <tr>
-            <th nzWidth="200px" nzLeft="0px">VIN</th>
-            <th nzWidth="200px">OBD诊断协议</th>
-            <th nzWidth="200px">MIL状态</th>
+            <th>VIN</th>
+            <th>故障码</th>
+            <th>日故障次数</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let data of dataTable.data">
-            <td nzLeft="0px">{{data.id}}</td>
-            <td>{{data.name}}</td>
-            <td>{{data.value}}</td>
+            <td>{{data.C_VIN}}</td>
+            <td>{{data.C_CODE}}</td>
+            <td>{{data.C_NUM}}</td>
         </tr>
     </tbody>
 </nz-table>
