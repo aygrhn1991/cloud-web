@@ -1,1 +1,49 @@
-<p>oem-condition-sum works!</p>
+<form nz-form class="searchbar">
+    <nz-form-item>
+        <nz-form-label nzSpan="2">车型</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <input nz-input [(ngModel)]="searchModel.vehm" name="searchModel.vehm" />
+        </nz-form-control>
+    </nz-form-item>
+</form>
+<div class="toolbar">
+    <div class="toolbar-left"></div>
+    <div class="toolbar-right">
+        <button nz-button (click)="getData()"><i nz-icon nzType="filter" nzTheme="twotone" nzTwotoneColor="green"></i>查找</button>
+        <button nz-button (click)="reset()"><i nz-icon nzType="interaction" nzTheme="twotone" nzTwotoneColor="blue"></i>清空</button>
+    </div>
+</div>
+<nz-table #dataTable nzBordered [nzData]="dataList" nzFrontPagination="true" nzShowSizeChanger="true" [nzShowTotal]="rangeTemplate" [nzLoading]="loading" [(nzPageIndex)]="searchModel.pageNum" [(nzPageSize)]="searchModel.pageSize">
+    <thead>
+        <tr>
+            <th rowspan="2">车型</th>
+            <th rowspan="2">里程</th>
+            <th rowspan="2">油耗</th>
+            <th rowspan="2">用时</th>
+            <th rowspan="2">排放</th>
+            <th rowspan="2">SRC转化</th>
+            <th colspan="3">车速(km/h)</th>
+        </tr>
+        <tr>
+            <th>油耗</th>
+            <th>排放</th>
+            <th>SRC</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of dataTable.data">
+            <td>{{data.C_VEHM}}</td>
+            <td>{{data.TMIL}}</td>
+            <td>{{data.TOIL}}</td>
+            <td>{{data.DUR}}</td>
+            <td>{{data.TSCRDOWN}}</td>
+            <td>{{data.TRUNSSCR}}</td>
+            <td>{{data.OILPER}}</td>
+            <td>{{data.NOXPER}}</td>
+            <td>{{data.SCRPER}}</td>
+        </tr>
+    </tbody>
+</nz-table>
+<ng-template #rangeTemplate let-range="range" let-total>
+    第{{range[0]}}-{{range[1]}}条 共{{total}}条
+</ng-template>
