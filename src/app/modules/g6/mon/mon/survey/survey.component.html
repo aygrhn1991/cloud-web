@@ -1,0 +1,39 @@
+<div class="panel" *ngIf="data" [hidden]="hidden">
+    <div class="head">
+        <i nz-icon nzType="close" nzTheme="outline" class="iov-close" (click)="onclose()" style="margin-left: 5px" title="关闭"></i>
+        <a *ngIf="data.survey" href="/uimon/#/tracker?vid={{data.survey.vid}}&vin={{data.survey.vin}}&vno={{data.survey.vehNo}}" target="_blank" title="查询轨迹">
+            <i nz-icon nzType="deployment-unit" nzTheme="outline" class="iov-close" style="color: white;margin-left: 5px"></i></a>
+        <app-label-text *ngIf="data.survey" label="车牌号码" value="{{data.survey.vehNo}}"></app-label-text>
+        <app-label-text *ngIf="data.survey" label="VIN码" value="{{data.survey.vin}}"></app-label-text>
+        <app-label-text label="车牌颜色" value="{{data.survey.color|vehColor}}"></app-label-text>
+        <app-label-text label="车型" value="{{data.survey.vehm}}"></app-label-text>
+        <app-label-text label="终端编号" value="{{data.survey.dtucode}}"></app-label-text>
+        <app-label-text label="车籍地" value="{{data.survey.xzqh|xzqh:true}}"></app-label-text>
+    </div>
+    <nz-divider nzOrientation="left" [nzDashed]="true" class="divider"></nz-divider>
+    <app-label-text label="速度" value="{{data.survey.spd|valid:2:1}}"></app-label-text>
+    <app-label-text label="累计里程" value="{{data.survey.mil|valid:4:1}}"></app-label-text>
+    <app-label-text label="终端时间" value="{{data.survey.dtuDt| date: 'yyyy-MM-dd HH:mm:ss'}}"></app-label-text>
+    <app-label-text label="位置" value="{{data.survey.addr}}"></app-label-text>
+    <nz-divider nzOrientation="left" [nzDashed]="true" class="divider"></nz-divider>
+    <div *ngIf="data.status">
+        <!-- <app-label-text label="行驶状态" value="{{data.status.g6_st_run}}"></app-label-text>
+        <app-label-text label="持续时间" value="{{data.status.g6_st_run_tm}}"></app-label-text> -->
+        <app-label-text [lbSize]="lbsize" label="接收数据条数" value="{{data.status.g6_rec_count}}"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="OBD记录数" value="{{data.status.g6_obd_num}}"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="发动机记录数" value="{{data.status.g6_eng_num}}"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="登录次数" value="{{data.status.g6_login_num}}"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="登出次数" value="{{data.status.g6_logout_num}}"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="今日行驶(km)" value="{{data.status.g6_rmil|number:'0.1-2'}}"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="今日能耗(L)" value="{{data.status.g6_roil|number:'0.1-2'}}"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="百公里能耗(L)" value="{{data.status.oil_per|number:'0.1-2'}}"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="运行时长(s)" value="{{data.status.g6_r_ut}}"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="怠速能耗(L)" value="{{data.status.g6_idl_oil|number:'0.1-2'}}"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="怠速时长(s)" value="{{data.status.g6_idl_ut}}"></app-label-text>
+        <nz-divider nzOrientation="left" [nzDashed]="true" class="divider"></nz-divider>
+        <app-label-text [lbSize]="lbsize" label="累计里程有效数" value="{{data.status.g6_rms_odo}}"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="转速有效数" value="{{data.status.g6_rms_espd}}"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="车速有效数" value="{{data.status.g6_rms_spd}}"></app-label-text>
+        <app-label-text [lbSize]="lbsize" label="燃料流量有效数" value="{{data.status.g6_rms_oil}}"></app-label-text>
+    </div>
+</div>

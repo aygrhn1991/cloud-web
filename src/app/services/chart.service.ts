@@ -1169,5 +1169,221 @@ export class ChartService {
     };
     return option;
   }
-
+  makeReportChart1(title, y1, y2, y3, y4, x) {
+    let option = {
+      color: this.colorList1,
+      title: {
+        left: '5%',
+        top: '5%',
+        text: title,
+        textStyle: { fontSize: 16, color: this.colorText }
+      },
+      legend: {
+        top: '15%',
+        left: 'center',
+        textStyle: { color: '#fff' },
+        data: ['里程', '油耗', '行驶时长','排放'],
+      },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: { type: 'shadow' },
+        formatter: '{b}<br/>{a0} 上线车数:{c3} 上线率:{c0}%<br/>{a1} 上线车数:{c5} 上线率:{c1}%<br/>{a2} 上线车数:{c7} 上线率:{c2}%<br/>'
+      },
+      grid: {
+        top: '30%',
+        left: '2%',
+        right: '2%',
+        bottom: '10%',
+        containLabel: true
+      },
+      xAxis: [{
+        type: 'category',
+        boundaryGap: true,
+        axisLabel: { textStyle: { color: '#fff' } },
+        axisLine: { lineStyle: { color: this.colorLine } },
+        axisTick: { show: false },
+        data: x
+      }],
+      yAxis: [{
+        type: 'value',
+        name: '辆',
+        nameTextStyle: { color: '#fff' },
+        axisLabel: { textStyle: { color: '#fff' } },
+        axisLine: { lineStyle: { color: this.colorLine } },
+        axisTick: { show: false },
+        splitLine: { show: false }
+      }],
+      series: [
+        {
+          name: '里程',
+          type: 'line',
+          smooth: true,
+          symbolSize: 2,
+          hoverAnimation: false,
+          lineStyle: { width: 1 },
+          data: y1
+        },
+        {
+          name: '油耗',
+          type: 'line',
+          smooth: true,
+          symbolSize: 2,
+          hoverAnimation: false,
+          lineStyle: { width: 1 },
+          data: y2
+        },
+        {
+          name: '行驶时长',
+          type: 'line',
+          smooth: true,
+          symbolSize: 2,
+          hoverAnimation: false,
+          lineStyle: { width: 1 },
+          data: y3
+        },
+        {
+          name: '排放',
+          type: 'line',
+          smooth: true,
+          symbolSize: 2,
+          hoverAnimation: false,
+          lineStyle: { width: 1 },
+          data: y4
+        }]
+    };
+    return option;
+  }
+  makeReportChart2(title, y1, x) {
+    let option = {
+      color: this.colorList1,
+      title: {
+        left: '5%',
+        top: '5%',
+        text: title,
+        textStyle: { fontSize: 16, color: this.colorText }
+      },
+      legend: {
+        top: '15%',
+        left: 'center',
+        textStyle: { color: '#fff' },
+        data: ['里程', '油耗', '行驶时长','排放'],
+      },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: { type: 'shadow' },
+        formatter: '{b}<br/>{a0} 上线车数:{c3} 上线率:{c0}%<br/>{a1} 上线车数:{c5} 上线率:{c1}%<br/>{a2} 上线车数:{c7} 上线率:{c2}%<br/>'
+      },
+      grid: {
+        top: '30%',
+        left: '2%',
+        right: '2%',
+        bottom: '10%',
+        containLabel: true
+      },
+      xAxis: [{
+        type: 'category',
+        boundaryGap: true,
+        axisLabel: { textStyle: { color: '#fff' } },
+        axisLine: { lineStyle: { color: this.colorLine } },
+        axisTick: { show: false },
+        data: x
+      }],
+      yAxis: [{
+        type: 'value',
+        nameTextStyle: { color: '#fff' },
+        axisLabel: { textStyle: { color: '#fff' } },
+        axisLine: { lineStyle: { color: this.colorLine } },
+        axisTick: { show: false },
+        splitLine: { show: false }
+      }],
+      series: [
+        {
+          name: '油耗差值',
+          type: 'line',
+          smooth: true,
+          symbolSize: 2,
+          hoverAnimation: false,
+          lineStyle: { width: 1 },
+          data: y1
+        }]
+    };
+    return option;
+  }
+  makeReportChart3(title, y1,y2, x) {
+    let option = {
+      color: this.colorList1,
+      title: {
+        left: '5%',
+        top: '5%',
+        text: title,
+        textStyle: { fontSize: 16, color: this.colorText }
+      },
+      legend: {
+        top: '15%',
+        left: 'center',
+        textStyle: { color: '#fff' },
+        data: ['里程', '百公里油耗'],
+      },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: { type: 'shadow' },
+        formatter: '{b}<br/>{a0} 上线车数:{c3} 上线率:{c0}%<br/>{a1} 上线车数:{c5} 上线率:{c1}%<br/>{a2} 上线车数:{c7} 上线率:{c2}%<br/>'
+      },
+      grid: {
+        top: '30%',
+        left: '2%',
+        right: '2%',
+        bottom: '10%',
+        containLabel: true
+      },
+      xAxis: [{
+        type: 'category',
+        boundaryGap: true,
+        axisLabel: { textStyle: { color: '#fff' } },
+        axisLine: { lineStyle: { color: this.colorLine } },
+        axisTick: { show: false },
+        data: x
+      }],
+      yAxis: [{
+        type: 'value',
+        name: '油耗',
+        nameTextStyle: { color: '#fff' },
+        axisLabel: { textStyle: { color: '#fff' } },
+        axisLine: { lineStyle: { color: this.colorLine } },
+        axisTick: { show: false },
+        splitLine: { show: false }
+      },
+      {
+        type: 'value',
+        name: '百公里油耗',
+        max:200,
+        nameTextStyle: { color: '#fff' },
+        axisLabel: { textStyle: { color: '#fff' } },
+        axisLine: { lineStyle: { color: this.colorLine } },
+        axisTick: { show: false },
+        splitLine: { show: false }
+      }],
+      series: [
+        {
+          name: '油耗',
+          type: 'line',
+          smooth: true,
+          symbolSize: 2,
+          hoverAnimation: false,
+          lineStyle: { width: 1 },
+          data: y1
+        },
+        {
+          name: '百公里油耗',
+          type: 'line',
+          smooth: true,
+          symbolSize: 2,
+          hoverAnimation: false,
+          yAxisIndex: 1,
+          lineStyle: { width: 1 },
+          data: y2
+        },]
+    };
+    return option;
+  }
 }

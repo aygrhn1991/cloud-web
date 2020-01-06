@@ -21,6 +21,7 @@ import { SurveyComponent } from './sctl/survey/survey.component';
 import { VehInfoComponent } from './sctl/veh-info/veh-info.component';
 import { CardComponent } from './sctl/card/card.component';
 import { GuardService } from 'src/app/services/guard.service';
+import { RtmComponent } from './rtm/rtm.component';
 
 
 const routes: Routes = [
@@ -36,7 +37,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [TrackerComponent, MonComponent, SctlComponent, SchvehComponent, HtwsComponent, LabelTextComponent, LabelIconComponent, HeaderComponent, RtEngineComponent, RtObdComponent, RtObdDtcComponent, RtObdIuprComponent, SurveyComponent, VehInfoComponent, CardComponent],
+  declarations: [TrackerComponent, MonComponent, SctlComponent, SchvehComponent, HtwsComponent, LabelTextComponent, LabelIconComponent, HeaderComponent, RtEngineComponent, RtObdComponent, RtObdDtcComponent, RtObdIuprComponent, SurveyComponent, VehInfoComponent, CardComponent, RtmComponent],
   imports: [
     RouterModule.forChild(routes),
     CommonModule,

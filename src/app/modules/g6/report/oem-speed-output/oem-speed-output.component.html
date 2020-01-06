@@ -9,6 +9,11 @@
         <nz-form-control nzSpan="4">
             <app-xzqh [(value)]="searchModel.xzqh"></app-xzqh>
         </nz-form-control>
+
+        <nz-form-label nzSpan="2">日期</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <nz-month-picker nzAllowClear="false" [(ngModel)]="searchModel.dateStart" name="searchModel.dateStart"></nz-month-picker>
+        </nz-form-control>
     </nz-form-item>
 </form>
 <div class="toolbar">
@@ -18,6 +23,7 @@
         <button nz-button (click)="reset()"><i nz-icon nzType="interaction" nzTheme="twotone" nzTwotoneColor="blue"></i>清空</button>
     </div>
 </div>
+<div echarts [options]="chartOption"></div>
 <nz-table #dataTable [nzData]="dataList" nzFrontPagination="true" nzShowSizeChanger="true" [nzShowTotal]="rangeTemplate" [nzLoading]="loading" [(nzPageIndex)]="searchModel.pageNum" [(nzPageSize)]="searchModel.pageSize">
     <thead>
         <tr>
@@ -30,7 +36,7 @@
         <tr *ngFor="let data of dataTable.data">
             <td>{{data.C_SPD1}}</td>
             <td>{{data.NOX}}</td>
-            <td>{{data.PER}}</td>
+            <td>{{data.PER==-1?'--':data.PER}}</td>
         </tr>
     </tbody>
 </nz-table>

@@ -95,6 +95,16 @@ export class UtilService {
     var d2 = this.addDay(d1, -1);
     return d2;
   };
+  getYearStartDay(date: Date): Date {
+    date.setMonth(0);
+    date.setDate(1);
+    return date;
+  }
+  getYearEndDay(date: Date): Date {
+    date.setMonth(11);
+    date.setDate(31);
+    return date;
+  }
   secondToHHMMSS(seconds: number): string {
     var temp = 0;
     var str = '';

@@ -1,0 +1,64 @@
+<div class="header">
+    <div style="float: right">
+        <nz-button-group>
+            <button nz-button nzType="primary" (click)="clearMap()" title="清空地图车辆">
+        <i nz-icon nzType="delete" nzTheme="outline" style="color:deepskyblue"></i>
+      </button>
+            <button nz-button nzType="primary" (click)="toggleFullScreen()" title="全屏控制">         
+        <i nz-icon *ngIf="!isFullScreen" nzType="fullscreen" nzTheme="outline" style="color: #52c41a"></i>
+        <i nz-icon *ngIf="isFullScreen" nzType="fullscreen-exit" nzTheme="outline" style="color: #52c41a"></i>
+      </button>
+        </nz-button-group>
+    </div>
+    <div class="item">
+        <span title="入网车辆数" (click)="vehStatClick(0)"><i nz-icon nzType="car" nzTheme="twotone" twoToneColor="gray"></i>{{totalc}}</span>
+        <span title="今日上线数" (click)="vehStatClick(1)"><i nz-icon nzType="car" nzTheme="twotone" twoToneColor="#54c8ff"></i>{{todayc}}</span>
+        <span title="当前在线数" (click)="vehStatClick(2)"><i nz-icon nzType="car" nzTheme="twotone" twoToneColor="#52c41a"></i>{{onlinec}}</span>
+    </div>
+</div>
+
+<div class="vehs" [hidden]="vehsHidden">
+    <div class="vehs_ctrl">
+        <span><i nz-icon nzType="car" nzTheme="twotone"
+             twoToneColor="{{iconColors[vehStatIdx]}}"></i>{{titles[vehStatIdx]}}</span>
+        <span style="float: right">
+        <span class="sel_btn" (click)="monAllClick()">
+          <i nz-icon nzType="desktop" nzTheme="outline"></i>
+          全部监控</span>
+        <span class="sel_btn" (click)="vehsPanelClose()">
+          <i nz-icon nzType="close" nzTheme="outline" style="color: darkred"></i>
+          关闭</span>
+        </span>
+    </div>
+    <nz-table #vehsTable nzSize="small" [nzData]="vehs" [nzPageSize]="50" [nzScroll]="{y: '200px'}">
+        <thead>
+            <tr>
+                <th nzWidth="60px">操作</th>
+                <th nzWidth="160px">VIN</th>
+                <th nzWidth="120px">号牌号码</th>
+                <th nzWidth="80px">号牌颜色</th>
+                <th>车籍地</th>
+                <th nzWidth="100px">车型</th>
+                <th nzWidth="100px">车辆状态</th>
+                <th nzWidth="100px">车速(km/h)</th>
+                <th nzWidth="160px">累计里程(km)</th>
+                <th nzWidth="180px">终端时间</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of vehsTable.data">
+                <td><i nz-icon type="mobile" theme="outline" title="单车监控" (click)="monAppendClick(data)"></i></td>
+                <td>{{ data.vin}}</td>
+                <td>{{ data.vehNo}}</td>
+                <td>{{ data.color|vehColor}}</td>
+                <td>{{ data.xzqh|xzqh:true}}</td>
+                <td>{{ data.vehM}}</td>
+                <td>{{ data.vst|engLocate}}</td>
+                <td>{{ data.spd}}</td>
+                <td>{{ data.mil}}</td>
+                <td>{{ data.dtuDt |date:"yyyy-MM-dd HH:mm:ss"}}</td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>

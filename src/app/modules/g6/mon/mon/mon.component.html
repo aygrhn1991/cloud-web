@@ -1,0 +1,7 @@
+<div id="allmap"></div>
+<app-header (onVehInfoHide)="onVehInfoHide($event)" (onclear)="onclear_header()" (onselvehs)="onselvehs_header($event)" (onappendvehs)="onappendvehs_header($event)">
+</app-header>
+
+<!--查车组件-->
+<app-schveh (vehsLoaded)="onVehsLoaded($event)" [hidden]="!vehInfoHide"></app-schveh>
+<app-survey [data]="vehInfo" [(hidden)]="vehInfoHide"></app-survey>

@@ -51,6 +51,11 @@ import { OemFaultComponent } from './report/oem-fault/oem-fault.component';
 import { OemAverageReportComponent } from './report/oem-average-report/oem-average-report.component';
 import { VehIdlingMonthComponent } from './report/veh-idling-month/veh-idling-month.component';
 import { VehIdlingYearComponent } from './report/veh-idling-year/veh-idling-year.component';
+import { MonComponent } from './mon/mon/mon.component';
+import { HeaderComponent } from './mon/mon/header/header.component';
+import { SchvehComponent } from './mon/mon/schveh/schveh.component';
+import { SurveyComponent } from './mon/mon/survey/survey.component';
+import { LabelTextComponent } from './mon/mon/label-text/label-text.component';
 
 const routes: Routes = [
   {
@@ -97,6 +102,7 @@ const routes: Routes = [
       { path: 'cmd/cmd', component: CmdComponent, canActivate: [GuardService] },
 
       { path: 'enc/enc', component: EncComponent, canActivate: [GuardService] },
+      { path: 'mon/mon', component: MonComponent, canActivate: [GuardService] },
 
       { path: 'testing/testing', component: TestingComponent, canActivate: [GuardService] },
       { path: 'testing/playback', component: PlaybackComponent, canActivate: [GuardService] },
@@ -160,6 +166,11 @@ const routes: Routes = [
     OemAverageReportComponent,
     VehIdlingMonthComponent,
     VehIdlingYearComponent,
+    MonComponent,
+    HeaderComponent,
+    SchvehComponent,
+    SurveyComponent,
+    LabelTextComponent
   ],
   imports: [
     RouterModule.forChild(routes),

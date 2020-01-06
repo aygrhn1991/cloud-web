@@ -3,6 +3,7 @@ import { G6HttpService } from 'src/app/services/g6/g6-http.service';
 import { UtilService } from 'src/app/services/util.service';
 import { NzNotificationService } from 'ng-zorro-antd';
 import { SearchModel, Result2 } from 'src/app/models/result.model';
+import { ChartService } from 'src/app/services/chart.service';
 
 @Component({
   selector: 'app-veh-speed-fuel',
@@ -13,7 +14,8 @@ export class VehSpeedFuelComponent implements OnInit {
 
   constructor(private http: G6HttpService,
     private util: UtilService,
-    private notification: NzNotificationService) { }
+    private notification: NzNotificationService,
+    private chartService: ChartService) { }
 
   ngOnInit() {
     this.reset();
@@ -31,10 +33,11 @@ export class VehSpeedFuelComponent implements OnInit {
     this.loading = true;
     this.searchModel.pageNum = 1;
     this.http.g6Report8(this.util.parameterTransfer(this.searchModel.vid, -1),
-      this.util.getDayStart(this.searchModel.dateStart).getTime(),
-      this.util.getDayEnd(this.searchModel.dateStart).getTime()).subscribe((data: Result2) => {
+    this.util.getDayStart(this.util.getMonthStartDay(this.searchModel.dateStart)).getTime(),
+    this.util.getDayEnd(this.util.getMonthEndDay(this.searchModel.dateStart)).getTime()).subscribe((data: Result2) => {
         this.loading = false;
         this.dataList = data.data.data;
+        this.makeChartData(data.data.data);
       })
   }
   reset(): void {
@@ -47,4 +50,19 @@ export class VehSpeedFuelComponent implements OnInit {
   }
   //#endregion
 
+  chartOption: any;
+  makeChartData(data) {
+    let x = [];
+    let y1 = [];
+    // for(let i=0;i<12;i++){
+    //   x.push((i+1)+'月');
+    //   let base=this.util.getIntRandom(0,50);
+    //   y1.push(base);
+    // }
+    data.forEach(e => {
+      x.push(e.C_SPD);
+      y1.push(e.OIL);
+    });
+    this.chartOption = this.chartService.makeReportChart2('车速-油耗', y1, x);
+  }
 }

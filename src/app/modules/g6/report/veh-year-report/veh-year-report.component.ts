@@ -31,8 +31,8 @@ export class VehYearReportComponent implements OnInit {
     this.loading = true;
     this.searchModel.pageNum = 1;
     this.http.g6Report5(this.util.parameterTransfer(this.searchModel.vid, -1),
-      this.util.getDayStart(this.searchModel.dateStart).getTime(),
-      this.util.getDayEnd(this.searchModel.dateStart).getTime()).subscribe((data: Result2) => {
+    this.util.getDayStart(this.util.getYearStartDay(this.searchModel.dateStart)).getTime(),
+    this.util.getDayEnd(this.util.getYearEndDay(this.searchModel.dateStart)).getTime()).subscribe((data: Result2) => {
         this.loading = false;
         this.dataList = data.data.data;
       })

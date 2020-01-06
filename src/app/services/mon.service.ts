@@ -7,7 +7,7 @@ import { HttpClient } from "@angular/common/http";
 export class MonService {
   constructor(private http: HttpClient) {}
 
-  private getTm() {
+  public getTm() {
     return new Date().getTime();
   }
   // 加载车辆快照信息
@@ -63,8 +63,7 @@ export class MonService {
     );
   }
 
-
-// ************************************ 坐标转换 相关 *************************/
+  // ************************************ 坐标转换 相关 *************************/
 
   public toMarsAddrs(mcoors: any) {
     console.log(mcoors);
@@ -85,5 +84,14 @@ export class MonService {
       x: lng,
       y: lat
     });
+  }
+
+  // ************************************ 获取实时数据 相关 *************************/
+
+  public loadLnglats(vts) {
+    return this.http.post(`/rtm/monsvc/loadLnglats?tm=${this.getTm()}`, vts);
+  }
+  public findVehState(vid) {
+    return this.http.get(`/rtm/monsvc/findVehState/${vid}?tm=${this.getTm()}`);
   }
 }
