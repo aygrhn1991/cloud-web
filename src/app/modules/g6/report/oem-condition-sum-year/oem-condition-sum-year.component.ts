@@ -5,11 +5,11 @@ import { NzNotificationService } from 'ng-zorro-antd';
 import { SearchModel, Result2 } from 'src/app/models/result.model';
 
 @Component({
-  selector: 'app-oem-condition-sum',
-  templateUrl: './oem-condition-sum.component.html',
-  styleUrls: ['./oem-condition-sum.component.css']
+  selector: 'app-oem-condition-sum-year',
+  templateUrl: './oem-condition-sum-year.component.html',
+  styleUrls: ['./oem-condition-sum-year.component.css']
 })
-export class OemConditionSumComponent implements OnInit {
+export class OemConditionSumYearComponent implements OnInit {
 
   constructor(private http: G6HttpService,
     private util: UtilService,
@@ -28,8 +28,8 @@ export class OemConditionSumComponent implements OnInit {
     this.loading = true;
     this.searchModel.pageNum = 1;
     this.http.g6Report17( this.util.parameterTransfer(this.searchModel.vehm, -1), 
-    this.util.getDayStart(this.util.getMonthStartDay(this.searchModel.dateStart)).getTime(),
-    this.util.getDayEnd(this.util.getMonthEndDay(this.searchModel.dateStart)).getTime()).subscribe((data: Result2) => {
+    this.util.getDayStart(this.util.getYearStartDay(this.searchModel.dateStart)).getTime(),
+    this.util.getDayEnd(this.util.getYearEndDay(this.searchModel.dateStart)).getTime()).subscribe((data: Result2) => {
         this.loading = false;
         this.dataList = data.data.data;
       })

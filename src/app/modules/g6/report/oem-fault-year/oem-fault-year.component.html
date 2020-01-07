@@ -7,7 +7,7 @@
 
         <nz-form-label nzSpan="2">日期</nz-form-label>
         <nz-form-control nzSpan="4">
-            <nz-month-picker nzAllowClear="false" [(ngModel)]="searchModel.dateStart" name="searchModel.dateStart"></nz-month-picker>
+            <nz-year-picker nzAllowClear="false" [(ngModel)]="searchModel.dateStart" name="searchModel.dateStart"></nz-year-picker>
         </nz-form-control>
     </nz-form-item>
 </form>
@@ -21,23 +21,42 @@
 <nz-table #dataTable [nzData]="dataList" nzFrontPagination="true" nzShowSizeChanger="true" [nzShowTotal]="rangeTemplate" [nzLoading]="loading" [(nzPageIndex)]="searchModel.pageNum" [(nzPageSize)]="searchModel.pageSize">
     <thead>
         <tr>
-            <th>速度段</th>
-            <th>百公里油耗</th>
-            <th>百公里排放</th>
-            <th>百公里SRC</th>
-            <th>空燃比</th>
+            <th>车型</th>
+            <th>故障码</th>
+            <th>次数</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let data of dataTable.data">
             <td>{{data.C_VEHM}}</td>
-            <td>{{data.DUR}}</td>
-            <td>{{data.TOIL}}</td>
-            <td>{{data.DUR}}</td>
-            <td>{{data.TOIL}}</td>
+            <td>{{data.C_CODE}}</td>
+            <td>{{data.NUM}}</td>
         </tr>
     </tbody>
 </nz-table>
 <ng-template #rangeTemplate let-range="range" let-total>
     第{{range[0]}}-{{range[1]}}条 共{{total}}条
 </ng-template>
+<nz-modal [(nzVisible)]="isVisibleFault" nzTitle="详细" (nzOnCancel)="isVisibleFault=false" [nzFooter]="modalFooterFault">
+    <nz-table #faultTable [nzData]="faultList" [(nzPageIndex)]="falutPageNum">
+        <thead>
+            <tr>
+                <th>VIN</th>
+                <th>总时长</th>
+                <th>总油耗</th>
+                <th>总排放</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of faultTable.data">
+                <td>{{data.vin}}</td>
+                <td>{{data.code}}</td>
+                <td>{{data.code}}</td>
+                <td>{{data.name}}</td>
+            </tr>
+        </tbody>
+    </nz-table>
+    <ng-template #modalFooterFault>
+        <button nz-button (click)="isVisibleFault=false"><i nz-icon nzType="left-circle" nzTheme="twotone" nzTwotoneColor="blue"></i>返回</button>
+    </ng-template>
+</nz-modal>

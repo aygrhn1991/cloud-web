@@ -1,10 +1,5 @@
 <form nz-form class="searchbar">
     <nz-form-item>
-        <nz-form-label nzSpan="2">VIN</nz-form-label>
-        <nz-form-control nzSpan="4">
-            <app-vin [(vin)]="searchModel.vin" [(vid)]="searchModel.vid" platform="1"></app-vin>
-        </nz-form-control>
-
         <nz-form-label nzSpan="2">车型</nz-form-label>
         <nz-form-control nzSpan="4">
             <input nz-input [(ngModel)]="searchModel.vehm" name="searchModel.vehm" />
@@ -13,6 +8,11 @@
         <nz-form-label nzSpan="2">行政区划</nz-form-label>
         <nz-form-control nzSpan="4">
             <app-xzqh [(value)]="searchModel.xzqh"></app-xzqh>
+        </nz-form-control>
+
+        <nz-form-label nzSpan="2">日期</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <nz-month-picker nzAllowClear="false" [(ngModel)]="searchModel.dateStart" name="searchModel.dateStart"></nz-month-picker>
         </nz-form-control>
     </nz-form-item>
 </form>

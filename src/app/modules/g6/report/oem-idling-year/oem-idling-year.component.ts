@@ -5,11 +5,11 @@ import { NzNotificationService } from 'ng-zorro-antd';
 import { SearchModel, Result2 } from 'src/app/models/result.model';
 
 @Component({
-  selector: 'app-oem-idling',
-  templateUrl: './oem-idling.component.html',
-  styleUrls: ['./oem-idling.component.css']
+  selector: 'app-oem-idling-year',
+  templateUrl: './oem-idling-year.component.html',
+  styleUrls: ['./oem-idling-year.component.css']
 })
-export class OemIdlingComponent implements OnInit {
+export class OemIdlingYearComponent implements OnInit {
 
   constructor(private http: G6HttpService,
     private util: UtilService,
@@ -28,8 +28,8 @@ export class OemIdlingComponent implements OnInit {
     this.loading = true;
     this.searchModel.pageNum = 1;
     this.http.g6Report18(this.util.parameterTransfer(this.searchModel.vehm, -1), this.util.parameterTransfer(this.searchModel.xzqh, -1),
-      this.util.getDayStart(this.util.getMonthStartDay(this.searchModel.dateStart)).getTime(),
-      this.util.getDayEnd(this.util.getMonthEndDay(this.searchModel.dateStart)).getTime()).subscribe((data: Result2) => {
+      this.util.getDayStart(this.util.getYearStartDay(this.searchModel.dateStart)).getTime(),
+      this.util.getDayEnd(this.util.getYearEndDay(this.searchModel.dateStart)).getTime()).subscribe((data: Result2) => {
         this.loading = false;
         this.dataList = data.data.data;
       })
@@ -44,7 +44,6 @@ export class OemIdlingComponent implements OnInit {
     this.getData();
   }
   //#endregion
-
   isVisibleFault: boolean = false;
   falutPageNum: number = 1;
   faultList: Array<any> = [];
@@ -57,5 +56,4 @@ export class OemIdlingComponent implements OnInit {
     this.falutPageNum = 1;
     this.isVisibleFault = true;
   }
-
 }

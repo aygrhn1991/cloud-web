@@ -5,9 +5,14 @@
             <input nz-input [(ngModel)]="searchModel.vehm" name="searchModel.vehm" />
         </nz-form-control>
 
+        <nz-form-label nzSpan="2">行政区划</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <app-xzqh [(value)]="searchModel.xzqh"></app-xzqh>
+        </nz-form-control>
+
         <nz-form-label nzSpan="2">日期</nz-form-label>
         <nz-form-control nzSpan="4">
-            <nz-month-picker nzAllowClear="false" [(ngModel)]="searchModel.dateStart" name="searchModel.dateStart"></nz-month-picker>
+            <nz-year-picker nzAllowClear="false" [(ngModel)]="searchModel.dateStart" name="searchModel.dateStart"></nz-year-picker>
         </nz-form-control>
     </nz-form-item>
 </form>
@@ -18,23 +23,20 @@
         <button nz-button (click)="reset()"><i nz-icon nzType="interaction" nzTheme="twotone" nzTwotoneColor="blue"></i>清空</button>
     </div>
 </div>
+<div echarts [options]="chartOption"></div>
 <nz-table #dataTable [nzData]="dataList" nzFrontPagination="true" nzShowSizeChanger="true" [nzShowTotal]="rangeTemplate" [nzLoading]="loading" [(nzPageIndex)]="searchModel.pageNum" [(nzPageSize)]="searchModel.pageSize">
     <thead>
         <tr>
-            <th>速度段</th>
-            <th>百公里油耗</th>
-            <th>百公里排放</th>
-            <th>百公里SRC</th>
-            <th>空燃比</th>
+            <th>车速</th>
+            <th>时长</th>
+            <th>平均时长</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let data of dataTable.data">
-            <td>{{data.C_VEHM}}</td>
+            <td>{{data.C_SPD1}}</td>
             <td>{{data.DUR}}</td>
-            <td>{{data.TOIL}}</td>
-            <td>{{data.DUR}}</td>
-            <td>{{data.TOIL}}</td>
+            <td>{{data.AVG}}</td>
         </tr>
     </tbody>
 </nz-table>

@@ -4,6 +4,11 @@
         <nz-form-control nzSpan="4">
             <input nz-input [(ngModel)]="searchModel.vehm" name="searchModel.vehm" />
         </nz-form-control>
+
+        <nz-form-label nzSpan="2">日期</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <nz-month-picker nzAllowClear="false" [(ngModel)]="searchModel.dateStart" name="searchModel.dateStart"></nz-month-picker>
+        </nz-form-control>
     </nz-form-item>
 </form>
 <div class="toolbar">

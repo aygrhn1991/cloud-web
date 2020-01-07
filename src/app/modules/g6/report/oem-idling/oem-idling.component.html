@@ -9,6 +9,11 @@
         <nz-form-control nzSpan="4">
             <app-xzqh [(value)]="searchModel.xzqh"></app-xzqh>
         </nz-form-control>
+
+        <nz-form-label nzSpan="2">日期</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <nz-month-picker nzAllowClear="false" [(ngModel)]="searchModel.dateStart" name="searchModel.dateStart"></nz-month-picker>
+        </nz-form-control>
     </nz-form-item>
 </form>
 <div class="toolbar">
@@ -28,7 +33,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let data of dataTable.data">
+        <tr *ngFor="let data of dataTable.data" (click)="faultDecode(data)">
             <td>{{data.C_VEHM}}</td>
             <td>{{data.DUR}}</td>
             <td>{{data.TOIL}}</td>
@@ -39,3 +44,27 @@
 <ng-template #rangeTemplate let-range="range" let-total>
     第{{range[0]}}-{{range[1]}}条 共{{total}}条
 </ng-template>
+
+<nz-modal [(nzVisible)]="isVisibleFault" nzTitle="详细" (nzOnCancel)="isVisibleFault=false" [nzFooter]="modalFooterFault">
+    <nz-table #faultTable [nzData]="faultList" [(nzPageIndex)]="falutPageNum">
+        <thead>
+            <tr>
+                <th>VIN</th>
+                <th>总时长</th>
+                <th>总油耗</th>
+                <th>总排放</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of faultTable.data">
+                <td>{{data.vin}}</td>
+                <td>{{data.code}}</td>
+                <td>{{data.code}}</td>
+                <td>{{data.name}}</td>
+            </tr>
+        </tbody>
+    </nz-table>
+    <ng-template #modalFooterFault>
+        <button nz-button (click)="isVisibleFault=false"><i nz-icon nzType="left-circle" nzTheme="twotone" nzTwotoneColor="blue"></i>返回</button>
+    </ng-template>
+</nz-modal>

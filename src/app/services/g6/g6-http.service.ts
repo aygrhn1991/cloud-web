@@ -168,5 +168,7 @@ export class G6HttpService extends HttpService {
   g6Report21(vehm: string, dateStart: number, dateEnd: number) {
     return this.http.get(`/report/report/reportCtrl/statAvg100/${vehm}/${dateStart}/${dateEnd}`);
   }
+  ///
+  
   //#endregion
 }

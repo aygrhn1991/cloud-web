@@ -56,6 +56,17 @@ import { HeaderComponent } from './mon/mon/header/header.component';
 import { SchvehComponent } from './mon/mon/schveh/schveh.component';
 import { SurveyComponent } from './mon/mon/survey/survey.component';
 import { LabelTextComponent } from './mon/mon/label-text/label-text.component';
+import { VehSpeedFuelYearComponent } from './report/veh-speed-fuel-year/veh-speed-fuel-year.component';
+import { VehSpeedOutputYearComponent } from './report/veh-speed-output-year/veh-speed-output-year.component';
+import { OemSpeedDurationYearComponent } from './report/oem-speed-duration-year/oem-speed-duration-year.component';
+import { OemSpeedFuelYearComponent } from './report/oem-speed-fuel-year/oem-speed-fuel-year.component';
+import { OemSpeedMileYearComponent } from './report/oem-speed-mile-year/oem-speed-mile-year.component';
+import { OemSpeedOutputYearComponent } from './report/oem-speed-output-year/oem-speed-output-year.component';
+import { OemConditionYearComponent } from './report/oem-condition-year/oem-condition-year.component';
+import { OemConditionSumYearComponent } from './report/oem-condition-sum-year/oem-condition-sum-year.component';
+import { OemIdlingYearComponent } from './report/oem-idling-year/oem-idling-year.component';
+import { OemFaultYearComponent } from './report/oem-fault-year/oem-fault-year.component';
+import { OemAverageReportYearComponent } from './report/oem-average-report-year/oem-average-report-year.component';
 
 const routes: Routes = [
   {
@@ -86,18 +97,29 @@ const routes: Routes = [
       { path: 'report/veh-idling-month', component: VehIdlingMonthComponent, canActivate: [GuardService] },
       { path: 'report/veh-idling-year', component: VehIdlingYearComponent, canActivate: [GuardService] },
       { path: 'report/veh-speed-fuel', component: VehSpeedFuelComponent, canActivate: [GuardService] },
+      { path: 'report/veh-speed-fuel-year', component: VehSpeedFuelYearComponent, canActivate: [GuardService] },
       { path: 'report/veh-speed-fuel-diff', component: VehSpeedFuelDiffComponent, canActivate: [GuardService] },
       { path: 'report/veh-speed-output', component: VehSpeedOutputComponent, canActivate: [GuardService] },
+      { path: 'report/veh-speed-output-year', component: VehSpeedOutputYearComponent, canActivate: [GuardService] },
       { path: 'report/veh-speed-output-diff', component: VehSpeedOutputDiffComponent, canActivate: [GuardService] },
       { path: 'report/oem-speed-duration', component: OemSpeedDurationComponent, canActivate: [GuardService] },
+      { path: 'report/oem-speed-duration-year', component: OemSpeedDurationYearComponent, canActivate: [GuardService] },
       { path: 'report/oem-speed-mile', component: OemSpeedMileComponent, canActivate: [GuardService] },
+      { path: 'report/oem-speed-mile-year', component: OemSpeedMileYearComponent, canActivate: [GuardService] },
       { path: 'report/oem-speed-fuel', component: OemSpeedFuelComponent, canActivate: [GuardService] },
+      { path: 'report/oem-speed-fuel-year', component: OemSpeedFuelYearComponent, canActivate: [GuardService] },
       { path: 'report/oem-speed-output', component: OemSpeedOutputComponent, canActivate: [GuardService] },
+      { path: 'report/oem-speed-output-year', component: OemSpeedOutputYearComponent, canActivate: [GuardService] },
       { path: 'report/oem-condition', component: OemConditionComponent, canActivate: [GuardService] },
+      { path: 'report/oem-condition-year', component: OemConditionYearComponent, canActivate: [GuardService] },
       { path: 'report/oem-condition-sum', component: OemConditionSumComponent, canActivate: [GuardService] },
+      { path: 'report/oem-condition-sum-year', component: OemConditionSumYearComponent, canActivate: [GuardService] },
       { path: 'report/oem-idling', component: OemIdlingComponent, canActivate: [GuardService] },
+      { path: 'report/oem-idling-year', component: OemIdlingYearComponent, canActivate: [GuardService] },
       { path: 'report/oem-fault', component: OemFaultComponent, canActivate: [GuardService] },
+      { path: 'report/oem-fault-year', component: OemFaultYearComponent, canActivate: [GuardService] },
       { path: 'report/oem-average-report', component: OemAverageReportComponent, canActivate: [GuardService] },
+      { path: 'report/oem-average-report-year', component: OemAverageReportYearComponent, canActivate: [GuardService] },
 
       { path: 'cmd/cmd', component: CmdComponent, canActivate: [GuardService] },
 
@@ -170,7 +192,18 @@ const routes: Routes = [
     HeaderComponent,
     SchvehComponent,
     SurveyComponent,
-    LabelTextComponent
+    LabelTextComponent,
+    VehSpeedFuelYearComponent,
+    VehSpeedOutputYearComponent,
+    OemSpeedDurationYearComponent,
+    OemSpeedFuelYearComponent,
+    OemSpeedMileYearComponent,
+    OemSpeedOutputYearComponent,
+    OemConditionYearComponent,
+    OemConditionSumYearComponent,
+    OemIdlingYearComponent,
+    OemFaultYearComponent,
+    OemAverageReportYearComponent
   ],
   imports: [
     RouterModule.forChild(routes),

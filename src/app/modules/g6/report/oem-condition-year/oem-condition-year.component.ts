@@ -5,18 +5,18 @@ import { NzNotificationService } from 'ng-zorro-antd';
 import { SearchModel, Result2 } from 'src/app/models/result.model';
 
 @Component({
-  selector: 'app-oem-condition-sum',
-  templateUrl: './oem-condition-sum.component.html',
-  styleUrls: ['./oem-condition-sum.component.css']
+  selector: 'app-oem-condition-year',
+  templateUrl: './oem-condition-year.component.html',
+  styleUrls: ['./oem-condition-year.component.css']
 })
-export class OemConditionSumComponent implements OnInit {
+export class OemConditionYearComponent implements OnInit {
 
   constructor(private http: G6HttpService,
     private util: UtilService,
     private notification: NzNotificationService) { }
 
   ngOnInit() {
-    this.searchModel = Object.assign(this.searchModel, { vehm: null });
+    this.searchModel = Object.assign(this.searchModel, { vehm: null, xzqh: null });
     this.reset();
   }
 
@@ -27,9 +27,9 @@ export class OemConditionSumComponent implements OnInit {
   getData(): void {
     this.loading = true;
     this.searchModel.pageNum = 1;
-    this.http.g6Report17( this.util.parameterTransfer(this.searchModel.vehm, -1), 
-    this.util.getDayStart(this.util.getMonthStartDay(this.searchModel.dateStart)).getTime(),
-    this.util.getDayEnd(this.util.getMonthEndDay(this.searchModel.dateStart)).getTime()).subscribe((data: Result2) => {
+    this.http.g6Report16(this.util.parameterTransfer(this.searchModel.vid, -1), this.util.parameterTransfer(this.searchModel.vehm, -1), this.util.parameterTransfer(this.searchModel.xzqh, -1),
+      this.util.getDayStart(this.util.getYearStartDay(this.searchModel.dateStart)).getTime(),
+      this.util.getDayEnd(this.util.getYearEndDay(this.searchModel.dateStart)).getTime()).subscribe((data: Result2) => {
         this.loading = false;
         this.dataList = data.data.data;
       })
@@ -37,7 +37,6 @@ export class OemConditionSumComponent implements OnInit {
   reset(): void {
     this.searchModel.vid = null;
     this.searchModel.vin = null;
-    this.searchModel.vehm=null;
     this.searchModel.dateStart = new Date();
     this.searchModel.pageNum = 1;
     this.searchModel.pageSize = 10;

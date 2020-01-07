@@ -24,10 +24,10 @@ export class VehDayReportComponent implements OnInit {
   dataList: Array<any> = [];
   searchModel: SearchModel = new SearchModel();
   getData(): void {
-    if (this.util.isNull(this.searchModel.vid)) {
-      this.notification.error('VIN不能为空', null);
-      return;
-    }
+    // if (this.util.isNull(this.searchModel.vid)) {
+    //   this.notification.error('VIN不能为空', null);
+    //   return;
+    // }
     this.loading = true;
     this.searchModel.pageNum = 1;
     this.http.g6Report1(this.util.parameterTransfer(this.searchModel.vid, -1),
@@ -44,6 +44,7 @@ export class VehDayReportComponent implements OnInit {
     this.searchModel.pageNum = 1;
     this.searchModel.pageSize = 10;
     this.dataList = [];
+    this.getData();
   }
   //#endregion
 

@@ -33,8 +33,8 @@ export class VehSpeedFuelDiffComponent implements OnInit {
     this.loading = true;
     this.searchModel.pageNum = 1;
     this.http.g6Report9(this.util.parameterTransfer(this.searchModel.vid, -1),
-    this.util.getDayStart(this.util.getMonthStartDay(this.searchModel.dateStart)).getTime(),
-    this.util.getDayEnd(this.util.getMonthEndDay(this.searchModel.dateStart)).getTime()).subscribe((data: Result2) => {
+    this.util.getDayStart(this.util.getYearStartDay(this.searchModel.dateStart)).getTime(),
+    this.util.getDayEnd(this.util.getYearEndDay(this.searchModel.dateStart)).getTime()).subscribe((data: Result2) => {
         this.loading = false;
         this.dataList = data.data.data;
       })

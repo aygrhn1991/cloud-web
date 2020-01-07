@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { G6HttpService } from 'src/app/services/g6/g6-http.service';
 import { UtilService } from 'src/app/services/util.service';
 import { NzNotificationService } from 'ng-zorro-antd';
-import { SearchModel, Result2 } from 'src/app/models/result.model';
 import { ChartService } from 'src/app/services/chart.service';
+import { SearchModel, Result2 } from 'src/app/models/result.model';
 
 @Component({
-  selector: 'app-veh-speed-output-diff',
-  templateUrl: './veh-speed-output-diff.component.html',
-  styleUrls: ['./veh-speed-output-diff.component.css']
+  selector: 'app-oem-speed-output-year',
+  templateUrl: './oem-speed-output-year.component.html',
+  styleUrls: ['./oem-speed-output-year.component.css']
 })
-export class VehSpeedOutputDiffComponent implements OnInit {
+export class OemSpeedOutputYearComponent implements OnInit {
 
   constructor(private http: G6HttpService,
     private util: UtilService,
@@ -18,25 +18,23 @@ export class VehSpeedOutputDiffComponent implements OnInit {
     private chartService: ChartService) { }
 
   ngOnInit() {
+    this.searchModel = Object.assign(this.searchModel, { vehm: null, xzqh: null });
     this.reset();
   }
 
   //#region 搜索区
   loading: boolean = false;
   dataList: Array<any> = [];
-  searchModel: SearchModel = new SearchModel();
+  searchModel: any = new SearchModel();
   getData(): void {
-    if (this.util.isNull(this.searchModel.vid)) {
-      this.notification.error('VIN不能为空', null);
-      return;
-    }
     this.loading = true;
     this.searchModel.pageNum = 1;
-    this.http.g6Report11(this.util.parameterTransfer(this.searchModel.vid, -1),
-    this.util.getDayStart(this.util.getYearStartDay(this.searchModel.dateStart)).getTime(),
-    this.util.getDayEnd(this.util.getYearEndDay(this.searchModel.dateStart)).getTime()).subscribe((data: Result2) => {
+    this.http.g6Report15(this.util.parameterTransfer(this.searchModel.vehm, -1), this.util.parameterTransfer(this.searchModel.xzqh, -1),
+      this.util.getDayStart(this.util.getYearStartDay(this.searchModel.dateStart)).getTime(),
+      this.util.getDayEnd(this.util.getYearEndDay(this.searchModel.dateStart)).getTime()).subscribe((data: Result2) => {
         this.loading = false;
         this.dataList = data.data.data;
+        this.makeChartData(data.data.data);
       })
   }
   reset(): void {
@@ -46,6 +44,7 @@ export class VehSpeedOutputDiffComponent implements OnInit {
     this.searchModel.pageNum = 1;
     this.searchModel.pageSize = 10;
     this.dataList = [];
+    this.getData();
   }
   //#endregion
   chartOption: any;
@@ -58,9 +57,10 @@ export class VehSpeedOutputDiffComponent implements OnInit {
     //   y1.push(base);
     // }
     data.forEach(e => {
-      x.push(e.C_SPD);
-      y1.push(e.OIL);
+      x.push(e.C_SPD1);
+      y1.push(e.NOX);
     });
-    this.chartOption = this.chartService.makeReportChart2('车速-排放差值', y1, x);
+    this.chartOption = this.chartService.makeReportChart2('车速-排放', y1, x);
   }
+
 }

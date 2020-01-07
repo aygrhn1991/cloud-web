@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { G6HttpService } from 'src/app/services/g6/g6-http.service';
 import { UtilService } from 'src/app/services/util.service';
 import { NzNotificationService } from 'ng-zorro-antd';
-import { SearchModel, Result2 } from 'src/app/models/result.model';
 import { ChartService } from 'src/app/services/chart.service';
+import { SearchModel, Result2 } from 'src/app/models/result.model';
 
 @Component({
-  selector: 'app-veh-speed-output-diff',
-  templateUrl: './veh-speed-output-diff.component.html',
-  styleUrls: ['./veh-speed-output-diff.component.css']
+  selector: 'app-veh-speed-fuel-year',
+  templateUrl: './veh-speed-fuel-year.component.html',
+  styleUrls: ['./veh-speed-fuel-year.component.css']
 })
-export class VehSpeedOutputDiffComponent implements OnInit {
+export class VehSpeedFuelYearComponent implements OnInit {
 
   constructor(private http: G6HttpService,
     private util: UtilService,
@@ -32,11 +32,12 @@ export class VehSpeedOutputDiffComponent implements OnInit {
     }
     this.loading = true;
     this.searchModel.pageNum = 1;
-    this.http.g6Report11(this.util.parameterTransfer(this.searchModel.vid, -1),
+    this.http.g6Report8(this.util.parameterTransfer(this.searchModel.vid, -1),
     this.util.getDayStart(this.util.getYearStartDay(this.searchModel.dateStart)).getTime(),
     this.util.getDayEnd(this.util.getYearEndDay(this.searchModel.dateStart)).getTime()).subscribe((data: Result2) => {
         this.loading = false;
         this.dataList = data.data.data;
+        this.makeChartData(data.data.data);
       })
   }
   reset(): void {
@@ -48,6 +49,7 @@ export class VehSpeedOutputDiffComponent implements OnInit {
     this.dataList = [];
   }
   //#endregion
+
   chartOption: any;
   makeChartData(data) {
     let x = [];
@@ -61,6 +63,7 @@ export class VehSpeedOutputDiffComponent implements OnInit {
       x.push(e.C_SPD);
       y1.push(e.OIL);
     });
-    this.chartOption = this.chartService.makeReportChart2('车速-排放差值', y1, x);
+    this.chartOption = this.chartService.makeReportChart2('车速-油耗', y1, x);
   }
+
 }

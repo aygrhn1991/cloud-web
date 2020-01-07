@@ -7,7 +7,7 @@
 
         <nz-form-label nzSpan="2">日期</nz-form-label>
         <nz-form-control nzSpan="4">
-            <nz-month-picker nzAllowClear="false" [(ngModel)]="searchModel.dateStart" name="searchModel.dateStart"></nz-month-picker>
+            <nz-year-picker nzAllowClear="false" [(ngModel)]="searchModel.dateStart" name="searchModel.dateStart"></nz-year-picker>
         </nz-form-control>
     </nz-form-item>
 </form>
@@ -18,23 +18,34 @@
         <button nz-button (click)="reset()"><i nz-icon nzType="interaction" nzTheme="twotone" nzTwotoneColor="blue"></i>清空</button>
     </div>
 </div>
-<nz-table #dataTable [nzData]="dataList" nzFrontPagination="true" nzShowSizeChanger="true" [nzShowTotal]="rangeTemplate" [nzLoading]="loading" [(nzPageIndex)]="searchModel.pageNum" [(nzPageSize)]="searchModel.pageSize">
+<nz-table #dataTable nzBordered [nzData]="dataList" nzFrontPagination="true" nzShowSizeChanger="true" [nzShowTotal]="rangeTemplate" [nzLoading]="loading" [(nzPageIndex)]="searchModel.pageNum" [(nzPageSize)]="searchModel.pageSize">
     <thead>
         <tr>
-            <th>速度段</th>
-            <th>百公里油耗</th>
-            <th>百公里排放</th>
-            <th>百公里SRC</th>
-            <th>空燃比</th>
+            <th rowspan="2">车型</th>
+            <th rowspan="2">里程</th>
+            <th rowspan="2">油耗</th>
+            <th rowspan="2">用时</th>
+            <th rowspan="2">排放</th>
+            <th rowspan="2">SRC转化</th>
+            <th colspan="3">车速(km/h)</th>
+        </tr>
+        <tr>
+            <th>油耗</th>
+            <th>排放</th>
+            <th>SRC</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let data of dataTable.data">
             <td>{{data.C_VEHM}}</td>
-            <td>{{data.DUR}}</td>
+            <td>{{data.TMIL}}</td>
             <td>{{data.TOIL}}</td>
             <td>{{data.DUR}}</td>
-            <td>{{data.TOIL}}</td>
+            <td>{{data.TSCRDOWN}}</td>
+            <td>{{data.TRUNSSCR}}</td>
+            <td>{{data.OILPER}}</td>
+            <td>{{data.NOXPER}}</td>
+            <td>{{data.SCRPER}}</td>
         </tr>
     </tbody>
 </nz-table>
