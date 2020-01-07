@@ -25,16 +25,14 @@
             <th>百公里油耗</th>
             <th>百公里排放</th>
             <th>百公里SRC</th>
-            <th>空燃比</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let data of dataTable.data">
-            <td>{{data.C_VEHM}}</td>
-            <td>{{data.DUR}}</td>
-            <td>{{data.TOIL}}</td>
-            <td>{{data.DUR}}</td>
-            <td>{{data.TOIL}}</td>
+            <td>{{data.C_SPD1}}</td>
+            <td>{{data.OILPER}}</td>
+            <td>{{data.NOXPER}}</td>
+            <td>{{data.SCRPER}}</td>
         </tr>
     </tbody>
 </nz-table>

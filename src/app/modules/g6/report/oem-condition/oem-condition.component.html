@@ -1,5 +1,10 @@
 <form nz-form class="searchbar">
     <nz-form-item>
+        <nz-form-label nzSpan="2">VIN</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <app-vin [(vin)]="searchModel.vin" [(vid)]="searchModel.vid" platform="1"></app-vin>
+        </nz-form-control>
+
         <nz-form-label nzSpan="2">车型</nz-form-label>
         <nz-form-control nzSpan="4">
             <input nz-input [(ngModel)]="searchModel.vehm" name="searchModel.vehm" />
@@ -40,16 +45,16 @@
     </thead>
     <tbody>
         <tr *ngFor="let data of dataTable.data">
-            <td>{{data.C_SPD1}}</td>
-            <td>{{data.NOX}}</td>
-            <td>{{data.PER}}</td>
-            <td>{{data.C_SPD1}}</td>
-            <td>{{data.NOX}}</td>
-            <td>{{data.PER}}</td>
-            <td>{{data.C_SPD1}}</td>
-            <td>{{data.NOX}}</td>
-            <td>{{data.PER}}</td>
-            <td>{{data.PER}}</td>
+            <td>{{data.C_VIN}}</td>
+            <td>{{data.C_VEHNO}}</td>
+            <td>{{data.TMIL}}</td>
+            <td>{{data.TOIL}}</td>
+            <td>{{data.DUR}}</td>
+            <td>{{data.TSCRDOWN}}</td>
+            <td>{{data.TRUNSSCR}}</td>
+            <td>{{data.OILPER}}</td>
+            <td>{{data.NOXPER}}</td>
+            <td>{{data.SCRPER}}</td>
         </tr>
     </tbody>
 </nz-table>

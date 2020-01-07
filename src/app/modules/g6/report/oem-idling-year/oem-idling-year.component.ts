@@ -51,7 +51,7 @@ export class OemIdlingYearComponent implements OnInit {
     this.http.g6Report19(this.util.parameterTransfer(this.searchModel.vehm, -1), this.util.parameterTransfer(this.searchModel.xzqh, -1),
     this.util.getDayStart(this.util.getMonthStartDay(this.searchModel.dateStart)).getTime(),
     this.util.getDayEnd(this.util.getMonthEndDay(this.searchModel.dateStart)).getTime()).subscribe((data: Result2) => {
-      this.faultList = data.data;
+      this.faultList = data.data.data;
     });
     this.falutPageNum = 1;
     this.isVisibleFault = true;

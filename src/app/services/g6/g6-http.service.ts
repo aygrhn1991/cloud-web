@@ -160,7 +160,7 @@ export class G6HttpService extends HttpService {
     return this.http.get(`/report/report/reportCtrl/statIdlingData/${vehm}/${xzqh}/${dateStart}/${dateEnd}`);
   }
   g6Report19(vehm: string, xzqh: number, dateStart: number, dateEnd: number) {
-    return this.http.get(`/report/report/reportCtrl/queryIdlingVehsByVehm/${vehm}/${xzqh}/${dateStart}/${dateEnd}`);
+    return this.http.get(`/report/report/reportCtrl/queryIdlingVehsByVehm/${vehm}/${dateStart}/${dateEnd}`);
   }
   g6Report20(vehm: string, dateStart: number, dateEnd: number) {
     return this.http.get(`/report/report/reportCtrl/statFc/${vehm}/${dateStart}/${dateEnd}`);

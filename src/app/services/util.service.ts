@@ -79,10 +79,10 @@ export class UtilService {
     return s;
   };
   getDayStart(date: Date): Date {
-    return new Date((date.getFullYear()) + '-' + (date.getMonth() + 1) + '-' + date.getDate());
+    return new Date((date.getFullYear()) + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' 00:00:00');
   };
   getDayEnd(date: Date): Date {
-    return new Date((date.getFullYear()) + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + '23:59:59');
+    return new Date((date.getFullYear()) + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' 23:59:59');
   };
   getMonthStartDay(date: Date): Date {
     date.setDate(1);

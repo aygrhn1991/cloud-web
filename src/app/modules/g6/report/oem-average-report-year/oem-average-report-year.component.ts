@@ -37,6 +37,7 @@ export class OemAverageReportYearComponent implements OnInit {
   reset(): void {
     this.searchModel.vid = null;
     this.searchModel.vin = null;
+    this.searchModel.vehm='YQ-VEHM-01';
     this.searchModel.dateStart = new Date();
     this.searchModel.pageNum = 1;
     this.searchModel.pageSize = 10;
