@@ -1,0 +1,29 @@
+<form nz-form class="searchbar">
+    <nz-form-item>
+        <nz-form-label nzSpan="2">日期</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <nz-month-picker nzAllowClear="false" [(ngModel)]="searchModel.dateStart" name="searchModel.dateStart"></nz-month-picker>
+        </nz-form-control>
+    </nz-form-item>
+</form>
+<div class="toolbar">
+    <div class="toolbar-left"></div>
+    <div class="toolbar-right">
+        <button nz-button (click)="getData()"><i nz-icon nzType="filter" nzTheme="twotone" nzTwotoneColor="green"></i>查找</button>
+        <button nz-button (click)="reset()"><i nz-icon nzType="interaction" nzTheme="twotone" nzTwotoneColor="blue"></i>清空</button>
+    </div>
+</div>
+<div nz-row>
+    <div nz-col nzSpan="6">
+        <div echarts [options]="chart1Option"></div>
+    </div>
+    <div nz-col nzSpan="6">
+        <div echarts [options]="chart1Option"></div>
+    </div>
+    <div nz-col nzSpan="6">
+        <div echarts [options]="chart1Option"></div>
+    </div>
+    <div nz-col nzSpan="6">
+        <div echarts [options]="chart1Option"></div>
+    </div>
+</div>

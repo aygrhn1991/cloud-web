@@ -4,7 +4,7 @@ import { NzNotificationService, UploadFile } from 'ng-zorro-antd';
 import { SearchModel, Result1, G6DocResult } from 'src/app/models/result.model';
 import { VehDocModel } from 'src/app/models/g6/g6doc/veh-doc.model';
 import { VehModifyModel } from 'src/app/models/g6/g6doc/veh-modify.model';
-import { G6DocHttpService } from 'src/app/services/g6/g6doc/g6-doc-http.service';
+import { G6DocHttpService } from 'src/app/services/g6/g6-http-doc.service';
 
 @Component({
   selector: 'app-veh-doc',

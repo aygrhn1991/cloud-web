@@ -10,9 +10,7 @@ import { ConfigService } from './config.service';
 })
 export class HttpService {
 
-  constructor(public http: HttpClient,
-    public util: UtilService,
-    public configService: ConfigService) { }
+  constructor(private http: HttpClient) { }
 
   //#region 登录，获取access_url
   login(platform: number, account: string, password: string) {

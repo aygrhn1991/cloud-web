@@ -67,6 +67,8 @@ import { OemConditionSumYearComponent } from './report/oem-condition-sum-year/oe
 import { OemIdlingYearComponent } from './report/oem-idling-year/oem-idling-year.component';
 import { OemFaultYearComponent } from './report/oem-fault-year/oem-fault-year.component';
 import { OemAverageReportYearComponent } from './report/oem-average-report-year/oem-average-report-year.component';
+import { VehReportComponent } from './report/veh-report/veh-report.component';
+import { OemReportComponent } from './report/oem-report/oem-report.component';
 
 const routes: Routes = [
   {
@@ -92,6 +94,10 @@ const routes: Routes = [
       { path: 'report/veh-day-report', component: VehDayReportComponent, canActivate: [GuardService] },
       { path: 'report/veh-day-sum', component: VehDaySumComponent, canActivate: [GuardService] },
       { path: 'report/veh-day-fault', component: VehDayFaultComponent, canActivate: [GuardService] },
+
+      { path: 'report/veh-report', component: VehReportComponent, canActivate: [GuardService] },
+      { path: 'report/oem-report', component: OemReportComponent, canActivate: [GuardService] },
+
       { path: 'report/veh-month-report', component: VehMonthReportComponent, canActivate: [GuardService] },
       { path: 'report/veh-year-report', component: VehYearReportComponent, canActivate: [GuardService] },
       { path: 'report/veh-idling-month', component: VehIdlingMonthComponent, canActivate: [GuardService] },
@@ -123,8 +129,9 @@ const routes: Routes = [
 
       { path: 'cmd/cmd', component: CmdComponent, canActivate: [GuardService] },
 
-      { path: 'enc/enc', component: EncComponent, canActivate: [GuardService] },
       { path: 'mon/mon', component: MonComponent, canActivate: [GuardService] },
+
+      { path: 'enc/enc', component: EncComponent, canActivate: [GuardService] },
 
       { path: 'testing/testing', component: TestingComponent, canActivate: [GuardService] },
       { path: 'testing/playback', component: PlaybackComponent, canActivate: [GuardService] },
@@ -203,7 +210,9 @@ const routes: Routes = [
     OemConditionSumYearComponent,
     OemIdlingYearComponent,
     OemFaultYearComponent,
-    OemAverageReportYearComponent
+    OemAverageReportYearComponent,
+    VehReportComponent,
+    OemReportComponent
   ],
   imports: [
     RouterModule.forChild(routes),

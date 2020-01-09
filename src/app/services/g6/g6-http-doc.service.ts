@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpService } from '../../http.service';
+import { HttpService } from '../http.service';
 import { HttpClient } from '@angular/common/http';
-import { UtilService } from '../../util.service';
-import { ConfigService } from '../../config.service';
+import { UtilService } from '../util.service';
+import { ConfigService } from '../config.service';
 import { EngModeModel } from 'src/app/models/g6/g6doc/eng-mode.model';
 import { VehModeModel } from 'src/app/models/g6/g6doc/veh-mode.model';
 import { ChipModeModel } from 'src/app/models/g6/g6doc/chip-mode.model';
@@ -15,12 +15,11 @@ import { VehModifyModel } from 'src/app/models/g6/g6doc/veh-modify.model';
 @Injectable({
   providedIn: 'root'
 })
-export class G6DocHttpService extends HttpService {
+export class G6DocHttpService {
 
-  constructor(public http: HttpClient,
-    public util: UtilService,
-    public configService: ConfigService) {
-    super(http, util, configService);
+  constructor(private http: HttpClient,
+    private util: UtilService,
+    private configService: ConfigService) {
   }
 
   g6DocLogin(username: string, password: string) {

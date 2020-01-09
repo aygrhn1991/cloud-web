@@ -19,7 +19,7 @@ export class VehComponent implements OnInit {
   powerOptions = this.commonService.vehPowerOptions;
   //#endregion
 
-  constructor(private http: G6HttpService,
+  constructor(private http: HttpService,
     private util: UtilService,
     private notification: NzNotificationService,
     private modalService: NzModalService,
@@ -261,15 +261,15 @@ export class VehComponent implements OnInit {
   importVeh(): void {
     let formData = new FormData();
     formData.append('file', this.fileList[0]);
-    this.http.importG6Veh(formData).subscribe((data: Result2) => {
-      if (data.successed && data.data > 0) {
-        this.notification.success('数据导入成功，导入数据' + data.data + '条', null);
-        this.isVisibleImport = false;
-        this.getData();
-      } else {
-        this.notification.error('数据导入失败', null);
-      }
-    });
+    // this.http.importG6Veh(formData).subscribe((data: Result2) => {
+    //   if (data.successed && data.data > 0) {
+    //     this.notification.success('数据导入成功，导入数据' + data.data + '条', null);
+    //     this.isVisibleImport = false;
+    //     this.getData();
+    //   } else {
+    //     this.notification.error('数据导入失败', null);
+    //   }
+    // });
   }
   nzChange(event) {
     if (event.type == 'success') {

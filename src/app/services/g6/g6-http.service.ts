@@ -10,13 +10,9 @@ import { of } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class G6HttpService extends HttpService {
+export class G6HttpService {
 
-  constructor(public http: HttpClient,
-    public util: UtilService,
-    public configService: ConfigService) {
-    super(http, util, configService);
-  }
+  constructor(private http: HttpClient) {  }
 
   //#region g6车辆管理
   getG6Veh(pageNum: number, pageSize: number, vid: number, vehNo: string, xzqh: string, power: number, vehMode: string, simCode: string, dtuCode: string, engCode: string, dateStart: number, dateEnd: number) {

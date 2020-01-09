@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Result1 } from 'src/app/models/result.model';
 import { NzNotificationService } from 'ng-zorro-antd';
-import { G6DocHttpService } from 'src/app/services/g6/g6doc/g6-doc-http.service';
+import { G6DocHttpService } from 'src/app/services/g6/g6-http-doc.service';
 
 @Component({
   selector: 'app-doc-manage',

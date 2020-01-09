@@ -9,7 +9,8 @@ import { ChipPrefixModel } from 'src/app/models/g6/g6doc/chip-prefix.model';
 import { DtuModeModel } from 'src/app/models/g6/g6doc/dtu-mode.model';
 import { DtuAuthorityModel } from 'src/app/models/g6/g6doc/dtu-authority.model';
 import { VehDocModel } from 'src/app/models/g6/g6doc/veh-doc.model';
-import { G6DocHttpService } from 'src/app/services/g6/g6doc/g6-doc-http.service';
+import { G6DocHttpService } from 'src/app/services/g6/g6-http-doc.service';
+import { VehModifyModel } from 'src/app/models/g6/g6doc/veh-modify.model';
 
 @Component({
   selector: 'app-api-test',
@@ -61,8 +62,8 @@ export class ApiTestComponent implements OnInit {
     { label: '5.3 已备案车载终端型号查询', value: '/api/v10/getTboxModel', model: { token: null, tboxModel: null } },
     { label: '5.4 车载终端型号授权备案', value: '/api/v10/insertTboxModelAuthority', model: Object.assign(new DtuAuthorityModel(), { token: null }) },
     { label: '5.5 车载终端型号授权备案结果查询', value: '/api/v10/insertTboxModelAuthorityResult', model: { token: null, requestID: null } },
-    { label: '6.1 更换终端信息备案', value: '/api/v10/changeTbox', model: { token: null, aaaaaaaaaaaa: null } },
-    { label: '6.2 更换终端信息备案结果查询', value: '/api/v10/changeTboxResult', model: { token: null, aaaaaaaaaaaa: null } },
+    { label: '6.1 更换终端信息备案', value: '/api/v10/changeTbox', model: { token: null, changeData: new VehModifyModel() } },
+    { label: '6.2 更换终端信息备案结果查询', value: '/api/v10/changeTboxResult', model: { token: null, requestID: null } },
     { label: '7.1 车辆信息备案申请', value: '/api/v10/insertVehicle', model: { token: null, strVehicle: new VehDocModel() } },
     { label: '8.1 车辆状态查询', value: '/api/v10/vehicleStatus', model: { token: null, vin: null, type: null } },
   ];

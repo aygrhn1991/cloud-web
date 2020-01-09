@@ -52,6 +52,9 @@ export class MenuService {
           { title: '单车日聚合', path: '/g6/report/veh-day-sum', selected: false, active: false, show: true, pages: [] },
           { title: '单车故障日报', path: '/g6/report/veh-day-fault', selected: false, active: false, show: true, pages: [] },
 
+          { title: '单车分析', path: '/g6/report/veh-report', selected: false, active: false, show: true, pages: [] },
+          { title: '主机厂分析', path: '/g6/report/oem-report', selected: false, active: false, show: true, pages: [] },
+
           { title: '单车-运行分析（月）', path: '/g6/report/veh-month-report', selected: false, active: false, show: true, pages: [] },
           { title: '单车-运行分析（年）', path: '/g6/report/veh-year-report', selected: false, active: false, show: true, pages: [] },
           { title: '单车-怠速停车（月）', path: '/g6/report/veh-idling-month', selected: false, active: false, show: true, pages: [] },
