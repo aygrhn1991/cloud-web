@@ -1,18 +1,14 @@
 <form nz-form class="searchbar">
     <nz-form-item>
-        <nz-form-label nzSpan="2">车型</nz-form-label>
-        <nz-form-control nzSpan="4">
-            <input nz-input [(ngModel)]="searchModel.vehm" name="searchModel.vehm" />
+        <nz-form-control nzSpan="2" nzOffset="2">
+            <nz-radio-group [(ngModel)]="time" name="time" (ngModelChange)="dateChange($event)">
+                <label nz-radio nzValue="year">年</label>
+                <label nz-radio nzValue="month">月</label>
+            </nz-radio-group>
         </nz-form-control>
-
-        <nz-form-label nzSpan="2">行政区划</nz-form-label>
         <nz-form-control nzSpan="4">
-            <app-xzqh [(value)]="searchModel.xzqh"></app-xzqh>
-        </nz-form-control>
-
-        <nz-form-label nzSpan="2">日期</nz-form-label>
-        <nz-form-control nzSpan="4">
-            <nz-month-picker nzAllowClear="false" [(ngModel)]="searchModel.dateStart" name="searchModel.dateStart"></nz-month-picker>
+            <nz-year-picker nzAllowClear="false" [hidden]="time=='month'" [(ngModel)]="searchModel.dateStart" name="searchModel.dateStart" (ngModelChange)="dc($event)"></nz-year-picker>
+            <nz-month-picker nzAllowClear="false" [hidden]="time=='year'" [(ngModel)]="searchModel.dateEnd" name="searchModel.dateEnd" (ngModelChange)="dc($event)"></nz-month-picker>
         </nz-form-control>
     </nz-form-item>
 </form>

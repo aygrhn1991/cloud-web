@@ -77,12 +77,13 @@ export class RoleComponent implements OnInit {
       return;
     }
     this.dataModel = this.tempData;
-    // this.http.getData('/basic/sec/role/loadSvcGroups/' + this.dataModel.id, (data: any) => {
-    //   this.pageGroupList = data.data;
-    //   this.pageGroupList.forEach((e) => {
-    //     e.expand = true;
-    //   });
-    // })
+    this.http.loadSvcGroups(this.dataModel.id).subscribe((data:Result2) => {
+      console.log(data)
+      this.pageGroupList = data.data;
+      this.pageGroupList.forEach((e) => {
+        e.expand = true;
+      });
+    })
     this.isVisible_edit = true;
   }
   handleCancel_edit(): void {

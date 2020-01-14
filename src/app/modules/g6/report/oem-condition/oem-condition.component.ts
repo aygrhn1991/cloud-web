@@ -10,7 +10,9 @@ import { SearchModel, Result2 } from 'src/app/models/result.model';
   styleUrls: ['./oem-condition.component.css']
 })
 export class OemConditionComponent implements OnInit {
-
+  dateStart: number = null;
+  dateEnd: number = null;
+  time: string = 'month';
   constructor(private http: G6HttpService,
     private util: UtilService,
     private notification: NzNotificationService) { }
@@ -27,22 +29,33 @@ export class OemConditionComponent implements OnInit {
   getData(): void {
     this.loading = true;
     this.searchModel.pageNum = 1;
-    this.http.g6Report16(this.util.parameterTransfer(this.searchModel.vid, -1), this.util.parameterTransfer(this.searchModel.vehm, -1), this.util.parameterTransfer(this.searchModel.xzqh, -1),
-      this.util.getDayStart(this.util.getMonthStartDay(this.searchModel.dateStart)).getTime(),
-      this.util.getDayEnd(this.util.getMonthEndDay(this.searchModel.dateStart)).getTime()).subscribe((data: Result2) => {
-        this.loading = false;
-        this.dataList = data.data.data;
-      })
+    this.http.g6Report16(this.util.parameterTransfer(this.searchModel.vid, -1), '-1', -1, this.dateStart, this.dateEnd).subscribe((data: Result2) => {
+      this.loading = false;
+      this.dataList = data.data.data;
+    })
   }
   reset(): void {
     this.searchModel.vid = null;
     this.searchModel.vin = null;
     this.searchModel.dateStart = new Date();
+    this.searchModel.dateEnd = new Date();
     this.searchModel.pageNum = 1;
     this.searchModel.pageSize = 10;
     this.dataList = [];
-    this.getData();
+    this.dateChange(this.time);
   }
   //#endregion
-
+  dateChange(e) {
+    if (e == 'year') {
+      this.dateStart = this.util.getDayStart(this.util.getYearStartDay(this.searchModel.dateStart)).getTime();
+      this.dateEnd = this.util.getDayEnd(this.util.getYearEndDay(this.searchModel.dateStart)).getTime();
+    } else {
+      this.dateStart = this.util.getDayStart(this.util.getMonthStartDay(this.searchModel.dateEnd)).getTime();
+      this.dateEnd = this.util.getDayEnd(this.util.getMonthEndDay(this.searchModel.dateEnd)).getTime();
+    }
+    this.getData();
+  }
+  dc(e) {
+    this.dateChange(this.time)
+  }
 }

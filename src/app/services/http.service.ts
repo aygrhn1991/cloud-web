@@ -146,6 +146,9 @@ export class HttpService {
   delRole(id: number) {
     return this.http.get('/sec/sec/role/delRole/' + id);
   }
+  loadSvcGroups(rid: number) {
+    return this.http.get('/sec/sec/role/loadSvcGroups/' + rid);
+  }
 
   //档案
   queryNowDocVeh(vid: number) {

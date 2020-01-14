@@ -1,8 +1,17 @@
 <form nz-form class="searchbar">
     <nz-form-item>
-        <nz-form-label nzSpan="2">日期</nz-form-label>
+        <nz-form-label nzSpan="2">显示</nz-form-label>
         <nz-form-control nzSpan="4">
-            <nz-month-picker nzAllowClear="false" [(ngModel)]="searchModel.dateStart" name="searchModel.dateStart"></nz-month-picker>
+            <nz-radio-group [(ngModel)]="time" name="time" (ngModelChange)="dateChange($event)">
+                <label nz-radio nzValue="year">年</label>
+                <label nz-radio nzValue="month">月</label>
+            </nz-radio-group>
+        </nz-form-control>
+
+        <nz-form-label nzSpan="2">时间</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <nz-year-picker nzAllowClear="false" [hidden]="time=='month'" [(ngModel)]="searchModel.dateStart" name="searchModel.dateStart"></nz-year-picker>
+            <nz-month-picker nzAllowClear="false" [hidden]="time=='year'" [(ngModel)]="searchModel.dateEnd" name="searchModel.dateEnd"></nz-month-picker>
         </nz-form-control>
     </nz-form-item>
 </form>
@@ -18,12 +27,31 @@
         <div echarts [options]="chart1Option"></div>
     </div>
     <div nz-col nzSpan="6">
-        <div echarts [options]="chart1Option"></div>
+        <div echarts [options]="chart2Option"></div>
     </div>
     <div nz-col nzSpan="6">
-        <div echarts [options]="chart1Option"></div>
+        <div echarts [options]="chart3Option"></div>
     </div>
     <div nz-col nzSpan="6">
-        <div echarts [options]="chart1Option"></div>
+        <div echarts [options]="chart4Option"></div>
+    </div>
+    <div nz-col nzSpan="24">
+        <nz-tabset>
+            <nz-tab nzTitle="工况明细">
+                <app-oem-condition></app-oem-condition>
+            </nz-tab>
+            <nz-tab nzTitle="工况汇总">
+                <app-oem-condition-sum></app-oem-condition-sum>
+            </nz-tab>
+            <nz-tab nzTitle="怠速停车">
+                <app-oem-idling></app-oem-idling>
+            </nz-tab>
+            <nz-tab nzTitle="故障码密度">
+                <app-oem-fault></app-oem-fault>
+            </nz-tab>
+            <nz-tab nzTitle="百公里均值">
+                <app-oem-average-report></app-oem-average-report>
+            </nz-tab>
+        </nz-tabset>
     </div>
 </div>
