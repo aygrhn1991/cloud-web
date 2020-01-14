@@ -27,7 +27,7 @@ export class OemReportComponent implements OnInit {
       this.util.getDayStart(this.util.getMonthStartDay(new Date())).getTime(),
       this.util.getDayEnd(this.util.getMonthEndDay(new Date())).getTime()).subscribe((data: Result2) => {
 
-        this.chartService.makeReportChart2(data, data, data);
+        // this.chartService.makeReportChart2(data, data, data);
       })
   }
 

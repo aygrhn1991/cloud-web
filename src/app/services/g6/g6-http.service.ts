@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { UtilService } from '../util.service';
-import { ConfigService } from '../config.service';
-import { HttpService } from '../http.service';
 import { FaultModel } from 'src/app/models/fault.model';
 import { Result2 } from 'src/app/models/result.model';
 import { of } from 'rxjs';
@@ -13,6 +10,15 @@ import { of } from 'rxjs';
 export class G6HttpService {
 
   constructor(private http: HttpClient) {  }
+
+  //#region 首页
+  getIndexData(){
+    return this.http.get('/report/firstpageCtrlG6/statEveryNum');
+  }
+  getIndexMapData(){
+    return this.http.get('/report/firstpageCtrlG6/statVehNumByXzqh');
+  }
+  //#endregion
 
   //#region g6车辆管理
   getG6Veh(pageNum: number, pageSize: number, vid: number, vehNo: string, xzqh: string, power: number, vehMode: string, simCode: string, dtuCode: string, engCode: string, dateStart: number, dateEnd: number) {

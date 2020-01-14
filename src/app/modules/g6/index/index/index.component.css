@@ -1,0 +1,43 @@
+.g6index-circle {
+    width: 80%;
+    height: 100px;
+    margin: 30px auto;
+    border-radius: 100px;
+    border: 1px solid #29e2f7;
+    box-shadow: 0 0 20px #29e2f7 inset;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.g6index-block {
+    width: 50%;
+    height: 100px;
+    margin: 30px auto;
+    border-radius: 10px;
+    border: 1px solid #29e2f7;
+    box-shadow: 0 0 20px #29e2f7 inset;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.g6index-num {
+    font-size: 30px;
+}
+
+.g6index-text {
+    font-size: 14px;
+}
+
+.g6index-title {
+    color: #29e2f7;
+    font-style: italic;
+    font-size: 14px;
+    text-align: center;
+    line-height: 80px;
+}
+
+.g6index-content {
+    color: #fff;
+    text-indent: 4em;
+    font-size: 40px;
+}

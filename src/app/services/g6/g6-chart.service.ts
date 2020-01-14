@@ -11,61 +11,37 @@ export class G6ChartService {
   colorList1: Array<string> = ['#008cff', '#00da9c', '#c4e300'];
   colorList2: Array<string> = ['#29e2f7', '#008cff', '#00da9c', '#c4e300'];
   constructor() { }
-  makeReportChart2(title, y1, x) {
+  makeMap(mapType, map) {
     let option = {
-      color: this.colorList1,
       title: {
-        left: '5%',
         top: '5%',
-        text: title,
-        textStyle: { fontSize: 16, color: this.colorText }
-      },
-      legend: {
-        top: '15%',
         left: 'center',
-        textStyle: { color: '#fff' },
-        data: ['里程', '油耗', '行驶时长','排放'],
+        text: '全国装车量分布',
+        textStyle: { color: '#fff', fontSize: 26 },
+        subtext: '单位：辆',
+        subtextStyle: { color: '#fff' },
       },
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: { type: 'shadow' },
-        formatter: '{b}<br/>{a0} 上线车数:{c3} 上线率:{c0}%<br/>{a1} 上线车数:{c5} 上线率:{c1}%<br/>{a2} 上线车数:{c7} 上线率:{c2}%<br/>'
-      },
-      grid: {
-        top: '30%',
-        left: '2%',
-        right: '2%',
+      tooltip: { formatter: '{b}：{c}辆' },
+      visualMap: {
+        min: 0,
+        max: 100,
+        left: '5%',
         bottom: '10%',
-        containLabel: true
+        itemHeight: 100,
+        text: ['数量'],
+        textStyle: { color: '#fff' },
+        inRange: { color: ['transparent', this.colorText] },
       },
-      xAxis: [{
-        type: 'category',
-        boundaryGap: true,
-        axisLabel: { textStyle: { color: '#fff' } },
-        axisLine: { lineStyle: { color: this.colorLine } },
-        axisTick: { show: false },
-        data: x
-      }],
-      yAxis: [{
-        type: 'value',
-        nameTextStyle: { color: '#fff' },
-        axisLabel: { textStyle: { color: '#fff' } },
-        axisLine: { lineStyle: { color: this.colorLine } },
-        axisTick: { show: false },
-        splitLine: { show: false }
-      }],
-      series: [
-        {
-          name: '油耗差值',
-          type: 'line',
-          smooth: true,
-          symbolSize: 2,
-          hoverAnimation: false,
-          lineStyle: { width: 1 },
-          data: y1
-        }]
+      series: [{
+        type: 'map',
+        mapType: mapType,
+        layoutCenter: ['50%', '50%'],
+        layoutSize: '90%',
+        itemStyle: { normal: { label: { show: true, color: '#fff' }, borderColor: this.colorText, borderWidth: 1, shadowColor: this.colorText, shadowBlur: 10 }, emphasis: { label: { show: true, color: '#fff' }, areaColor: this.colorText } },
+        data: map
+      }]
     };
     return option;
   }
-  
+
 }

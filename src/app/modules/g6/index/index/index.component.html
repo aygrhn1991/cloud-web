@@ -1,47 +1,71 @@
-<div nz-row class="dashboard-wrapper">
-    <div nz-col nzSpan="6">
-        <div class="dashboard-panel dashboard-1">
-            <div echarts [options]="chart1Option"></div>
-        </div>
-        <div class="dashboard-panel dashboard-6">
-            <div echarts [options]="chart6Option"></div>
-        </div>
-        <div class="dashboard-panel dashboard-3">
-            <div echarts [options]="chart3Option"></div>
-        </div>
-        <div class="dashboard-panel dashboard-8">
-            <div echarts [options]="chart8Option"></div>
+<div nz-row style="height: 100%;">
+    <div nz-col nzSpan="14" style="height: 100%;">
+        <div style="height: 100%;">
+            <div echarts [options]="mapOption" style="height: 100%;"></div>
         </div>
     </div>
-    <div nz-col nzSpan="12">
-        <div class="dashboard-panel dashboard-9">
-            <div echarts [options]="chart9Option"></div>
-        </div>
-        <div class="dashboard-panel dashboard-0">
-            <div class="dashboard-0-btns">
-                <div class="dashboard-0-btn" *ngFor="let item of activeMapOptions" [ngClass]="{'dashboard-0-btn-active': activeMap==item}" (click)="mapChange(item)">{{item.label}}</div>
+    <div nz-col nzSpan="8">
+        <div nz-row>
+            <div nz-col nzSpan="6">
+                <div class="g6index-circle">
+                    <div class="g6index-num">{{indexModel.val1}}</div>
+                    <div class="g6index-text">入网车辆总数</div>
+                </div>
             </div>
-            <div echarts [options]="chart0Option" (chartInit)="onChartInit($event)"></div>
-        </div>
-        <div class="dashboard-panel dashboard-10">
-            <div echarts [options]="chart10Option"></div>
-        </div>
-        <div class="dashboard-panel dashboard-11">
-            <div echarts [options]="chart11Option"></div>
-        </div>
-    </div>
-    <div nz-col nzSpan="6">
-        <div class="dashboard-panel dashboard-5">
-            <div echarts [options]="chart5Option"></div>
-        </div>
-        <div class="dashboard-panel dashboard-2">
-            <div echarts [options]="chart2Option"></div>
-        </div>
-        <div class="dashboard-panel dashboard-7">
-            <div echarts [options]="chart7Option"></div>
-        </div>
-        <div class="dashboard-panel dashboard-4">
-            <div echarts [options]="chart4Option"></div>
+            <div nz-col nzSpan="6">
+                <div class="g6index-circle">
+                    <div class="g6index-num">{{indexModel.val2}}</div>
+                    <div class="g6index-text">昨日入网车辆</div>
+                </div>
+            </div>
+            <div nz-col nzSpan="6">
+                <div class="g6index-circle">
+                    <div class="g6index-num">{{indexModel.val3}}</div>
+                    <div class="g6index-text">今日上线车辆</div>
+                </div>
+            </div>
+            <div nz-col nzSpan="6">
+                <div class="g6index-circle">
+                    <div class="g6index-num">{{indexModel.val4}}</div>
+                    <div class="g6index-text">当前在线车辆</div>
+                </div>
+            </div>
+            <div nz-col nzSpan="12">
+                <div class="g6index-title">昨日怠速油耗：<span class="g6index-content">{{indexModel.val9}}</span></div>
+            </div>
+            <div nz-col nzSpan="12">
+                <div class="g6index-title">昨日怠速用时：<span class="g6index-content">{{indexModel.val10}}</span></div>
+            </div>
+            <div nz-col nzSpan="12">
+                <div class="g6index-title">昨日故障数量：<span class="g6index-content">{{indexModel.val11}}</span></div>
+            </div>
+            <div nz-col nzSpan="12">
+                <div class="g6index-title">昨日运行里程：<span class="g6index-content">{{indexModel.val12}}</span></div>
+            </div>
+            <div nz-col nzSpan="12">
+                <div class="g6index-block">
+                    <div class="g6index-num">{{indexModel.val5}}</div>
+                    <div class="g6index-text">昨日上传数据条数</div>
+                </div>
+            </div>
+            <div nz-col nzSpan="12">
+                <div class="g6index-block">
+                    <div class="g6index-num">{{indexModel.val6}}</div>
+                    <div class="g6index-text">昨日ODO里程</div>
+                </div>
+            </div>
+            <div nz-col nzSpan="12">
+                <div class="g6index-block">
+                    <div class="g6index-num">{{indexModel.val7}}</div>
+                    <div class="g6index-text">昨日行驶油耗</div>
+                </div>
+            </div>
+            <div nz-col nzSpan="12">
+                <div class="g6index-block">
+                    <div class="g6index-num">{{indexModel.val8}}</div>
+                    <div class="g6index-text">昨日行驶用时</div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
