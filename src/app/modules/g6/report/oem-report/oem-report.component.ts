@@ -45,7 +45,7 @@ export class OemReportComponent implements OnInit {
         x.push(e.C_SPD1);
         y1.push(e.DUR);
       });
-      this.chart1Option = this.chartService.makeReportChart2('车速-时长', y1, x);
+      this.chart1Option = this.chartService.makeReportChart1('车速-时长', y1, x);
     })
     this.http.g6Report14('-1', -1, this.dateStart, this.dateEnd).subscribe((data: Result2) => {
       let x = [];
@@ -56,7 +56,7 @@ export class OemReportComponent implements OnInit {
         y1.push(e.TOIL);
         y2.push(e.PER == -1 ? 3000 : e.PER);
       });
-      this.chart2Option = this.chartService.makeReportChart3('车速-油耗', y1, y2, x);
+      this.chart2Option = this.chartService.makeReportChart2('车速-油耗', y1, y2, x);
     })
     this.http.g6Report13('-1', -1, this.dateStart, this.dateEnd).subscribe((data: Result2) => {
       let x = [];
@@ -66,7 +66,7 @@ export class OemReportComponent implements OnInit {
         x.push(e.C_SPD1);
         y1.push(e.MIL);
       });
-      this.chart3Option = this.chartService.makeReportChart3('车速-里程', y1, y2, x);
+      this.chart3Option = this.chartService.makeReportChart2('车速-里程', y1, y2, x);
     })
     this.http.g6Report15('-1', -1, this.dateStart, this.dateEnd).subscribe((data: Result2) => {
       let x = [];
@@ -75,7 +75,7 @@ export class OemReportComponent implements OnInit {
         x.push(e.C_SPD1);
         y1.push(e.NOX);
       });
-      this.chart4Option = this.chartService.makeReportChart2('车速-排放', y1, x);
+      this.chart4Option = this.chartService.makeReportChart1('车速-排放', y1, x);
     })
   }
   dateChange(e) {
@@ -87,5 +87,8 @@ export class OemReportComponent implements OnInit {
       this.dateEnd = this.util.getDayEnd(this.util.getMonthEndDay(this.searchModel.dateEnd)).getTime();
     }
     this.getData();
+  }
+  dc(e) {
+    this.dateChange(this.time)
   }
 }

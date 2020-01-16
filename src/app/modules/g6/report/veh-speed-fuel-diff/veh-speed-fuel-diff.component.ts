@@ -61,6 +61,6 @@ export class VehSpeedFuelDiffComponent implements OnInit {
       x.push(e.C_SPD);
       y1.push(e.OIL);
     });
-    this.chartOption = this.chartService.makeReportChart2('车速-油耗差值', y1, x);
+    this.chartOption = this.chartService.makeReportChart1('车速-油耗差值', y1, x);
   }
 }

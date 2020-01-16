@@ -62,7 +62,7 @@ export class VehSpeedOutputYearComponent implements OnInit {
       x.push(e.C_SPD);
       y1.push(e.NOX);
     });
-    this.chartOption = this.chartService.makeReportChart2('车速-排放', y1, x);
+    this.chartOption = this.chartService.makeReportChart1('车速-排放', y1, x);
   }
 
 }

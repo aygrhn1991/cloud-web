@@ -62,6 +62,6 @@ export class OemSpeedFuelComponent implements OnInit {
       y1.push(e.TOIL);
       y2.push(e.PER==-1?3000:e.PER);
     });
-    this.chartOption = this.chartService.makeReportChart3('车速-油耗', y1, y2, x);
+    this.chartOption = this.chartService.makeReportChart2('车速-油耗', y1, y2, x);
   }
 }

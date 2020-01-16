@@ -1,14 +1,53 @@
+<form nz-form class="searchbar">
+    <nz-form-item>
+        <nz-form-label nzSpan="2">显示</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <nz-radio-group [(ngModel)]="time" name="time" (ngModelChange)="dateChange($event)">
+                <label nz-radio nzValue="year">年</label>
+                <label nz-radio nzValue="month">月</label>
+            </nz-radio-group>
+        </nz-form-control>
+
+        <nz-form-label nzSpan="2">时间</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <nz-year-picker nzAllowClear="false" [hidden]="time=='month'" [(ngModel)]="searchModel.dateStart" name="searchModel.dateStart" (ngModelChange)="dc($event)"></nz-year-picker>
+            <nz-month-picker nzAllowClear="false" [hidden]="time=='year'" [(ngModel)]="searchModel.dateEnd" name="searchModel.dateEnd" (ngModelChange)="dc($event)"></nz-month-picker>
+        </nz-form-control>
+
+        <nz-form-label nzSpan="2">VIN</nz-form-label>
+        <nz-form-control nzSpan="4">
+            <app-vin [(vin)]="searchModel.vin" [(vid)]="searchModel.vid" platform="1"></app-vin>
+        </nz-form-control>
+    </nz-form-item>
+</form>
+<div class="toolbar">
+    <div class="toolbar-left"></div>
+    <div class="toolbar-right">
+        <button nz-button (click)="getData()"><i nz-icon nzType="filter" nzTheme="twotone" nzTwotoneColor="green"></i>查找</button>
+        <button nz-button (click)="reset()"><i nz-icon nzType="interaction" nzTheme="twotone" nzTwotoneColor="blue"></i>清空</button>
+    </div>
+</div>
 <div nz-row>
     <div nz-col nzSpan="6">
         <div echarts [options]="chart1Option"></div>
     </div>
     <div nz-col nzSpan="6">
-        <div echarts [options]="chart1Option"></div>
+        <div echarts [options]="chart2Option"></div>
     </div>
     <div nz-col nzSpan="6">
-        <div echarts [options]="chart1Option"></div>
+        <div echarts [options]="chart3Option"></div>
     </div>
     <div nz-col nzSpan="6">
-        <div echarts [options]="chart1Option"></div>
+        <div echarts [options]="chart4Option"></div>
+    </div>
+    <div nz-col nzSpan="24">
+        <nz-tabset>
+            <nz-tab nzTitle="百公里油耗差值">
+                <app-veh-speed-fuel-diff></app-veh-speed-fuel-diff>
+            </nz-tab>
+            <nz-tab nzTitle="百公里排放差值">
+                <app-veh-speed-output-diff></app-veh-speed-output-diff>
+            </nz-tab>
+        </nz-tabset>
     </div>
 </div>

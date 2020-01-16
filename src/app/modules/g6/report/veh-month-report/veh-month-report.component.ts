@@ -75,6 +75,6 @@ export class VehMonthReportComponent implements OnInit {
       y3.push(e.DUR*60);
       y4.push(e.SCRDOWN);
     });
-    this.chartOption = this.chartService.makeReportChart1('车辆运行分析', y1, y2, y3, y4, x);
+    this.chartOption = this.chartService.makeReportChart4('车辆运行分析', y1, y2, y3, y4, x);
   }
 }

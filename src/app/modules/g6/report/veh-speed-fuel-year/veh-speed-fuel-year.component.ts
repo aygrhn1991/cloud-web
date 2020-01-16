@@ -63,7 +63,7 @@ export class VehSpeedFuelYearComponent implements OnInit {
       x.push(e.C_SPD);
       y1.push(e.OIL);
     });
-    this.chartOption = this.chartService.makeReportChart2('车速-油耗', y1, x);
+    this.chartOption = this.chartService.makeReportChart1('车速-油耗', y1, x);
   }
 
 }
