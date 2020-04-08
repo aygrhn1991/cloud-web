@@ -1,0 +1,38 @@
+<nz-layout>
+    <nz-header>
+        <div style="float: left;width: 300px;height: 64px;">
+            <img style="width: 100%;height: 50%;" src="{{configService.config.web_logo}}">
+        </div>
+        <ul nz-menu nzMode="horizontal" style="line-height:64px;">
+            <li nz-menu-item *ngFor="let item of dictionary.platform" [routerLink]="item.path" [hidden]="item.value!=userService.account.platform">首页</li>
+            <li nz-menu-item style="float:right;">
+                <span nz-dropdown nzPlacement="bottomCenter" [nzDropdownMenu]="menu"><i nz-icon nzType="idcard" nzTheme="twotone"></i>{{userService.account.name}}<i nz-icon nzType="down"></i></span>
+                <nz-dropdown-menu #menu="nzDropdownMenu">
+                    <ul nz-menu nzSelectable>
+                        <li nz-menu-item routerLink="/system/security/password">修改密码</li>
+                        <li nz-menu-item (click)="logout()">注销</li>
+                    </ul>
+                </nz-dropdown-menu>
+            </li>
+        </ul>
+    </nz-header>
+    <nz-layout>
+        <nz-sider nzWidth="250px" [ngStyle]="siderStyle">
+            <ul nz-menu nzMode="inline">
+                <li nz-submenu [nzOpen]="menu._select" [nzTitle]="menu.name" *ngFor="let menu of menuService.menu" (click)="flushMenu(menu)">
+                    <ul>
+                        <li nz-menu-item [nzSelected]="page._select" [routerLink]="page.path" *ngFor="let page of menu.pages">{{page.name}}</li>
+                    </ul>
+                </li>
+            </ul>
+        </nz-sider>
+        <nz-layout>
+            <nz-breadcrumb>
+                <nz-breadcrumb-item *ngFor="let path of menuService.path">{{path}}</nz-breadcrumb-item>
+            </nz-breadcrumb>
+            <nz-content [ngStyle]="contentStyle">
+                <router-outlet></router-outlet>
+            </nz-content>
+        </nz-layout>
+    </nz-layout>
+</nz-layout>

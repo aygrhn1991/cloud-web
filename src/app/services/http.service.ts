@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
-import { Result2 } from '../models/result.model';
+import { Result } from '../models/result.model';
 import { UtilService } from './util.service';
 import { ConfigService } from './config.service';
 
@@ -12,18 +12,15 @@ export class HttpService {
 
   constructor(private http: HttpClient) { }
 
-  //#region 登录，获取access_url
+  //#region 登录
   login(platform: number, account: string, password: string) {
     return this.http.post('/sec/authc/login', { plat: platform, acc: account, pwd: password });
   }
-  getPages() {
-    return of(new Result2());
+  login_getUserPages() {
+    return this.http.get('/sec/authc/loadUserSvc');
   }
-  getUser() {
+  login_getUser() {
     return this.http.get('/sec/authc/loadUser');
-  }
-  changePassword(oldPassword: string, newPassword: string) {
-    return this.http.post('/sec/authc/changePassword', { oldPassword: oldPassword, newPassword: newPassword });
   }
   //#endregion
 
@@ -166,5 +163,11 @@ export class HttpService {
   }
   saveTboxTask(options: any) {
     return this.http.post('/report/report/task/saveTboxTask', options);
+  }
+
+  ////////////////
+  
+  changePassword(oldPassword: string, newPassword: string) {
+    return this.http.post('/sec/authc/changePassword', { oldPassword: oldPassword, newPassword: newPassword });
   }
 }

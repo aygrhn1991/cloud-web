@@ -11,7 +11,7 @@
                     <nz-form-control>
                         <nz-input-group [nzPrefix]="platform">
                             <nz-select style="text-indent:18px;" [(ngModel)]="accountModel.platform" nzPlaceHolder="请选择登录平台" name="accountModel.platform">
-                                <nz-option *ngFor="let item of commonService.platformOptions" [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
+                                <nz-option *ngFor="let item of dictionary.platform" [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
                             </nz-select>
                         </nz-input-group>
                         <ng-template #platform><i nz-icon nzType="apartment"></i></ng-template>

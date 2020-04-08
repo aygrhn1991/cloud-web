@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
 import { UtilService } from 'src/app/services/util.service';
 import { NzNotificationService, NzModalService } from 'ng-zorro-antd';
-import { SearchModel, Result2 } from 'src/app/models/result.model';
+import { SearchModel, Result } from 'src/app/models/result.model';
 import { DtuManu } from 'src/app/models/manu';
 
 @Component({
@@ -42,7 +42,7 @@ export class DtuManuComponent implements OnInit {
       this.searchModel.pagenum = 1;
     }
 
-    this.http.queryDtumanu(this.util.parameterTransfer(this.form_name, '-1')).subscribe((data: Result2) => {
+    this.http.queryDtumanu(this.util.parameterTransfer(this.form_name, '-1')).subscribe((data: Result) => {
       this.loading = false;
       this.searchModel.total = data.data.length;
       this.dataList = data.data;
@@ -67,7 +67,7 @@ export class DtuManuComponent implements OnInit {
       this.notification.error('制造商名称不能为空', null);
       return;
     }
-    this.http.addDtumanu(this.dataModel).subscribe((data: Result2) => {
+    this.http.addDtumanu(this.dataModel).subscribe((data: Result) => {
       if (data.successed) {
         switch (data.data) {
           case 0:
@@ -96,7 +96,7 @@ export class DtuManuComponent implements OnInit {
     this.isVisible_edit = true;
   }
   handleOk_edit(): void {
-    this.http.updateDtumanu(this.dataModel).subscribe((data: Result2) => {
+    this.http.updateDtumanu(this.dataModel).subscribe((data: Result) => {
       if (data.successed) {
         switch (data.data) {
           case 0:
@@ -124,7 +124,7 @@ export class DtuManuComponent implements OnInit {
         nzTitle: '确定删除该制造商？',
         nzContent: '制造商' + this.tempData.name + '将会被删除',
         nzOnOk: () => {
-          this.http.deleteDtumanu(this.tempData.id).subscribe((data: Result2) => {
+          this.http.deleteDtumanu(this.tempData.id).subscribe((data: Result) => {
             if (data.successed) {
               switch (data.data) {
                 case 0:

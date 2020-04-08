@@ -1,39 +1,24 @@
 import { Injectable } from '@angular/core';
-import { UserModel } from '../models/user';
-import { Platform } from '../enums/platform.enum';
+import { AccountModel } from '../models/sec.model';
+import { UtilService } from './util.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  currentUser: UserModel = new UserModel();
+  account: AccountModel = new AccountModel();
 
-  constructor() { }
-
-  makeUser(user: any, platform: number): UserModel {
-    let userModel = new UserModel();
-    userModel.id = user.id;
-    userModel.name = user.name;
-    userModel.oemId = user.entId;
-    userModel.oemName = user.entName;
-    userModel.platformId = platform;
-    switch (platform) {
-      case Platform.g6:
-        userModel.platformIndex = '/g6/index/index';
-        break;
-      case Platform.tbox:
-        userModel.platformIndex = '/tbox/index/index';
-        break;
-      case Platform.ne:
-        userModel.platformIndex = '/ne/index/index';
-        break;
+  constructor(private util: UtilService) {
+    let access_user = localStorage.getItem('access_user');
+    if (!this.util.isNull(access_user)) {
+      this.account = JSON.parse(access_user);
     }
-    return userModel;
   }
 
-  getUser() {
-    return JSON.parse(localStorage.getItem('access_user'));
+  makeUser(account: AccountModel): void {
+    this.account = account;
+    localStorage.setItem('access_user', JSON.stringify(this.account));
   }
 
 }

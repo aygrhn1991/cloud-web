@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FaultModel } from 'src/app/models/fault.model';
-import { Result2 } from 'src/app/models/result.model';
+import { Result } from 'src/app/models/result.model';
 import { of } from 'rxjs';
 
 @Injectable({
@@ -100,7 +100,7 @@ export class G6HttpService {
     let f2 = new FaultModel();
     f2.code = '22222';
     f2.name = '故障2';
-    let r = new Result2();
+    let r = new Result();
     r.data = [f1, f2, f1, f2, f1, f2, f1, f2];
     return of(r);
   }

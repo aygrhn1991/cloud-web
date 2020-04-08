@@ -3,13 +3,13 @@ import { Router } from '@angular/router';
 import { HttpService } from 'src/app/services/http.service';
 import { NzNotificationService } from 'ng-zorro-antd';
 import { UtilService } from 'src/app/services/util.service';
-import { AccountModel } from 'src/app/models/account.model';
-import { Result2 } from 'src/app/models/result.model';
+import { Result } from 'src/app/models/result.model';
 import { MenuService } from 'src/app/services/menu.service';
 import { Md5 } from 'ts-md5';
 import { UserService } from 'src/app/services/user.service';
 import { ConfigService } from 'src/app/services/config.service';
-import { CommonService } from 'src/app/services/common.service';
+import { AccountModel, PageModel } from 'src/app/models/sec.model';
+import { DictionaryService } from 'src/app/services/dictionary.service';
 
 @Component({
   selector: 'app-login',
@@ -19,13 +19,13 @@ import { CommonService } from 'src/app/services/common.service';
 export class LoginComponent implements OnInit {
 
   constructor(private util: UtilService,
+    public dictionary: DictionaryService,
     private http: HttpService,
     private notification: NzNotificationService,
     private router: Router,
     private menuService: MenuService,
     private userService: UserService,
-    public configService: ConfigService,
-    public commonService: CommonService) { }
+    public configService: ConfigService) { }
 
   ngOnInit() {
     this.createCode();
@@ -43,31 +43,47 @@ export class LoginComponent implements OnInit {
       this.notification.error('请填写用户名和密码', null);
       return;
     }
-    if (this.util.isNull(this.accountModel.code) || this.accountModel.code.toString() != this._code) {
+    if (this.util.isNull(this.accountModel.code) || this.accountModel.code != this._code) {
       this.notification.error('验证码错误', null);
       return;
     }
     this.isLoading = true;
-    this.http.login(this.accountModel.platform, this.accountModel.account, Md5.hashStr(this.accountModel.password).toString()).subscribe((data: Result2) => {
-      if (data.successed) {
-        localStorage.setItem('access_token', data.data);
-        this.http.getPages().subscribe((data: Result2) => {
-          localStorage.setItem('access_url', JSON.stringify(this.menuService.makeMenu(data.data)));
-          this.menuService.menuList = this.menuService.getMenu();
-          this.http.getUser().subscribe((d: Result2) => {
-            localStorage.setItem('access_user', JSON.stringify(this.userService.makeUser(d.data, this.accountModel.platform)));
-            this.userService.currentUser = this.userService.getUser();
-            this.router.navigate([this.userService.currentUser.platformIndex]);
-          })
-        });
-      } else {
-        this.createCode();
-        this.notification.error(data.msg, null);
-      }
-      this.isLoading = false;
-    }, () => {
-      this.isLoading = false;
-    });
+    this.http.login(this.accountModel.platform,
+      this.accountModel.account,
+      Md5.hashStr(this.accountModel.password).toString()).subscribe((data: Result) => {
+        if (data.successed) {
+          localStorage.setItem('access_token', data.data);
+          this.http.login_getUserPages().subscribe((data: Result) => {
+            let pageArray = data.data.map((x) => {
+              let page = new PageModel();
+              page.id = x.id;
+              page.groupName = x.group;
+              page.name = x.name;
+              page.path = x.path;
+              page.sort = x.order;
+              return page;
+            });
+            this.menuService.makeMenu(pageArray);
+            this.http.login_getUser().subscribe((data: Result) => {
+              let account = new AccountModel();
+              account.platform = this.accountModel.platform;
+              account.name = data.data.name;
+              this.userService.makeUser(account);
+              for (let i = 0; i < this.dictionary.platform.length; i++) {
+                if (this.accountModel.platform == this.dictionary.platform[i].value) {
+                  this.router.navigate([this.dictionary.platform[i].path]);
+                }
+              }
+            })
+          });
+        } else {
+          this.createCode();
+          this.notification.error(data.msg, null);
+        }
+        this.isLoading = false;
+      }, () => {
+        this.isLoading = false;
+      });
   }
   //#endregion
 

@@ -3,7 +3,7 @@ import * as echarts from 'echarts';
 import { HttpClient } from '@angular/common/http';
 import { ChartService } from 'src/app/services/chart.service';
 import { HttpService } from 'src/app/services/http.service';
-import { Result2 } from 'src/app/models/result.model';
+import { Result } from 'src/app/models/result.model';
 import { CommonService } from 'src/app/services/common.service';
 import { PlatformModel } from 'src/app/models/common.model';
 import { Platform } from 'src/app/enums/platform.enum';
@@ -15,8 +15,8 @@ import { UtilService } from 'src/app/services/util.service';
 })
 export class DashBoardComponent implements OnInit {
 
-  activeMapOptions = this.commonService.platformOptions;
-  activeMap: PlatformModel = this.commonService.platformOptions[0];
+  //activeMapOptions = this.commonService.platformOptions;
+  //activeMap: PlatformModel = this.commonService.platformOptions[0];
 
   chart0: any;
   chart0Option: any;
@@ -49,7 +49,7 @@ export class DashBoardComponent implements OnInit {
     private util: UtilService) { }
 
   ngOnInit() {
-    this.http.getDashBoardByMonth().subscribe((data: Result2) => {
+    this.http.getDashBoardByMonth().subscribe((data: Result) => {
       let org_g6 = data.data.data.filter(e => { return e.C_PLAT == Platform.g6 });
       let org_tbox = data.data.data.filter(e => { return e.C_PLAT == Platform.tbox });
       let org_ne = data.data.data.filter(e => { return e.C_PLAT == Platform.ne });
@@ -133,16 +133,16 @@ export class DashBoardComponent implements OnInit {
       this.chart4Option = this.chartService.makeDashBoard4(chart3_g6_y, chart3_tbox_y, chart3_ne_y);
       this.chart10Option = this.chartService.makeDashBoard10(chart10_g6_line_y, chart10_g6_bar_y_sum, chart10_g6_bar_y, chart10_tbox_line_y, chart10_tbox_bar_y_sum, chart10_tbox_bar_y, chart10_ne_line_y, chart10_ne_bar_y_sum, chart10_ne_bar_y);
     });
-    this.http.getDashBoardByPlatform().subscribe((d1: Result2) => {
+    this.http.getDashBoardByPlatform().subscribe((d1: Result) => {
       this.chart5Option = this.chartService.makeDashBoard5(d1.data.dataVeh[0].TOTALNUM, d1.data.dataVeh[0].G6NUM, d1.data.dataVeh[0].TBOXNUM, d1.data.dataVeh[0].NEVNUM);
       this.chart6Option = this.chartService.makeDashBoard6(d1.data.dataMil[0].TOTALMIL, d1.data.dataMil[0].G6MIL, d1.data.dataMil[0].TBOXMIL, d1.data.dataMil[0].NEVMIL);
       this.chart7Option = this.chartService.makeDashBoard7(d1.data.dataFc[0].TOTALFC, d1.data.dataFc[0].G6FC, d1.data.dataFc[0].TBOXFC, d1.data.dataFc[0].NEVFC);
       this.chart8Option = this.chartService.makeDashBoard8(d1.data.dataRec[0].TOTALREC, d1.data.dataRec[0].G6REC, d1.data.dataRec[0].TBOXREC, d1.data.dataRec[0].NEVREC);
-      this.http.getDashBoardOnline().subscribe((d2: Result2) => {
+      this.http.getDashBoardOnline().subscribe((d2: Result) => {
         this.chart9Option = this.chartService.makeDashBoard9(d2.data.datag6, d2.data.datatbox, d2.data.datanev, d1.data.dataVeh[0].G6NUM, d1.data.dataVeh[0].TBOXNUM, d1.data.dataVeh[0].NEVNUM);
       })
     });
-    this.http.getDashBoardMap().subscribe((data: Result2) => {
+    this.http.getDashBoardMap().subscribe((data: Result) => {
       let provinces = this.commonService.xzqhOptions.filter(e => { return e.pcode == null });
       data.data.g6Data.forEach(e => {
         let tempProvince = provinces.filter(f => { return f.code == e.C_CODE })[0];
@@ -179,7 +179,7 @@ export class DashBoardComponent implements OnInit {
         this.chart0Option = this.chartService.makeDashBoard0(mapType, this.map_g6_bar_x, this.map_g6_bar_y, this.map_g6_map);
       });
     })
-    this.http.getDashBoardOnline7Day().subscribe((data: Result2) => {
+    this.http.getDashBoardOnline7Day().subscribe((data: Result) => {
       let org_g6 = data.data.g6Data;
       let org_tbox = data.data.tboxData;
       let org_ne = data.data.nevData;
@@ -213,7 +213,7 @@ export class DashBoardComponent implements OnInit {
     this.chart0 = e;
   }
   mapChange(e) {
-    this.activeMap = e;
+    //this.activeMap = e;
     switch (e.value) {
       case Platform.g6:
         this.chart0Option.yAxis.data = this.map_g6_bar_x;

@@ -16,17 +16,7 @@ export class SearchModel {
         this.total = null;
     }
 }
-export class Result1 {
-    success: boolean = null;
-    message: string = null;
-    data: any = null;
-    constructor() {
-        this.success = null;
-        this.message = null;
-        this.data = null;
-    }
-}
-export class Result2 {
+export class Result {
     successed: boolean = null;
     msg: string = null;
     data: any = null;

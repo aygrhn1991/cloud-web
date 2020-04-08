@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { UtilService } from 'src/app/services/util.service';
 import { HttpClient } from '@angular/common/http';
-import { Result2 } from 'src/app/models/result.model';
+import { Result } from 'src/app/models/result.model';
 
 @Component({
   selector: 'app-vin',
@@ -29,7 +29,7 @@ export class VinComponent implements OnInit {
       this.vidChange.emit(this.vid);
       return;
     }
-    this.http.get(`/iov/iov/comp/getVinTop10/${value}`).subscribe((data: Result2) => {
+    this.http.get(`/iov/iov/comp/getVinTop10/${value}`).subscribe((data: Result) => {
       this.options = data.data;
       if (this.options.filter(e => { return e.C_VIN == this.vin }).length == 0) {
         this.vid = null;

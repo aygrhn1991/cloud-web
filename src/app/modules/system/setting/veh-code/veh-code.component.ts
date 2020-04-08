@@ -3,7 +3,7 @@ import { Vehm } from 'src/app/models/vehm';
 import { HttpService } from 'src/app/services/http.service';
 import { UtilService } from 'src/app/services/util.service';
 import { NzNotificationService, NzModalService } from 'ng-zorro-antd';
-import { SearchModel, Result2 } from 'src/app/models/result.model';
+import { SearchModel, Result } from 'src/app/models/result.model';
 
 @Component({
   selector: 'app-veh-code',
@@ -44,7 +44,7 @@ export class VehCodeComponent implements OnInit {
     if (reset == true) {
       this.searchModel.pagenum = 1;
     }
-    this.http.queryVehm((this.util.isNull(this.form_model) ? '-1' : this.form_model), this.form_oemid).subscribe((data: Result2) => {
+    this.http.queryVehm((this.util.isNull(this.form_model) ? '-1' : this.form_model), this.form_oemid).subscribe((data: Result) => {
       this.loading = false;
       console.log(data)
       this.searchModel.total = data.data.length;
@@ -68,7 +68,7 @@ export class VehCodeComponent implements OnInit {
       this.notification.error('型号代码不能为空', null);
       return;
     }
-    this.http.addVehm(this.dataModel).subscribe((data: Result2) => {
+    this.http.addVehm(this.dataModel).subscribe((data: Result) => {
       if (data.successed) {
         switch (data.data) {
           case 0:
@@ -97,7 +97,7 @@ export class VehCodeComponent implements OnInit {
     this.isVisible_edit = true;
   }
   handleOk_edit(): void {
-    this.http.updateVehm(this.dataModel).subscribe((data: Result2) => {
+    this.http.updateVehm(this.dataModel).subscribe((data: Result) => {
       if (data.successed) {
         switch (data.data) {
           case 0:
@@ -122,7 +122,7 @@ export class VehCodeComponent implements OnInit {
         nzTitle: '确定删除该车辆型号？',
         nzContent: '车型[' + this.tempData.model + ']将会被删除',
         nzOnOk: () => {
-          this.http.deleteVehm(this.tempData.model).subscribe((data: Result2) => {
+          this.http.deleteVehm(this.tempData.model).subscribe((data: Result) => {
             if (data.successed) {
               switch (data.data) {
                 case 0:

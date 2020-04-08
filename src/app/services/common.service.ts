@@ -406,12 +406,6 @@ export class CommonService {
     { value: 23, label: '气电混' },
   ];
 
-  platformOptions: Array<PlatformModel> = [
-    { value: 1, label: '国六' },
-    { value: 2, label: 'TBOX' },
-    { value: 3, label: '新能源' },
-  ];
-
   xzqhTree: Array<XzqhTreeModel>;
 
   constructor(private util: UtilService) {
