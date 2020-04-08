@@ -4,7 +4,7 @@ import { UtilService } from 'src/app/services/util.service';
 import { NzNotificationService, NzModalService, UploadFile } from 'ng-zorro-antd';
 import { CommonService } from 'src/app/services/common.service';
 import { VehTBox } from 'src/app/models/veh.model';
-import { Result, SearchModel } from 'src/app/models/result.model';
+import { Result, Search } from 'src/app/models/result.model';
 import { G6HttpService } from 'src/app/services/g6/g6-http.service';
 
 @Component({
@@ -26,7 +26,7 @@ export class VehComponent implements OnInit {
     private commonService: CommonService) { }
 
   ngOnInit() {
-    this.searchModel = Object.assign(new SearchModel(), {
+    this.searchModel = Object.assign(new Search(), {
       vehNo: null,
       xzqh: null,
       power: null,

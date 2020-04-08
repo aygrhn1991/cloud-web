@@ -29,7 +29,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { ReportComponent } from './report/report/report.component';
 import { CmdComponent } from './cmd/cmd/cmd.component';
 import { EncComponent } from './enc/enc/enc.component';
-import { IndexComponent } from './index/index/index.component';
+import { IndexComponent } from './index/index.component';
 import { VehDaySumComponent } from './report/veh-day-sum/veh-day-sum.component';
 import { VehDayReportComponent } from './report/veh-day-report/veh-day-report.component';
 import { VehDayFaultComponent } from './report/veh-day-fault/veh-day-fault.component';
@@ -81,8 +81,8 @@ const routes: Routes = [
 
   { path: 'basic/veh', component: VehComponent, canActivate: [GuardService] },
 
-  { path: 'security/user', component: UserComponent, canActivate: [GuardService] },
-  { path: 'security/role', component: RoleComponent, canActivate: [GuardService] },
+  { path: 'security/user', component: RoleComponent, canActivate: [GuardService] },
+  { path: 'security/role', component: UserComponent, canActivate: [GuardService] },
 
   { path: 'data/data-eng', component: DataEngComponent, canActivate: [GuardService] },
   { path: 'data/data-obd', component: DataObdComponent, canActivate: [GuardService] },

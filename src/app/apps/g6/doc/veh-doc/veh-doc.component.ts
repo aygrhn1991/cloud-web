@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UtilService } from 'src/app/services/util.service';
 import { NzNotificationService, UploadFile } from 'ng-zorro-antd';
-import { SearchModel, Result, G6DocResult } from 'src/app/models/result.model';
+import { Search, Result, G6DocResult } from 'src/app/models/result.model';
 import { VehDocModel } from 'src/app/models/g6/g6doc/veh-doc.model';
 import { VehModifyModel } from 'src/app/models/g6/g6doc/veh-modify.model';
 import { G6DocHttpService } from 'src/app/services/g6/g6-http-doc.service';
@@ -33,7 +33,7 @@ export class VehDocComponent implements OnInit {
     private notification: NzNotificationService) { }
 
   ngOnInit() {
-    this.searchModel = Object.assign(new SearchModel(), {
+    this.searchModel = Object.assign(new Search(), {
       docState: null,
     });
     this.reset();

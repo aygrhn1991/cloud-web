@@ -4,7 +4,7 @@ import { HttpService } from '../../../../services/http.service';
 import { UtilService } from '../../../../services/util.service';
 import { NzNotificationService, NzModalService } from 'ng-zorro-antd';
 import { Task } from 'src/app/models/task';
-import { Result, SearchModel } from 'src/app/models/result.model';
+import { Result, Search } from 'src/app/models/result.model';
 
 @Component({
   selector: 'app-custom',
@@ -26,7 +26,7 @@ export class CustomComponent implements OnInit {
     private notification: NzNotificationService,
     private modalService: NzModalService) { }
   ngOnInit() {
-    this.searchModel = new SearchModel();
+    this.searchModel = new Search();
     this.reset();
   }
 

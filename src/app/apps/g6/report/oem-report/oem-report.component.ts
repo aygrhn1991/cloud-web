@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { G6ChartService } from 'src/app/services/g6/g6-chart.service';
 import { G6HttpService } from 'src/app/services/g6/g6-http.service';
 import { UtilService } from 'src/app/services/util.service';
-import { Result, SearchModel } from 'src/app/models/result.model';
+import { Result, Search } from 'src/app/models/result.model';
 import { ChartService } from 'src/app/services/chart.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { ChartService } from 'src/app/services/chart.service';
 export class OemReportComponent implements OnInit {
   dateStart: number = null;
   dateEnd: number = null;
-  searchModel: SearchModel = new SearchModel();
+  searchModel: Search = new Search();
   time: string = 'month';
   chart1Option: any;
   chart2Option: any;

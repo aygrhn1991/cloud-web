@@ -20,3 +20,17 @@ export class PageModel {
     sort: number;
     _select: boolean;
 }
+export class RoleModel {
+    id: number;
+    name: string;
+    _select: boolean;
+    pages: Array<PageModel>;
+}
+export class UserModel {
+    id: number;
+    name: string;
+    account: string;
+    password: string;
+    state: number;
+    roles: Array<RoleModel>;
+}

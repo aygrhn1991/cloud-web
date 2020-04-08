@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { G6HttpService } from 'src/app/services/g6/g6-http.service';
 import { UtilService } from 'src/app/services/util.service';
 import { NzNotificationService } from 'ng-zorro-antd';
-import { SearchModel, Result } from 'src/app/models/result.model';
+import { Search, Result } from 'src/app/models/result.model';
 
 @Component({
   selector: 'app-oem-condition-year',
@@ -23,7 +23,7 @@ export class OemConditionYearComponent implements OnInit {
   //#region 搜索区
   loading: boolean = false;
   dataList: Array<any> = [];
-  searchModel: any = new SearchModel();
+  searchModel: any = new Search();
   getData(): void {
     this.loading = true;
     this.searchModel.pageNum = 1;

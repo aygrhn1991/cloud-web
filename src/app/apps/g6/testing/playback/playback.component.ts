@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { VehG6 } from 'src/app/models/veh.model';
-import { SearchModel, Result } from 'src/app/models/result.model';
+import { Search, Result } from 'src/app/models/result.model';
 import { HttpService } from 'src/app/services/http.service';
 import { NzNotificationService } from 'ng-zorro-antd';
 import { G6Service } from 'src/app/services/g6/g6.service';
@@ -23,7 +23,7 @@ export class PlaybackComponent implements OnInit {
   vehEng: any;
   vehLog: Array<any>;
 
-  searchModel: SearchModel = new SearchModel();
+  searchModel: Search = new Search();
   key: string;
 
   constructor(private http: HttpService,

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { G6HttpService } from 'src/app/services/g6/g6-http.service';
 import { UtilService } from 'src/app/services/util.service';
 import { NzNotificationService } from 'ng-zorro-antd';
-import { SearchModel, Result } from 'src/app/models/result.model';
+import { Search, Result } from 'src/app/models/result.model';
 
 @Component({
   selector: 'app-veh-day-fault',
@@ -22,7 +22,7 @@ export class VehDayFaultComponent implements OnInit {
   //#region 搜索区
   loading: boolean = false;
   dataList: Array<any> = [];
-  searchModel: SearchModel = new SearchModel();
+  searchModel: Search = new Search();
   getData(): void {
     this.loading = true;
     this.searchModel.pageNum = 1;

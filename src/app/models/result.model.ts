@@ -1,20 +1,20 @@
-export class SearchModel {
+export class Search {
+    string1: string;
+    string2: string;
+    number1: number;
+    number2: number;
+    datetime1: Date;
+    datetime2: Date;
+    daterange: Array<Date>;
+    pageNum: number;
+    pageSize: number;
+    totalPage: number;
+
     vid: number = null;
     vin: string = null;
     dateStart: Date = null;
     dateEnd: Date = null;
-    pageNum: number = null;
-    pageSize: number = null;
     total: number = null;
-    constructor() {
-        this.vid = null;
-        this.vin = null;
-        this.dateStart = null;
-        this.dateEnd = null;
-        this.pageNum = null;
-        this.pageSize = null;
-        this.total = null;
-    }
 }
 export class Result {
     successed: boolean = null;

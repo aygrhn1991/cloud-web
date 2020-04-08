@@ -3,7 +3,7 @@ import { Vehm } from 'src/app/models/vehm';
 import { HttpService } from 'src/app/services/http.service';
 import { UtilService } from 'src/app/services/util.service';
 import { NzNotificationService, NzModalService } from 'ng-zorro-antd';
-import { SearchModel, Result } from 'src/app/models/result.model';
+import { Search, Result } from 'src/app/models/result.model';
 
 @Component({
   selector: 'app-veh-code',
@@ -27,7 +27,7 @@ export class VehCodeComponent implements OnInit {
     private modalService: NzModalService) { }
 
   ngOnInit() {
-    this.searchModel = new SearchModel();
+    this.searchModel = new Search();
     this.reset();
   }
   reset(): void {

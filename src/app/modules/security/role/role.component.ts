@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../../services/http.service';
 import { UtilService } from '../../../services/util.service';
 import { NzNotificationService, NzModalService } from 'ng-zorro-antd';
-import { Result, SearchModel } from 'src/app/models/result.model';
-import { Role } from 'src/app/models/role';
+import { Result, Search } from 'src/app/models/result.model';
+import { RoleModel } from 'src/app/models/sec.model';
 @Component({
   selector: 'app-role',
   templateUrl: './role.component.html',
@@ -20,14 +20,14 @@ export class RoleComponent implements OnInit {
   isVisible_edit: boolean = false;
   isVisible_detail: boolean = false;
   tempData: any = null;
-  dataModel: Role = new Role();
+  dataModel: RoleModel = new RoleModel();
   constructor(private http: HttpService,
     private util: UtilService,
     private notification: NzNotificationService,
     private modalService: NzModalService) { }
 
   ngOnInit() {
-    this.searchModel = new SearchModel();
+    this.searchModel = new Search();
     this.loadDatas();
   }
   loadDatas(reset: boolean = false): void {
@@ -36,7 +36,7 @@ export class RoleComponent implements OnInit {
     if (reset == true) {
       this.searchModel.pagenum = 1;
     }
-    this.http.loadRoles().subscribe((data: Result) => {
+    this.http.role_getRole().subscribe((data: Result) => {
       this.loading = false;
       this.searchModel.total = data.data.length;
       this.roleList = data.data;

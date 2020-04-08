@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { G6HttpService } from 'src/app/services/g6/g6-http.service';
 import { UtilService } from 'src/app/services/util.service';
 import { NzNotificationService } from 'ng-zorro-antd';
-import { SearchModel, Result } from 'src/app/models/result.model';
+import { Search, Result } from 'src/app/models/result.model';
 import { ChartService } from 'src/app/services/chart.service';
 
 @Component({
@@ -24,7 +24,7 @@ export class VehSpeedOutputDiffComponent implements OnInit {
   //#region 搜索区
   loading: boolean = false;
   dataList: Array<any> = [];
-  searchModel: SearchModel = new SearchModel();
+  searchModel: Search = new Search();
   getData(): void {
     if (this.util.isNull(this.searchModel.vid)) {
       this.notification.error('VIN不能为空', null);

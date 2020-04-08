@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { of } from 'rxjs';
-import { Result } from '../models/result.model';
-import { UtilService } from './util.service';
-import { ConfigService } from './config.service';
+import { UserModel } from '../models/sec.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +11,74 @@ export class HttpService {
 
   //#region 登录
   login(platform: number, account: string, password: string) {
-    return this.http.post('/sec/authc/login', { plat: platform, acc: account, pwd: password });
+    return this.http.post(`/sec/authc/login`, { plat: platform, acc: account, pwd: password });
   }
   login_getUserPages() {
-    return this.http.get('/sec/authc/loadUserSvc');
+    return this.http.get(`/sec/authc/loadUserSvc`);
   }
   login_getUser() {
-    return this.http.get('/sec/authc/loadUser');
+    return this.http.get(`/sec/authc/loadUser`);
+  }
+  //#endregion
+
+  //#region 用户管理
+  user_getUser(name: String) {
+    return this.http.get(`/sec/sec/user/loadUsers/` + name);
+  }
+  user_addUser(user: UserModel) {
+    let rids = [];
+    user.roles.forEach((x) => {
+      rids.push(x.id);
+    });
+    return this.http.post(`/sec/sec/user/saveUser`, {
+      user: {
+        name: user.name,
+        account: user.account,
+        password: user.password,
+        status: user.state,
+      },
+      rids: rids,
+    });
+  }
+  user_editUser(user: UserModel) {
+    let rids = [];
+    user.roles.forEach((x) => {
+      rids.push(x.id);
+    });
+    return this.http.post(`/sec/sec/user/updateUser`, {
+      user: {
+        id: user.id,
+        name: user.name,
+        account: user.account,
+        password: user.password,
+        status: user.state,
+      },
+      rids: rids,
+    });
+  }
+  user_editState(userId: number, state: number) {
+    return this.http.get(`/sec/sec/user/updateUserStatus/${userId}/${state}`);
+  }
+  user_editPassword(userId: number, password: string) {
+    return this.http.get(`/sec/sec/user/updateUserStatus/${userId}/${password}`);
+  }
+  user_getUserRole(userId: number) {
+    return this.http.get(`/sec/sec/user/findUserRoles/${userId}`);
+  }
+  //#endregion
+
+  //#region 角色管理
+  role_getRole() {
+    return this.http.get(`/sec/sec/role/loadRoles`);
+  }
+  saveRole(options: any) {
+    return this.http.post(`/sec/sec/role/saveRole`, options);
+  }
+  delRole(id: number) {
+    return this.http.get(`/sec/sec/role/delRole/` + id);
+  }
+  loadSvcGroups(rid: number) {
+    return this.http.get(`/sec/sec/role/loadSvcGroups/` + rid);
   }
   //#endregion
 
@@ -69,7 +127,7 @@ export class HttpService {
     return '/basic/tbox/basic/veh/importFile';
   }
   importTBoxVeh(formData: FormData) {
-    return this.http.post('/basic/tbox/basic/veh/importVeh', formData);
+    return this.http.post(`/basic/tbox/basic/veh/importVeh`, formData);
   }
   //#endregion
   //#endregion ----------tbox----------
@@ -87,87 +145,55 @@ export class HttpService {
   /////////////////////////////////
   //车辆型号管理
   queryVehm(model: String, oemid: number) {
-    return this.http.get('/iov/iov/vehmCtrl/queryVehm/' + model + '/' + oemid);
+    return this.http.get(`/iov/iov/vehmCtrl/queryVehm/` + model + '/' + oemid);
   }
   addVehm(options: any) {
-    return this.http.post('/iov/iov/vehmCtrl/addVehm', options);
+    return this.http.post(`/iov/iov/vehmCtrl/addVehm`, options);
   }
   updateVehm(options: any) {
-    return this.http.post('/iov/iov/vehmCtrl/updateVehm', options);
+    return this.http.post(`/iov/iov/vehmCtrl/updateVehm`, options);
   }
   deleteVehm(model: String) {
-    return this.http.get('/iov/iov/vehmCtrl/deleteVehm/' + model);
+    return this.http.get(`/iov/iov/vehmCtrl/deleteVehm/` + model);
   }
 
   //制造商管理
   queryDtumanu(name: String) {
-    return this.http.get('/iov/iov/dtuManuCtrl/queryDtumanu/' + name);
+    return this.http.get(`/iov/iov/dtuManuCtrl/queryDtumanu/` + name);
   }
   addDtumanu(options: any) {
-    return this.http.post('/iov/iov/dtuManuCtrl/addDtumanu', options);
+    return this.http.post(`/iov/iov/dtuManuCtrl/addDtumanu`, options);
   }
   updateDtumanu(options: any) {
-    return this.http.post('/iov/iov/dtuManuCtrl/updateDtumanu', options);
+    return this.http.post(`/iov/iov/dtuManuCtrl/updateDtumanu`, options);
   }
   deleteDtumanu(id: String) {
-    return this.http.get('/iov/iov/dtuManuCtrl/deleteDtumanu/' + id);
+    return this.http.get(`/iov/iov/dtuManuCtrl/deleteDtumanu/` + id);
   }
 
-  //用户管理
-  queryUsers(name: String) {
-    return this.http.get('/sec/sec/user/loadUsers/' + name);
-  }
-  addUser(options: any) {
-    return this.http.post('/sec/sec/user/saveUser', options);
-  }
-  updateUser(options: any) {
-    return this.http.post('/sec/sec/user/updateUser', options);
-  }
-  updateUserStatus(id: number, status: number) {
-    return this.http.get('/sec/sec/user/updateUserStatus/' + id + '/' + status);
-  }
-  loadAllRoles() {
-    return this.http.get('/sec/sec/user/loadAllRoles');
-  }
-  findUserRoles(uid: number) {
-    return this.http.get('/sec/sec/user/findUserRoles/' + uid);
-  }
 
-  //角色管理
-  loadRoles() {
-    return this.http.get('/sec/sec/role/loadRoles');
-  }
-  saveRole(options: any) {
-    return this.http.post('/sec/sec/role/saveRole', options);
-  }
-  delRole(id: number) {
-    return this.http.get('/sec/sec/role/delRole/' + id);
-  }
-  loadSvcGroups(rid: number) {
-    return this.http.get('/sec/sec/role/loadSvcGroups/' + rid);
-  }
 
   //档案
   queryNowDocVeh(vid: number) {
-    return this.http.get('/iov/iov/doc/queryNowDocVeh/' + vid);
+    return this.http.get(`/iov/iov/doc/queryNowDocVeh/` + vid);
   }
   queryVehException(vid: number, yyyy: number) {
-    return this.http.get('/iov/iov/doc/queryVehException/' + vid + '/' + yyyy);
+    return this.http.get(`/iov/iov/doc/queryVehException/` + vid + '/' + yyyy);
   }
 
 
 
   //tbox任务下载
   loadTboxTask(vin: String, beginDt: number, endDt: number, state: number) {
-    return this.http.get('/report/report/task/loadTboxTask/' + vin + '/' + beginDt + '/' + endDt + '/' + state);
+    return this.http.get(`/report/report/task/loadTboxTask/` + vin + '/' + beginDt + '/' + endDt + '/' + state);
   }
   saveTboxTask(options: any) {
-    return this.http.post('/report/report/task/saveTboxTask', options);
+    return this.http.post(`/report/report/task/saveTboxTask`, options);
   }
 
   ////////////////
-  
+
   changePassword(oldPassword: string, newPassword: string) {
-    return this.http.post('/sec/authc/changePassword', { oldPassword: oldPassword, newPassword: newPassword });
+    return this.http.post(`/sec/authc/changePassword`, { oldPassword: oldPassword, newPassword: newPassword });
   }
 }

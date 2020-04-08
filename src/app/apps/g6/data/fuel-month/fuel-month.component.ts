@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UtilService } from 'src/app/services/util.service';
 import { G6Service } from 'src/app/services/g6/g6.service';
-import { SearchModel, Result } from 'src/app/models/result.model';
+import { Search, Result } from 'src/app/models/result.model';
 import { G6HttpService } from 'src/app/services/g6/g6-http.service';
 
 @Component({
@@ -22,7 +22,7 @@ export class FuelMonthComponent implements OnInit {
   //#region 搜索区
   loading: boolean = false;
   dataList: Array<any> = [];
-  searchModel: SearchModel = new SearchModel();
+  searchModel: Search = new Search();
   getData(reset: boolean = false): void {
     this.loading = true;
     if (reset) {

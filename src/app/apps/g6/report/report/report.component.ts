@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
 import { UtilService } from 'src/app/services/util.service';
 import { NzNotificationService, NzModalService } from 'ng-zorro-antd';
-import { SearchModel, Result } from 'src/app/models/result.model';
+import { Search, Result } from 'src/app/models/result.model';
 
 @Component({
   selector: 'app-report',
@@ -22,7 +22,7 @@ export class ReportComponent implements OnInit {
     private modalService: NzModalService) { }
 
   ngOnInit() {
-    this.searchModel = new SearchModel();
+    this.searchModel = new Search();
     this.docVehException = {
       obdExName: ["MIL亮灯", "一级故障", "二级故障", "三级故障"],
       obdExValue: [{

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NzNotificationService, NzModalService } from 'ng-zorro-antd';
 import { Task } from 'src/app/models/task';
-import { Result, SearchModel } from 'src/app/models/result.model';
+import { Result, Search } from 'src/app/models/result.model';
 import { UtilService } from 'src/app/services/util.service';
 import { G6HttpService } from 'src/app/services/g6/g6-http.service';
 
@@ -12,7 +12,7 @@ import { G6HttpService } from 'src/app/services/g6/g6-http.service';
 })
 export class CustomComponent implements OnInit {
   loading: boolean = true;
-  searchModel: any = new SearchModel();
+  searchModel: any = new Search();
   form_name: any = null;
   dataList: Array<any> = [];
   isVisible_add: boolean = false;
@@ -25,7 +25,7 @@ export class CustomComponent implements OnInit {
     private notification: NzNotificationService,
     private modalService: NzModalService) { }
   ngOnInit() {
-    this.searchModel = new SearchModel();
+    this.searchModel = new Search();
     this.reset();
     // setInterval(() => {
     //   this.loadDatas();

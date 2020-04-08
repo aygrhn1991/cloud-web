@@ -3,7 +3,7 @@ import { G6HttpService } from 'src/app/services/g6/g6-http.service';
 import { UtilService } from 'src/app/services/util.service';
 import { NzNotificationService } from 'ng-zorro-antd';
 import { ChartService } from 'src/app/services/chart.service';
-import { SearchModel, Result } from 'src/app/models/result.model';
+import { Search, Result } from 'src/app/models/result.model';
 
 @Component({
   selector: 'app-oem-speed-mile-year',
@@ -25,7 +25,7 @@ export class OemSpeedMileYearComponent implements OnInit {
   //#region 搜索区
   loading: boolean = false;
   dataList: Array<any> = [];
-  searchModel: any = new SearchModel();
+  searchModel: any = new Search();
   getData(): void {
     this.loading = true;
     this.searchModel.pageNum = 1;
